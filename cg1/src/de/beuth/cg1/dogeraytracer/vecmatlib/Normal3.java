@@ -27,7 +27,6 @@ public class Normal3 {
 
     /**
      * this function multiplies this Normal3 with a double value n
-     *
      * @param n the double value the Normal3 is multiplied with
      * @return resulting Normal3 of this Normal3 and n
      */
@@ -37,7 +36,6 @@ public class Normal3 {
 
     /**
      * Addition of a passed Normal3 with this Normal3
-     *
      * @param n passed Normal3
      * @return resulting Normal3 of this Normal3 and the passed Normal3
      */
@@ -47,7 +45,6 @@ public class Normal3 {
 
     /**
      * this function calculates the dot-product of this Normal3 and a passed {@link Vector3}
-     *
      * @param v the passed {@link Vector3}
      * @return resulting dot-product of this Normal3 and passed {@link Vector3}
      */
@@ -66,4 +63,6 @@ public class Normal3 {
                 ", z=" + z +
                 '}';
     }
+
+
 }
