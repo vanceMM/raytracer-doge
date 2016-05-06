@@ -127,8 +127,7 @@ public class Vector3 {
         Vector3 thisVec = this;
         double innerDot = thisVec.dot(n)*2;
         //double next = innerDot*2;
-        Vector3 rVec = thisVec.sub(n.mul(innerDot)).mul(-1);
-        return rVec;
+        return thisVec.sub(n.mul(innerDot)).mul(-1);
     }
 
     /**
