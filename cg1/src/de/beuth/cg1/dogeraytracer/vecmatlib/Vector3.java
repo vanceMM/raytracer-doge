@@ -7,7 +7,6 @@ import static java.lang.Math.*;
  * Project name is VecMatLib.
  */
 
-
 public class Vector3 {
 
     /**
@@ -27,12 +26,12 @@ public class Vector3 {
      * @param y the double value for y
      * @param z the double value for z
      */
-    public Vector3(double x, double y, double z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+    public Vector3(double x, double y, double z){
+            this.x = x;
+            this.y = y;
+            this.z = z;
 
-        this.magnitude = sqrt( (pow(x,2)) + (pow(y,2)) + pow(z,2));
+            this.magnitude = sqrt((pow(x, 2)) + (pow(y, 2)) + pow(z, 2));
     }
 
     /**
@@ -41,11 +40,7 @@ public class Vector3 {
      * @return returns the resulting Vector3 of this Vector3 and the passed (v) Vector3
      */
     public Vector3 add(Vector3 v){
-        double resultX = this.x + v.x,
-                resultY = this.y + v.y,
-                resultZ = this.z + v.z;
-
-        return new Vector3(resultX, resultY, resultZ);
+        return new Vector3(this.x + v.x, this.y + v.y, this.z + v.z);
     }
 
     /**
@@ -54,11 +49,7 @@ public class Vector3 {
      * @return the resulting Vector3 of the passed {@link Normal3} n and this Vector3
      */
     public Vector3 add(Normal3 n){
-        double resultX = this.x + n.x,
-                resultY = this.y + n.y,
-                resultZ = this.z + n.z;
-
-        return new Vector3(resultX, resultY, resultZ);
+        return new Vector3(this.x + n.x, this.y + n.y, this.z + n.z);
     }
 
     /**
@@ -67,11 +58,7 @@ public class Vector3 {
      * @return resulting Vector3
      */
     public Vector3 sub(Normal3 n){
-        double resultX = this.x - n.x,
-                resultY = this.y - n.y,
-                resultZ = this.z - n.z;
-
-        return new Vector3(resultX, resultY, resultZ);
+        return new Vector3(this.x - n.x, this.y - n.y, this.z - n.z);
     }
 
     /**
@@ -118,10 +105,7 @@ public class Vector3 {
      * @return an normalized Vector3
      */
     public Vector3 normalized(){
-        double resultX = this.x / magnitude,
-                resultY = this.y / magnitude,
-                resultZ = this.z / magnitude;
-        return new Vector3(resultX, resultY, resultZ);
+        return new Vector3(this.x / magnitude, this.y / magnitude, this.z / magnitude);
     }
 
     /**
@@ -141,10 +125,10 @@ public class Vector3 {
      */
     public Vector3 reflectOn(Normal3 n){
         Vector3 thisVec = this;
-        double innerDot = thisVec.dot(n);
-        double next = innerDot*2;
-        Vector3 rVec = thisVec.sub(n.mul(next));
-        return rVec.mul(-1);
+        double innerDot = thisVec.dot(n)*2;
+        //double next = innerDot*2;
+        Vector3 rVec = thisVec.sub(n.mul(innerDot)).mul(-1);
+        return rVec;
     }
 
     /**
@@ -167,9 +151,7 @@ public class Vector3 {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Vector3 vector3 = (Vector3) o;
-
         return Double.compare(vector3.x, x) == 0 && Double.compare(vector3.y, y) == 0 && Double.compare(vector3.z, z) == 0 && Double.compare(vector3.magnitude, magnitude) == 0;
     }
 

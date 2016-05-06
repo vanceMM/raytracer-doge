@@ -153,4 +153,57 @@ public class Mat3x3 {
                 ", determinant=" + determinant +
                 '}';
     }
+
+    /**
+     * @see Object#equals(Object)
+     */
+    @SuppressWarnings("SimplifiableIfStatement")
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Mat3x3 mat3x3 = (Mat3x3) o;
+
+        if (Double.compare(mat3x3.m11, m11) != 0) return false;
+        if (Double.compare(mat3x3.m12, m12) != 0) return false;
+        if (Double.compare(mat3x3.m13, m13) != 0) return false;
+        if (Double.compare(mat3x3.m21, m21) != 0) return false;
+        if (Double.compare(mat3x3.m22, m22) != 0) return false;
+        if (Double.compare(mat3x3.m23, m23) != 0) return false;
+        if (Double.compare(mat3x3.m31, m31) != 0) return false;
+        if (Double.compare(mat3x3.m32, m32) != 0) return false;
+        if (Double.compare(mat3x3.m33, m33) != 0) return false;
+        return Double.compare(mat3x3.determinant, determinant) == 0;
+    }
+
+    /**
+     * @see Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(m11);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m12);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m13);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m21);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m22);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m23);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m31);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m32);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m33);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(determinant);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }
