@@ -6,20 +6,25 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cg.image.basics.CanvasController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cg.image.basics.CanvasController">
    <children>
-      <Pane prefHeight="480.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane prefHeight="480.0" prefWidth="640.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints />
+          <RowConstraints maxHeight="227.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="480.0" minHeight="10.0" prefHeight="640.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <MenuBar fx:id="menuBar" layoutY="7.0" prefHeight="29.0" prefWidth="640.0">
+            <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="640.0">
                <menus>
-                  <Menu fx:id="menu" mnemonicParsing="false" text="File">
-                    <items>
-                      <MenuItem fx:id="save" mnemonicParsing="false" text="save" />
-                    </items>
-                  </Menu>
-               </menus></MenuBar>
-            <ImageView fx:id="view" fitHeight="480.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true" />
+                  <Menu fx:id="menu" mnemonicParsing="false" text="File" />
+               </menus>
+            </MenuBar>
+            <ImageView fx:id="view" fitHeight="480.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
          </children>
-      </Pane>
+      </GridPane>
    </children>
 </AnchorPane>

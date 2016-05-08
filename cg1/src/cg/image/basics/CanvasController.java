@@ -10,11 +10,15 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.*;
 import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -44,6 +48,31 @@ public class CanvasController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
 
+
+       // initImageView();
+        initMenu();
+        initImageView();
+    }
+
+    public void initMenu() {
+
+        menu.getItems().add(new MenuItem("save"));
+        menu.getItems().get(0).setOnAction(e-> save());
+    }
+
+    private void save() {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Save Image");
+        File selection = chooser.showSaveDialog(null);
+        try {
+            ImageIO.write(bufferedImage, "jpeg", selection);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initImageView() {
+
         bufferedImage = new BufferedImage(640, 480, TYPE_INT_RGB);
         final WritableRaster raster = bufferedImage.getRaster();
 
@@ -63,16 +92,9 @@ public class CanvasController implements Initializable {
                 }
             }
         }
+
         view.setPreserveRatio(true);
         view.setImage(wr);
-
-        initMenu();
-    }
-
-    public void initMenu() {
-
-        menuBar.getMenus().addAll(menu);
-        menu.getItems().addAll(save);
     }
 
 }
