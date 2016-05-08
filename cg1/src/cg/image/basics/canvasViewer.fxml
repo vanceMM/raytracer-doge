@@ -10,8 +10,15 @@
    <children>
       <Pane prefHeight="480.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <MenuBar fx:id="menuBar" layoutY="7.0" prefHeight="29.0" prefWidth="640.0" />
-            <Canvas fx:id="imageCanvas" height="480.0" width="640.0" />
+            <MenuBar fx:id="menuBar" layoutY="7.0" prefHeight="29.0" prefWidth="640.0">
+               <menus>
+                  <Menu fx:id="menu" mnemonicParsing="false" text="File">
+                    <items>
+                      <MenuItem fx:id="save" mnemonicParsing="false" text="save" />
+                    </items>
+                  </Menu>
+               </menus></MenuBar>
+            <ImageView fx:id="view" fitHeight="480.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
    </children>
