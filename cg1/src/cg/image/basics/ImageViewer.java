@@ -17,23 +17,30 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ *  A Simple Application that opens an image file and shows it in an ImageView.
+ */
+
 public class ImageViewer extends Application {
 
     @Override
     public void start(Stage primaryStage) {
 
-
+        /*
+         * Opening a fileChooser Dialog
+         */
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(null);
         // Create Image and ImageView objects
-        BufferedImage buffereImage = null;
+        BufferedImage bufferedImage = null;
         try {
-            buffereImage = ImageIO.read(file);
+            bufferedImage = ImageIO.read(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
         ImageView imageView = new ImageView();
-        Image image = SwingFXUtils.toFXImage(buffereImage, null);
+        // Utility Method for converting data type Image from Swing/AWT to Image in JavaFX Format
+        Image image = SwingFXUtils.toFXImage(bufferedImage, null);
         imageView.setImage(image);
 
         // Display image on screen
@@ -45,6 +52,10 @@ public class ImageViewer extends Application {
         primaryStage.show();
     }
 
+    /**
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
