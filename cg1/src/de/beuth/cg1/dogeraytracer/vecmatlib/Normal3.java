@@ -5,6 +5,10 @@ package de.beuth.cg1.dogeraytracer.vecmatlib;
  * Project name is VecMatLib.
  */
 
+/**
+ * This Class represents a Normal3
+ * @author baetschjunge
+ */
 @SuppressWarnings("WeakerAccess")
 public class Normal3 {
 

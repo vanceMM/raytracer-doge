@@ -7,6 +7,10 @@ import static java.lang.Math.*;
  * Project name is VecMatLib.
  */
 
+/**
+ * This Class represents a Vector3
+ * @author baetschjunge
+ */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class Vector3 {
 
