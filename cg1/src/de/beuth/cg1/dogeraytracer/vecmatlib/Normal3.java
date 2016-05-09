@@ -39,7 +39,7 @@ public class Normal3 {
 
     /**
      * Addition of a passed Normal3 with this Normal3
-     * @param n passed Normal3
+     * @param n passed Normal3, if n is null throw IllegalArgumentException
      * @return resulting Normal3 of this Normal3 and the passed Normal3
      */
     public Normal3 add(final Normal3 n){
@@ -49,7 +49,7 @@ public class Normal3 {
 
     /**
      * this function calculates the dot-product of this Normal3 and a passed {@link Vector3}
-     * @param v the passed {@link Vector3}
+     * @param v the passed {@link Vector3}, if v is null throw IllegalArgumentException
      * @return resulting dot-product of this Normal3 and passed {@link Vector3}
      */
     public double dot(final Vector3 v){

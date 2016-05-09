@@ -1,4 +1,4 @@
-package de.beuth.cg1.dogeraytracer.JUnit;
+package de.beuth.cg1.dogeraytracer.junit;
 
 import de.beuth.cg1.dogeraytracer.vecmatlib.Mat3x3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;

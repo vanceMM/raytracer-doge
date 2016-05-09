@@ -65,7 +65,7 @@ public class Mat3x3 {
      * this function multiplies two Mat3x3
      * if number of columns (mat1) != rows (mat2) then the mul is not defined
      *
-     * @param m matrix that is passed to the function
+     * @param m matrix that is passed, if m is null throw IllegalArgumentException
      * @return resulting mat3x3 of the passed mat3x3 and this mat3x3
      */
     public Mat3x3 mul(final Mat3x3 m){
@@ -89,7 +89,7 @@ public class Mat3x3 {
     /**
      * this function multiplies this Mat3x3 with a passed {@link Vector3}
      *
-     * @param v the passed {@link Vector3}
+     * @param v the passed {@link Vector3}, if v is null throw IllegalArgumentException
      * @return resulting {@link Vector3}
      */
     public Vector3 mul(final Vector3 v){
@@ -103,7 +103,7 @@ public class Mat3x3 {
     /**
      * this function multiplies this Mat3x3 with a passed {@link Point3}
      *
-     * @param p passed {@link Point3}
+     * @param p passed {@link Point3}, if p is null throw IllegalArgumentException
      * @return resulting {@link Point3} of this Mat3x3 and the passed Point3
      */
     public Point3 mul(final Point3 p){
@@ -116,7 +116,7 @@ public class Mat3x3 {
 
     /**
      * this function changes the first column of this Mat3x3 with the passed {@link Vector3}
-     * @param v passed {@link Vector3}
+     * @param v passed {@link Vector3}, if v is null throw IllegalArgumentException
      * @return resulting Mat3x3
      */
     public Mat3x3 changeCol1(final Vector3 v){
@@ -126,7 +126,7 @@ public class Mat3x3 {
 
     /**
      * this function changes the second column of this Mat3y3 with the passed {@link Vector3}
-     * @param v passed {@link Vector3}
+     * @param v passed {@link Vector3}, if v is null throw IllegalArgumentException
      * @return resulting Mat3x3
      */
     public Mat3x3 changeCol2(final Vector3 v){
@@ -136,7 +136,7 @@ public class Mat3x3 {
 
     /**
      * this function changes the third column of this Mat3y3 with the passed {@link Vector3}
-     * @param v passed {@link Vector3}
+     * @param v passed {@link Vector3}, if v is null throw IllegalArgumentException
      * @return resulting Mat3x3
      */
     public Mat3x3 changeCol3(final Vector3 v){

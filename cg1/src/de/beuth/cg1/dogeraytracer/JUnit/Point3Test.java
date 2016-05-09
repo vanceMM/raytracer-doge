@@ -1,8 +1,6 @@
-package de.beuth.cg1.dogeraytracer.JUnit;
+package de.beuth.cg1.dogeraytracer.junit;
 
 import de.beuth.cg1.dogeraytracer.vecmatlib.*;
-
-import java.util.Vector;
 
 import static org.junit.Assert.*;
 

@@ -30,7 +30,7 @@ public class Point3 {
 
     /**
      * this function subtracts a passed Point3 from this Point3
-     * @param p passed Point3
+     * @param p passed Point3, if p is null throw IllegalArgumentException
      * @return  resulting {@link Vector3}
      */
     public Vector3 sub(final Point3 p){
@@ -40,7 +40,7 @@ public class Point3 {
 
     /**
      * this function subtracts a passed {@link Vector3} from this Point3
-     * @param v passed {@link Vector3}
+     * @param v passed {@link Vector3}, if v is null throw IllegalArgumentException
      * @return resulting Point3
      */
     public Point3 sub(final Vector3 v){
@@ -50,7 +50,7 @@ public class Point3 {
 
     /**
      * this function adds a passed {@link Vector3} to this Point3
-     * @param v passed {@link Vector3}
+     * @param v passed {@link Vector3}, if v is null throw IllegalArgumentException
      * @return resulting Point3
      */
     public Point3 add(final Vector3 v){

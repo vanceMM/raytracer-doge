@@ -37,7 +37,7 @@ public class Vector3 {
 
     /**
      * this function adds a new Vector3 v to this Vector3
-     * @param v is the new Vector3
+     * @param v is the new Vector3, if v is null throw IllegalArgumentException
      * @return returns the resulting Vector3 of this Vector3 and the passed (v) Vector3
      */
     public Vector3 add(final Vector3 v){
@@ -47,7 +47,7 @@ public class Vector3 {
 
     /**
      * this function adds a {@link Normal3} n to this Vector3
-     * @param n the passed {@link Normal3}
+     * @param n the passed {@link Normal3}, if n is null throw IllegalArgumentException
      * @return the resulting Vector3 of the passed {@link Normal3} n and this Vector3
      */
     public Vector3 add(final Normal3 n){
@@ -57,7 +57,7 @@ public class Vector3 {
 
     /**
      * this function subtracts a passed {@link Normal3} from this Vector3
-     * @param n passed {@link Normal3}
+     * @param n passed {@link Normal3}, if n is null throw IllegalArgumentException
      * @return resulting Vector3
      */
     public Vector3 sub(final Normal3 n){
@@ -76,7 +76,7 @@ public class Vector3 {
 
     /**
      * this function calculates the x-product of this Vector3 and the passed Vector3
-     * @param v passed Vector3
+     * @param v passed Vector3, if v is null throw IllegalArgumentException
      * @return resulting Vector3
      */
     public Vector3 x(final Vector3 v){
@@ -89,7 +89,7 @@ public class Vector3 {
 
     /**
      * this function calculates the dot-product of this Vector3 and a passed Vector3
-     * @param v passed Vector3
+     * @param v passed Vector3, if v is null throw IllegalArgumentException
      * @return resulting dot-product / double value
      */
     public double dot(final Vector3 v){
@@ -99,7 +99,7 @@ public class Vector3 {
 
     /**
      * this function calculates the dot-product of this Vector3 and a passed {@link Normal3}
-     * @param n passed {@link Normal3}
+     * @param n passed {@link Normal3}, if n is null throw IllegalArgumentException
      * @return resulting dot-product / double value
      */
      public double dot(final Normal3 n){
@@ -127,7 +127,7 @@ public class Vector3 {
     /**
      * this function reflects this Vector3 on the passed {@link Normal3}
      * math formula : r = d − 2 ( d⋅n ) n
-     * @param n the passed {@link Normal3}
+     * @param n the passed {@link Normal3}, if n is null throw IllegalArgumentException
      * @return the reflected Vector3
      */
 
