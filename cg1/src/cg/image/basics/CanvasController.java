@@ -42,7 +42,7 @@ public class CanvasController implements Initializable {
     @FXML
             private MenuItem save;
 
-    BufferedImage bufferedImage;
+    private BufferedImage bufferedImage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -53,13 +53,18 @@ public class CanvasController implements Initializable {
         initMenu();
         initImageView();
     }
-
+    /**
+     * Building the Menu and adding an eventHandler to the "save" MenuItem
+     */
     public void initMenu() {
 
         menu.getItems().add(new MenuItem("save"));
         menu.getItems().get(0).setOnAction(e-> save());
     }
 
+    /**
+     * This Method saves the Image File.
+     */
     private void save() {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Save Image");
@@ -73,15 +78,29 @@ public class CanvasController implements Initializable {
 
     public void initImageView() {
 
-        bufferedImage = new BufferedImage(640, 480, TYPE_INT_RGB);
+        bufferedImage = new BufferedImage((int) view.getFitWidth(), (int) view.getFitHeight(), TYPE_INT_RGB);
         final WritableRaster raster = bufferedImage.getRaster();
+        final int[] black = new int[] {0,0,0};
+        final int[] red = new int[] {255,0,0};
 
         for (int i=0; i<bufferedImage.getWidth(); i++) {
             for (int j=0; j<bufferedImage.getHeight(); j++) {
-                bufferedImage.setRGB(i,j,0x000000);
+               // bufferedImage.setRGB(i,j,0x000000);
+                if (i==j) {
+                    raster.setPixel(i,j,red);
+                } else {
+                    raster.setPixel(i, j, black);
+                }
             }
         }
 
+
+        /*
+         * Converting the BufferedImage to JavaFX Image.
+         * WritableImage is direct SubClass of Image class in JavaFX and can be used as Image Object here.
+         * Pixels are written with the setArgb method which stores pixel data for a color into the specefied coordinates
+         * of the surface.
+         */
         WritableImage wr = null;
         if (bufferedImage != null) {
             wr = new WritableImage(bufferedImage.getWidth(), bufferedImage.getHeight());
@@ -92,7 +111,9 @@ public class CanvasController implements Initializable {
                 }
             }
         }
-
+        /**
+         * Setting the image to the Image View
+         */
         view.setPreserveRatio(true);
         view.setImage(wr);
     }

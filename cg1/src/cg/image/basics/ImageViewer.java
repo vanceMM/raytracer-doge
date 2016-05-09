@@ -22,7 +22,9 @@ public class ImageViewer extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-
+        /*
+         * Opening a fileChooser Dialog
+         */
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(null);
         // Create Image and ImageView objects
@@ -33,6 +35,7 @@ public class ImageViewer extends Application {
             e.printStackTrace();
         }
         ImageView imageView = new ImageView();
+        // Utility Method for converting data type Image from Swing/AWT to Image in JavaFX Format
         Image image = SwingFXUtils.toFXImage(buffereImage, null);
         imageView.setImage(image);
 
