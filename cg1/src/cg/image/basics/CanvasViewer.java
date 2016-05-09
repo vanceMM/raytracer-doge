@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 /**
  * Created by valentin on 05/05/16.
+ * Starting Class for the CanvasViewer.
  */
 public class CanvasViewer extends Application {
 
@@ -20,6 +21,10 @@ public class CanvasViewer extends Application {
 
     }
 
+    /**
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
