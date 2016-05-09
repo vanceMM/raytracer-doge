@@ -2,8 +2,10 @@ package de.beuth.cg1.dogeraytracer.vecmatlib;
 
 /**
  * Created by baetschjunge on 03/05/16.
+ * Project name is VecMatLib.
  */
 
+@SuppressWarnings("WeakerAccess")
 public class Point3 {
 
     /**
@@ -20,7 +22,7 @@ public class Point3 {
      * @param y the double value for y
      * @param z the double value for z
      */
-    public Point3(double x, double y, double z) {
+    public Point3(final double x, final double y, final double z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -31,7 +33,8 @@ public class Point3 {
      * @param p passed Point3
      * @return  resulting {@link Vector3}
      */
-    public Vector3 sub(Point3 p){
+    public Vector3 sub(final Point3 p){
+        if (p == null) throw new IllegalArgumentException("Parameter p can't be null");
         return new Vector3(this.x - p.x, this.y - p.y, this.z - p.z);
     }
 
@@ -40,7 +43,8 @@ public class Point3 {
      * @param v passed {@link Vector3}
      * @return resulting Point3
      */
-    public Point3 sub(Vector3 v){
+    public Point3 sub(final Vector3 v){
+        if (v == null) throw new IllegalArgumentException("Parameter v can't be null");
         return new Point3(this.x - v.x, this.y - v.y, this.z - v.z);
     }
 
@@ -49,7 +53,8 @@ public class Point3 {
      * @param v passed {@link Vector3}
      * @return resulting Point3
      */
-    public Point3 add(Vector3 v){
+    public Point3 add(final Vector3 v){
+        if (v == null) throw new IllegalArgumentException("Parameter v can't be null");
         return new Point3(this.x + v.x, this.y + v.y, this.z + v.z);
     }
 

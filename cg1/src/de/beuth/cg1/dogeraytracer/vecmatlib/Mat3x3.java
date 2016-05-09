@@ -2,8 +2,11 @@ package de.beuth.cg1.dogeraytracer.vecmatlib;
 
 /**
  * Created by baetschjunge on 03/05/16.
+ * Project name is VecMatLib.
  */
 
+
+@SuppressWarnings("WeakerAccess")
 public class Mat3x3 {
 
     /**
@@ -43,7 +46,7 @@ public class Mat3x3 {
      * @param m32 the double value for m32
      * @param m33 the double value for m33
      */
-    public Mat3x3(double m11, double m12, double m13, double m21, double m22, double m23, double m31, double m32, double m33) {
+    public Mat3x3(final double m11, final double m12, final double m13, final double m21, final double m22, final double m23, final double m31, final double m32, final double m33) {
         this.m11 = m11;
         this.m12 = m12;
         this.m13 = m13;
@@ -65,19 +68,20 @@ public class Mat3x3 {
      * @param m matrix that is passed to the function
      * @return resulting mat3x3 of the passed mat3x3 and this mat3x3
      */
-    public Mat3x3 mul(Mat3x3 m){
+    public Mat3x3 mul(final Mat3x3 m){
+        if (m == null) throw new IllegalArgumentException("Parameter m can't be null");
         //first column of result mat3x3
-        double resultM11 = (this.m11 * m.m11) + (this.m21 * m.m12) + (this.m31 * m.m13);
-        double resultM12 = (this.m12 * m.m11) + (this.m22 * m.m12) + (this.m32 * m.m13);
-        double resultM13 = (this.m13 * m.m11) + (this.m23 * m.m12) + (this.m33 * m.m13);
+        final double resultM11 = (this.m11 * m.m11) + (this.m21 * m.m12) + (this.m31 * m.m13);
+        final double resultM12 = (this.m12 * m.m11) + (this.m22 * m.m12) + (this.m32 * m.m13);
+        final double resultM13 = (this.m13 * m.m11) + (this.m23 * m.m12) + (this.m33 * m.m13);
         //second column of result mat3x3
-        double resultM21 = (this.m11 * m.m21) + (this.m21 * m.m22) + (this.m31 * m.m23);
-        double resultM22 = (this.m12 * m.m21) + (this.m22 * m.m22) + (this.m32 * m.m23);
-        double resultM23 = (this.m13 * m.m21) + (this.m23 * m.m22) + (this.m33 * m.m23);
+        final double resultM21 = (this.m11 * m.m21) + (this.m21 * m.m22) + (this.m31 * m.m23);
+        final double resultM22 = (this.m12 * m.m21) + (this.m22 * m.m22) + (this.m32 * m.m23);
+        final double resultM23 = (this.m13 * m.m21) + (this.m23 * m.m22) + (this.m33 * m.m23);
         //third column of result matrix
-        double resultM31 = (this.m11 * m.m31) + (this.m21 * m.m32) + (this.m31 * m.m33);
-        double resultM32 = (this.m12 * m.m31) + (this.m22 * m.m32) + (this.m32 * m.m33);
-        double resultM33 = (this.m13 * m.m31) + (this.m23 * m.m32) + (this.m33 * m.m33);
+        final double resultM31 = (this.m11 * m.m31) + (this.m21 * m.m32) + (this.m31 * m.m33);
+        final double resultM32 = (this.m12 * m.m31) + (this.m22 * m.m32) + (this.m32 * m.m33);
+        final double resultM33 = (this.m13 * m.m31) + (this.m23 * m.m32) + (this.m33 * m.m33);
 
         return new Mat3x3(resultM11, resultM12, resultM13, resultM21, resultM22, resultM23, resultM31, resultM32, resultM33);
     }
@@ -88,10 +92,11 @@ public class Mat3x3 {
      * @param v the passed {@link Vector3}
      * @return resulting {@link Vector3}
      */
-    public Vector3 mul(Vector3 v){
-        double resultX = (this.m11 * v.x) + (this.m21 * v.y) + (this.m31 * v.z);
-        double resultY = (this.m12 * v.x) + (this.m22 * v.y) + (this.m32 * v.z);
-        double resultZ = (this.m13 * v.x) + (this.m23 * v.y) + (this.m33 * v.z);
+    public Vector3 mul(final Vector3 v){
+        if (v == null) throw new IllegalArgumentException("Parameter v can't be null");
+        final double resultX = (this.m11 * v.x) + (this.m21 * v.y) + (this.m31 * v.z);
+        final double resultY = (this.m12 * v.x) + (this.m22 * v.y) + (this.m32 * v.z);
+        final double resultZ = (this.m13 * v.x) + (this.m23 * v.y) + (this.m33 * v.z);
         return new Vector3(resultX, resultY, resultZ);
     }
 
@@ -101,10 +106,11 @@ public class Mat3x3 {
      * @param p passed {@link Point3}
      * @return resulting {@link Point3} of this Mat3x3 and the passed Point3
      */
-    public Point3 mul(Point3 p){
-        double resultX = (this.m11 * p.x) + (this.m21 * p.y) + (this.m31 * p.z);
-        double resultY = (this.m12 * p.x) + (this.m22 * p.y) + (this.m32 * p.z);
-        double resultZ = (this.m13 * p.x) + (this.m23 * p.y) + (this.m33 * p.z);
+    public Point3 mul(final Point3 p){
+        if (p == null) throw new IllegalArgumentException("Parameter p can't be null");
+        final double resultX = (this.m11 * p.x) + (this.m21 * p.y) + (this.m31 * p.z);
+        final double resultY = (this.m12 * p.x) + (this.m22 * p.y) + (this.m32 * p.z);
+        final double resultZ = (this.m13 * p.x) + (this.m23 * p.y) + (this.m33 * p.z);
         return new Point3(resultX, resultY, resultZ);
     }
 
@@ -113,7 +119,8 @@ public class Mat3x3 {
      * @param v passed {@link Vector3}
      * @return resulting Mat3x3
      */
-    public Mat3x3 changeCol1(Vector3 v){
+    public Mat3x3 changeCol1(final Vector3 v){
+        if (v == null) throw new IllegalArgumentException("Parameter v can't be null");
         return new Mat3x3(v.x, v.y, v.z, this.m21, this.m22, this.m23, this.m31, this.m32, this.m33);
     }
 
@@ -122,7 +129,8 @@ public class Mat3x3 {
      * @param v passed {@link Vector3}
      * @return resulting Mat3x3
      */
-    public Mat3x3 changeCol2(Vector3 v){
+    public Mat3x3 changeCol2(final Vector3 v){
+        if (v == null) throw new IllegalArgumentException("Parameter v can't be null");
         return new Mat3x3(this.m11, this.m12, this.m13, v.x, v.y, v.z, this.m31, this.m32, this.m33);
     }
 
@@ -131,7 +139,8 @@ public class Mat3x3 {
      * @param v passed {@link Vector3}
      * @return resulting Mat3x3
      */
-    public Mat3x3 changeCol3(Vector3 v){
+    public Mat3x3 changeCol3(final Vector3 v){
+        if (v == null) throw new IllegalArgumentException("Parameter v can't be null");
         return new Mat3x3(this.m11, this.m12, this.m13, this.m21, this.m22, this.m23, v.x, v.y, v.z);
     }
 

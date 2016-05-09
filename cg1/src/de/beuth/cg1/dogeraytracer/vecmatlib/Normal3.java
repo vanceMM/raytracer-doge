@@ -2,9 +2,10 @@ package de.beuth.cg1.dogeraytracer.vecmatlib;
 
 /**
  * Created by baetschjunge on 03/05/16.
- *
+ * Project name is VecMatLib.
  */
 
+@SuppressWarnings("WeakerAccess")
 public class Normal3 {
 
     /**
@@ -21,7 +22,7 @@ public class Normal3 {
      * @param y the double value for y
      * @param z the double value for z
      */
-    public Normal3(double x, double y, double z) {
+    public Normal3(final double x, final double y, final double z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -32,7 +33,7 @@ public class Normal3 {
      * @param n the double value the Normal3 is multiplied with
      * @return resulting Normal3 of this Normal3 and n
      */
-    public Normal3 mul(double n){
+    public Normal3 mul(final double n){
         return new Normal3(this.x * n, this.y * n, this.z * n);
     }
 
@@ -41,7 +42,8 @@ public class Normal3 {
      * @param n passed Normal3
      * @return resulting Normal3 of this Normal3 and the passed Normal3
      */
-    public Normal3 add(Normal3 n){
+    public Normal3 add(final Normal3 n){
+        if (n == null) throw new IllegalArgumentException("Parameter n can't be null");
         return new Normal3(this.x + n.x, this.y + n.y, this.z + n.z);
     }
 
@@ -50,7 +52,8 @@ public class Normal3 {
      * @param v the passed {@link Vector3}
      * @return resulting dot-product of this Normal3 and passed {@link Vector3}
      */
-    public double dot(Vector3 v){
+    public double dot(final Vector3 v){
+        if (v == null) throw new IllegalArgumentException("Parameter v can't be null");
         return (this.x * v.x) + (this.y * v.y) + (this.z * v.z);
     }
 

@@ -28,11 +28,10 @@ public class Vector3Test {
     private Vector3 v4;
     private Vector3 v5;
     private Normal3 n4;
-    //x-product
-    private Vector3 v6;
     //reflectOn
     private Vector3 v7;
     private Vector3 v8;
+    private Vector3 v9;
 
     @Before
     public void setUp() throws Exception {
@@ -49,11 +48,10 @@ public class Vector3Test {
         this.v4 = new Vector3(1,1,1);
         this.v5 = new Vector3(4,3,2);
         this.n4 = new Normal3(4,3,2);
-        //x-product
-        this.v6 = new Vector3(-1,0,0);
         //reflectOn
         this.v7 = new Vector3(-0.707, 0.707, 0);
         this.v8 = new Vector3(0.707, 0.707, 0);
+        this.v9 = new Vector3(1,2,1);
     }
 
     @After
@@ -61,7 +59,7 @@ public class Vector3Test {
     }
 
     @Test
-    public void checkMag() throws Exception {
+    public void getkMag() throws Exception {
         double check = sqrt(3);
         assertEquals(check, this.mag, 0.0001);
     }
@@ -92,8 +90,8 @@ public class Vector3Test {
 
     @Test
     public void x() throws Exception {
-        Vector3 resV = v2.x(v6);
-        assertEquals(new Vector3(0,0,1), resV);
+        Vector3 resV = v9.x(v5);
+        assertEquals(new Vector3(1,2,-5), resV);
     }
 
     @Test
@@ -122,12 +120,12 @@ public class Vector3Test {
 
     @Test
     public void normalized() throws Exception {
-        System.out.println("normalized()");
     }
 
     @Test
     public void asNormal() throws Exception {
-        System.out.println("asNormal()");
+        Normal3 resN = v5.asNormal();
+        assertEquals(new Normal3(4,3,2), resN);
     }
 
     @Test

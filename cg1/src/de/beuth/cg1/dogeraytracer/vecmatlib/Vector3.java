@@ -7,6 +7,7 @@ import static java.lang.Math.*;
  * Project name is VecMatLib.
  */
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class Vector3 {
 
     /**
@@ -26,7 +27,7 @@ public class Vector3 {
      * @param y the double value for y
      * @param z the double value for z
      */
-    public Vector3(double x, double y, double z){
+    public Vector3(final double x, final double y, final double z){
             this.x = x;
             this.y = y;
             this.z = z;
@@ -39,7 +40,8 @@ public class Vector3 {
      * @param v is the new Vector3
      * @return returns the resulting Vector3 of this Vector3 and the passed (v) Vector3
      */
-    public Vector3 add(Vector3 v){
+    public Vector3 add(final Vector3 v){
+        if (v == null) throw new IllegalArgumentException("Parameter v can't be null");
         return new Vector3(this.x + v.x, this.y + v.y, this.z + v.z);
     }
 
@@ -48,7 +50,8 @@ public class Vector3 {
      * @param n the passed {@link Normal3}
      * @return the resulting Vector3 of the passed {@link Normal3} n and this Vector3
      */
-    public Vector3 add(Normal3 n){
+    public Vector3 add(final Normal3 n){
+        if (n == null) throw new IllegalArgumentException("Parameter n can't be null");
         return new Vector3(this.x + n.x, this.y + n.y, this.z + n.z);
     }
 
@@ -57,7 +60,8 @@ public class Vector3 {
      * @param n passed {@link Normal3}
      * @return resulting Vector3
      */
-    public Vector3 sub(Normal3 n){
+    public Vector3 sub(final Normal3 n){
+        if (n == null) throw new IllegalArgumentException("Parameter n can't be null");
         return new Vector3(this.x - n.x, this.y - n.y, this.z - n.z);
     }
 
@@ -66,7 +70,7 @@ public class Vector3 {
      * @param c passed double value
      * @return resulting Vector3
      */
-    public Vector3 mul(double c){
+    public Vector3 mul(final double c){
         return new Vector3(this.x * c, this.y * c, this.z * c);
     }
 
@@ -75,10 +79,11 @@ public class Vector3 {
      * @param v passed Vector3
      * @return resulting Vector3
      */
-    public Vector3 x(Vector3 v){
-        double resultX = (this.y * v.z) - (this.z * v.y);
-        double resultY = (this.z * v.x) - (this.x * v.z);
-        double resultZ = (this.x * v.y) - (this.y * v.x);
+    public Vector3 x(final Vector3 v){
+        if (v == null) throw new IllegalArgumentException("Parameter v can't be null");
+        final double resultX = (this.y * v.z) - (this.z * v.y);
+        final double resultY = (this.z * v.x) - (this.x * v.z);
+        final double resultZ = (this.x * v.y) - (this.y * v.x);
         return new Vector3(resultX, resultY, resultZ);
     }
 
@@ -87,7 +92,8 @@ public class Vector3 {
      * @param v passed Vector3
      * @return resulting dot-product / double value
      */
-    public double dot(Vector3 v){
+    public double dot(final Vector3 v){
+        if (v == null) throw new IllegalArgumentException("Parameter v can't be null");
         return (this.x * v.x) + (this.y * v.y) + (this.z * v.z);
     }
 
@@ -96,7 +102,8 @@ public class Vector3 {
      * @param n passed {@link Normal3}
      * @return resulting dot-product / double value
      */
-     public double dot(Normal3 n){
+     public double dot(final Normal3 n){
+         if (n == null) throw new IllegalArgumentException("Parameter n can't be null");
         return (this.x * n.x) + (this.y * n.y) + (this.z * n.z);
     }
 
@@ -119,15 +126,14 @@ public class Vector3 {
 
     /**
      * this function reflects this Vector3 on the passed {@link Normal3}
-     * r = d − 2 ( d⋅n ) n
+     * math formula : r = d − 2 ( d⋅n ) n
      * @param n the passed {@link Normal3}
      * @return the reflected Vector3
      */
-    public Vector3 reflectOn(Normal3 n){
-        Vector3 thisVec = this;
-        double innerDot = thisVec.dot(n)*2;
-        //double next = innerDot*2;
-        return thisVec.sub(n.mul(innerDot)).mul(-1);
+
+    public Vector3 reflectOn(final Normal3 n){
+        if (n == null) throw new IllegalArgumentException("Parameter n can't be null");
+        return sub(n.mul(dot(n)).mul(2)).mul(-1);
     }
 
     /**
