@@ -135,6 +135,8 @@ public class CanvasController implements Initializable {
         /**
          * Setting the image to the Image View
          */
+        view.setFitWidth(width);
+        view.setFitHeight(height);
         view.setPreserveRatio(true);
         view.setImage(wr);
 
