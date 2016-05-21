@@ -53,11 +53,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PerspectiveCamera.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PerspectiveCamera.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/beuth/cg1/dogeraytracer/camera/PerspectiveCamera.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
               <caret line="2" column="46" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Color.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/de/beuth/cg1/dogeraytracer/color/Color.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1035">
+              <caret line="69" column="5" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -103,18 +113,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CanvasController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/beuth/cg1/dogeraytracer/gui/CanvasController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="63" column="32" selection-start-line="63" selection-start-column="32" selection-end-line="63" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="VecMatLibTestSuite.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/beuth/cg1/dogeraytracer/VecMatLibTestSuite.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -150,6 +148,7 @@
         <option value="$PROJECT_DIR$/src/de/beuth/cg1/dogeraytracer/camera/OrthographicCamera.java" />
         <option value="$PROJECT_DIR$/src/de/beuth/cg1/dogeraytracer/camera/Camera.java" />
         <option value="$PROJECT_DIR$/src/de/beuth/cg1/dogeraytracer/camera/PerspectiveCamera.java" />
+        <option value="$PROJECT_DIR$/src/de/beuth/cg1/dogeraytracer/color/Color.java" />
       </list>
     </option>
   </component>
@@ -242,7 +241,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="camera" />
+              <option name="myItemId" value="color" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -766,7 +765,7 @@
       <workItem from="1462540432102" duration="1905000" />
       <workItem from="1462699626405" duration="13996000" />
       <workItem from="1462747423329" duration="11396000" />
-      <workItem from="1462883900356" duration="3502000" />
+      <workItem from="1462883900356" duration="6959000" />
     </task>
     <servers />
   </component>
@@ -776,7 +775,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41740000" />
+    <option name="totallyTimeSpent" value="45197000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="835" extended-state="6" />
@@ -839,17 +838,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/de/beuth/cg1/dogeraytracer/gui/canvasViewer.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="63" selection-start-line="25" selection-start-column="63" selection-end-line="25" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/de/beuth/cg1/dogeraytracer/gui/CanvasViewer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -1249,6 +1237,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="46" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/beuth/cg1/dogeraytracer/color/Color.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1035">
+          <caret line="69" column="5" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
           <folding />
         </state>
       </provider>
