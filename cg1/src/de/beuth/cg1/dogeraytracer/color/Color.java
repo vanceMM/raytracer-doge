@@ -19,9 +19,7 @@ public class Color {
         if ((r < 0 && r > 1) || (g < 0 && g > 1) || (b < 0 && b > 1)) {
             throw new IllegalArgumentException("Color Values should be betwenn 0 and 1");
         }
-        //@TODO auf null prüfen
-
-
+        
         this.b = b;
         this.g = g;
         this.r = r;
@@ -69,6 +67,42 @@ public class Color {
 
     }
 
+    /**
+     *
+     * @return returns a String representaiton of the Color
+     */
+    @Override
+    public String toString() {
+        return "Color{" +
+                "r=" + r +
+                ", g=" + g +
+                ", b=" + b +
+                '}';
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Color color = (Color) o;
+
+        if (Double.compare(color.r, r) != 0) return false;
+        if (Double.compare(color.g, g) != 0) return false;
+        return Double.compare(color.b, b) == 0;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(r);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(g);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(b);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }
