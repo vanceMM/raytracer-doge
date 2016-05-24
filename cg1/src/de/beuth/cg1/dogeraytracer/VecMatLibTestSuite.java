@@ -9,7 +9,7 @@ import org.junit.runners.Suite;
 
 /**
  * Created by baetschjunge on 09/05/16.
- * Project name is raytracer-doge.
+ * Project name is Raytracer-doge.
  */
 
 @RunWith(Suite.class)
