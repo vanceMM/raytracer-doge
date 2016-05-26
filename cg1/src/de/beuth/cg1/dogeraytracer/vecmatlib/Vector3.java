@@ -134,7 +134,6 @@ public class Vector3 {
      * @param n the passed {@link Normal3}, if n is null throw IllegalArgumentException
      * @return the reflected Vector3
      */
-
     public Vector3 reflectOn(final Normal3 n){
         if (n == null) throw new IllegalArgumentException("Parameter n can't be null");
         return sub(n.mul(dot(n)).mul(2)).mul(-1);
