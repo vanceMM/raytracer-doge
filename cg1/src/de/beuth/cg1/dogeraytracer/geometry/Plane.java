@@ -7,33 +7,39 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 
 /**
  * Created by valentin on 23/05/16.
+ * Project name is raytracer-doge.
+ * This is Class representing Plane Objects in 3d Space
  */
 public class Plane extends Geometry {
 
     /**
-     * a known Point on the Plane
+     * a known {@link Point3} on the Plane
      */
     public final Point3 a;
     /**
-     * a normal to the Plane
+     * a {@link Normal3} to the Plane
      */
     public final Normal3 n;
 
     /**
-     * Constructor of the Plane
-     * @param a
-     * @param n
+     * Constructor for the Geometry Object
+     * Creates a new instance of {@link Plane} with defined attributes.
+     *
+     * @param color the Color Value of a {@link Color}
+     * @param a the Point3 Value of a {@link Point3}
+     * @param n the Normal3 Value of a {@link Normal3}
      */
-    public Plane (Color color, final Point3 a, final Normal3 n) {
+    public Plane (final Color color, final Point3 a, final Normal3 n) {
         super(color);
         this.a = a;
         this.n = n;
     }
 
     /**
+     * This Methods takes an {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.
      *
-     * @param r Ray that hits the Object
-     * @return returns the Hit Object which represents the Intersection between the Plane and the given Ray.
+     * @param r passed {@link Ray} that hits the Object
+     * @return Hit Object which represents the Intersection between the Plane and the given {@link Ray}.
      */
     @Override
     public Hit hit(Ray r) {
