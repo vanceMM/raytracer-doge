@@ -44,4 +44,43 @@ public class Sphere extends Geometry {
     public Hit hit(Ray r) {
         return null;
     }
+
+    /**
+     * @see Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Sphere{" +
+                "c=" + c +
+                ", r=" + r +
+                '}';
+    }
+
+    /**
+     * @see Object#equals(Object)
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Sphere sphere = (Sphere) o;
+
+        if (Double.compare(sphere.r, r) != 0) return false;
+        return c != null ? c.equals(sphere.c) : sphere.c == null;
+
+    }
+
+    /**
+     * @see Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = c != null ? c.hashCode() : 0;
+        temp = Double.doubleToLongBits(r);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }

@@ -44,4 +44,40 @@ public class AxisAlignedBox extends Geometry {
     public Hit hit(Ray r) {
         return null;
     }
+
+    /**
+     * @see Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "AxisAlignedBox{" +
+                "lbf=" + lbf +
+                ", run=" + run +
+                '}';
+    }
+
+    /**
+     * @see Object#equals(Object)
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AxisAlignedBox that = (AxisAlignedBox) o;
+
+        if (lbf != null ? !lbf.equals(that.lbf) : that.lbf != null) return false;
+        return run != null ? run.equals(that.run) : that.run == null;
+
+    }
+
+    /**
+     * @see Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        int result = lbf != null ? lbf.hashCode() : 0;
+        result = 31 * result + (run != null ? run.hashCode() : 0);
+        return result;
+    }
 }

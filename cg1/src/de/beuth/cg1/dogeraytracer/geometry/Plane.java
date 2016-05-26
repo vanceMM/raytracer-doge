@@ -45,4 +45,40 @@ public class Plane extends Geometry {
     public Hit hit(Ray r) {
         return new Hit((n.dot(a.sub(r.o)))/(r.d).dot(n), r, this);
     }
+
+    /**
+     * @see Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Plane{" +
+                "a=" + a +
+                ", n=" + n +
+                '}';
+    }
+
+    /**
+     * @see Object#equals(Object)
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Plane plane = (Plane) o;
+
+        if (a != null ? !a.equals(plane.a) : plane.a != null) return false;
+        return n != null ? n.equals(plane.n) : plane.n == null;
+
+    }
+
+    /**
+     * @see Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        int result = a != null ? a.hashCode() : 0;
+        result = 31 * result + (n != null ? n.hashCode() : 0);
+        return result;
+    }
 }
