@@ -1,4 +1,4 @@
-package cg.image.basics;
+package de.beuth.cg1.dogeraytracer.gui;
 
 /**
  * Created by valentin on 03/05/16.

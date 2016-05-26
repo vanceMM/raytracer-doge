@@ -1,4 +1,4 @@
-package cg.image.basics;
+package de.beuth.cg1.dogeraytracer.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

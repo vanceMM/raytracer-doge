@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 /**
  * Created by baetschjunge on 05/05/16.
- * Project name is raytracer-doge.
+ * Project name is Raytracer-doge.
  */
 public class Normal3Test {
     private Normal3 n1;

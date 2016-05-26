@@ -3,6 +3,7 @@
 # IDEA specific
 .idea/workspace.xml
 .idea/tasks.xml
+cg1/.idea/workspace.xml
 
 .DS_Store
 .AppleDouble

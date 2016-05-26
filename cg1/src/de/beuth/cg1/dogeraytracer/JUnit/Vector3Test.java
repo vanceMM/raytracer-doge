@@ -11,7 +11,7 @@ import static java.lang.Math.*;
 
 /**
  * Created by baetschjunge on 05/05/16.
- * Project name is raytracer-doge.
+ * Project name is Raytracer-doge.
  */
 public class Vector3Test {
 
