@@ -94,9 +94,8 @@ public class CanvasController implements Initializable {
 
         ArrayList<Geometry> objects = new ArrayList<>();
         objects.add(plane);
-        Geometry[] geometry = (Geometry[]) objects.toArray();
 
-        world = new World(geometry,new Color(0,0,0));
+        world = new World(objects,new Color(0,0,0));
 
         camera = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
 

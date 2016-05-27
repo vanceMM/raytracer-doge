@@ -12,26 +12,32 @@ import java.util.ArrayList;
  */
 public class World {
 
-    public final Geometry[] objects;
+    public final ArrayList<Geometry> objects;
 
     public  final Color backgroundColor;
 
-    public World(Geometry[] objects, Color backgroundColor) {
+    public World(ArrayList<Geometry> objects, Color backgroundColor) {
         this.backgroundColor = backgroundColor;
         this.objects = objects;
     }
 
     public Hit hit(Ray ray) {
-        Hit hit;
-        if(objects[0]!=null) {
-            hit = objects[0].hit(ray);
-        }
-        for (int i = 1; i < objects.length; i++) {
-            if(objects[i].hit(ray).t<hit.t){
-                hit = objects[i].hit(ray);
-            }
+        Hit hit = null;
 
+        if(!objects.isEmpty()) {
+            for (Geometry object: objects) {
+                double t = object.hit(ray).t;
+                if (hit != null) {
+                    if(t>0 && t < hit.t) {
+                        hit = object.hit(ray);
+                    } else {
+                        continue;
+                    }
+                }
+
+            }
         }
+        return hit;
     }
 
     /**
