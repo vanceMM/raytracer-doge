@@ -1,5 +1,16 @@
 package de.beuth.cg1.dogeraytracer.gui;
 
+import de.beuth.cg1.dogeraytracer.camera.Camera;
+import de.beuth.cg1.dogeraytracer.camera.OrthographicCamera;
+import de.beuth.cg1.dogeraytracer.camera.PerspectiveCamera;
+import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.geometry.Geometry;
+import de.beuth.cg1.dogeraytracer.geometry.Plane;
+import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
+import de.beuth.cg1.dogeraytracer.world.World;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Menu;
@@ -16,6 +27,8 @@ import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
@@ -41,6 +54,12 @@ public class CanvasController implements Initializable {
     @FXML
     private MenuItem save;
 
+    private  Raytracer raytracer;
+
+    private  World world;
+
+    private Camera camera;
+
     /*
      * variable to store a bufferedImage Object
      */
@@ -62,6 +81,24 @@ public class CanvasController implements Initializable {
          */
         initMenu();
         initImageView(640, 480);
+
+        /*
+         set TestData for the RayTracer
+         */
+        initSetup();
+    }
+
+    private void initSetup() {
+
+        Plane plane = new Plane(new Color(0,1,0),new Point3(0,-1,0),new Normal3(0,1,0));
+
+        ArrayList<Geometry> objects = new ArrayList<>();
+        objects.add(plane);
+
+        world = new World(objects,new Color(0,0,0));
+
+        camera = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
+
     }
 
     private void printWidth() {
@@ -101,20 +138,10 @@ public class CanvasController implements Initializable {
 
         bufferedImage = new BufferedImage(width, height, TYPE_INT_RGB);
         final WritableRaster raster = bufferedImage.getRaster();
-        final int[] black = new int[] {0,0,0};
-        final int[] red = new int[] {255,0,0};
 
-        for (int i=0; i<bufferedImage.getWidth(); i++) {
-            for (int j=0; j<bufferedImage.getHeight(); j++) {
-               // bufferedImage.setRGB(i,j,0x000000);
-                if (i==j) {
-                    raster.setPixel(i,j,red);
-                } else {
-                    raster.setPixel(i, j, black);
-                }
-            }
-        }
+        raytracer = new Raytracer(raster, world, camera);
 
+        raytracer.trace(bufferedImage.getColorModel());
 
         /*
          * Converting the BufferedImage to JavaFX Image.
