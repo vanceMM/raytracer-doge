@@ -73,19 +73,19 @@ public class CanvasController implements Initializable {
          * add event listeners for the width and height property of the Pane node
          */
 
-        pane.widthProperty().addListener(e-> initImageView((int)pane.getWidth(), (int)pane.getHeight()));
-        pane.heightProperty().addListener(e-> initImageView((int)pane.getWidth(), (int)pane.getHeight()));
+       /* pane.widthProperty().addListener(e-> initImageView((int)pane.getWidth(), (int)pane.getHeight()));
+        pane.heightProperty().addListener(e-> initImageView((int)pane.getWidth(), (int)pane.getHeight()));*/
 
         /*
          * init Layout
          */
         initMenu();
+        initSetup();
         initImageView(640, 480);
 
         /*
          set TestData for the RayTracer
          */
-        initSetup();
     }
 
     private void initSetup() {
@@ -95,7 +95,7 @@ public class CanvasController implements Initializable {
         ArrayList<Geometry> objects = new ArrayList<>();
         objects.add(plane);
 
-        world = new World(objects,new Color(0,0,0));
+        world = new World(objects,new Color(0,1,0));
 
         camera = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
 
