@@ -5,6 +5,8 @@ import de.beuth.cg1.dogeraytracer.geometry.Geometry;
 import de.beuth.cg1.dogeraytracer.geometry.Hit;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 
+import java.util.ArrayList;
+
 /**
  * Created by valentin on 23/05/16.
  */
@@ -12,7 +14,7 @@ public class World {
 
     public final Geometry[] objects;
 
-    public final Color backgroundColor;
+    public  final Color backgroundColor;
 
     public World(Geometry[] objects, Color backgroundColor) {
         this.backgroundColor = backgroundColor;
@@ -32,4 +34,11 @@ public class World {
         }
     }
 
+    /**
+     *
+     * @return returns the BackgroundColor for this Scene
+     */
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
 }
