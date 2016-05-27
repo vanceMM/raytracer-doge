@@ -22,17 +22,22 @@ public class Hit {
     public final Geometry geo;
 
     /**
-     * Constructor for the Hit Object
-     * @param t
-     * @param ray
-     * @param geo
+     * Creates a new instance of {@link Hit} with defined attributes.
+     *
+     * @param t double Value for the intersection Point
+     * @param ray the Ray Value for a {@link Ray}
+     * @param geo the Geometry Value for a {@link Geometry}
      */
-    public Hit(double t,Ray ray,Geometry geo) {
+    public Hit(final double t, final Ray ray, final Geometry geo) {
         this.t = t;
         this.ray = ray;
         this.geo = geo;
     }
 
+    /**
+     * @see Object#equals(Object)
+     *
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -40,12 +45,14 @@ public class Hit {
 
         Hit hit = (Hit) o;
 
-        if (Double.compare(hit.t, t) != 0) return false;
-        if (ray != null ? !ray.equals(hit.ray) : hit.ray != null) return false;
-        return geo != null ? geo.equals(hit.geo) : hit.geo == null;
+        return Double.compare(hit.t, t) == 0 && (ray != null ? ray.equals(hit.ray) : hit.ray == null && (geo != null ? geo.equals(hit.geo) : hit.geo == null));
 
     }
 
+    /**
+     * @see Object#hashCode()
+     *
+     */
     @Override
     public int hashCode() {
         int result;
@@ -57,6 +64,10 @@ public class Hit {
         return result;
     }
 
+    /**
+     * @see Object#toString()
+     *
+     */
     @Override
     public String toString() {
         return "Hit{" +

@@ -131,12 +131,12 @@ public class Vector3Test {
     @Test
     public void reflectOn1() throws Exception {
         Vector3 resV = v7.reflectOn(n2);
-        assertEquals(new Vector3(0.707,0.707,-0.0), resV);
+        assertEquals(new Vector3(0.707,0.707,0.0), resV);
     }
     @Test
     public void reflectOn2() throws Exception {
         Vector3 resV = v8.reflectOn(n1);
-        assertEquals(new Vector3(0.707, -0.707, -0.0), resV);
+        assertEquals(new Vector3(0.707, -0.707, 0.0), resV);
     }
 
 }

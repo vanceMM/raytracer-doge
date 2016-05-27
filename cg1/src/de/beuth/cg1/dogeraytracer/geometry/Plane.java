@@ -7,36 +7,78 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 
 /**
  * Created by valentin on 23/05/16.
+ * Project name is raytracer-doge.
+ * This is Class representing Plane Objects in 3d Space
  */
 public class Plane extends Geometry {
 
     /**
-     * a known Point on the Plane
+     * a known {@link Point3} on the Plane
      */
     public final Point3 a;
     /**
-     * a normal to the Plane
+     * a {@link Normal3} to the Plane
      */
     public final Normal3 n;
 
     /**
-     * Constructor of the Plane
-     * @param a
-     * @param n
+     * Constructor for the Geometry Object
+     * Creates a new instance of {@link Plane} with defined attributes.
+     *
+     * @param color the Color Value of a {@link Color}
+     * @param a the Point3 Value of a {@link Point3}
+     * @param n the Normal3 Value of a {@link Normal3}
      */
-    public Plane (Color color, final Point3 a, final Normal3 n) {
+    public Plane (final Color color, final Point3 a, final Normal3 n) {
         super(color);
         this.a = a;
         this.n = n;
     }
 
     /**
+     * This Methods takes an {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.
      *
-     * @param r Ray that hits the Object
-     * @return returns the Hit Object which represents the Intersection between the Plane and the given Ray.
+     * @param r passed {@link Ray} that hits the Object
+     * @return Hit Object which represents the Intersection between the Plane and the given {@link Ray}.
      */
     @Override
     public Hit hit(Ray r) {
         return new Hit((n.dot(a.sub(r.o)))/(r.d).dot(n), r, this);
+    }
+
+    /**
+     * @see Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Plane{" +
+                "a=" + a +
+                ", n=" + n +
+                '}';
+    }
+
+    /**
+     * @see Object#equals(Object)
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Plane plane = (Plane) o;
+
+        if (a != null ? !a.equals(plane.a) : plane.a != null) return false;
+        return n != null ? n.equals(plane.n) : plane.n == null;
+
+    }
+
+    /**
+     * @see Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        int result = a != null ? a.hashCode() : 0;
+        result = 31 * result + (n != null ? n.hashCode() : 0);
+        return result;
     }
 }
