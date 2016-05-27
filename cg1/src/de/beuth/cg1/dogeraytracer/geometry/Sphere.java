@@ -3,6 +3,7 @@ package de.beuth.cg1.dogeraytracer.geometry;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 
 /**
  * Created by baetschjunge on 26/05/16.
@@ -18,7 +19,7 @@ public class Sphere extends Geometry {
     /**
      * the Radius of the Sphere
      */
-    public final double r;
+    public final double radius;
 
     /**
      * Constructor for the Geometry Object
@@ -26,12 +27,12 @@ public class Sphere extends Geometry {
      *
      * @param color the Color Value of a {@link Color}
      * @param c the Point3 Value of a {@link Point3}
-     * @param r the double Value of Radius
+     * @param radius the double Value of Radius
      */
-    public Sphere(final Color color, final Point3 c, final double r) {
+    public Sphere(final Color color, final Point3 c, final double radius) {
         super(color);
         this.c = c;
-        this.r = r;
+        this.radius = radius;
     }
 
     /**
@@ -42,7 +43,15 @@ public class Sphere extends Geometry {
      */
     @Override
     public Hit hit(Ray r) {
-        return null;
+        double a;
+        a = r.d.dot(r.d);
+        double b;
+        b = r.d.dot((r.o.sub(c)).mul(2));
+        double cc;
+        // ( ⃗o − ⃗c ) • ( ⃗o − ⃗c ) − r 2
+        cc = r.o.sub(c).dot(r.o.sub(c)) - Math.pow(radius,2);
+
+        return new Hit(Math.pow(b,2) - 4 * a *cc, r, this);
     }
 
     /**
@@ -52,7 +61,7 @@ public class Sphere extends Geometry {
     public String toString() {
         return "Sphere{" +
                 "c=" + c +
-                ", r=" + r +
+                ", r=" + radius +
                 '}';
     }
 
@@ -66,7 +75,7 @@ public class Sphere extends Geometry {
 
         Sphere sphere = (Sphere) o;
 
-        if (Double.compare(sphere.r, r) != 0) return false;
+        if (Double.compare(sphere.radius, radius) != 0) return false;
         return c != null ? c.equals(sphere.c) : sphere.c == null;
 
     }
@@ -79,7 +88,7 @@ public class Sphere extends Geometry {
         int result;
         long temp;
         result = c != null ? c.hashCode() : 0;
-        temp = Double.doubleToLongBits(r);
+        temp = Double.doubleToLongBits(radius);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
