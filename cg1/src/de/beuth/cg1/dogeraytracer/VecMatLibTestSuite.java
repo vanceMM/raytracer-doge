@@ -7,6 +7,7 @@ import de.beuth.cg1.dogeraytracer.junit.Vector3Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+
 /**
  * Created by baetschjunge on 09/05/16.
  * Project name is Raytracer-doge.

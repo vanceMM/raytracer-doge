@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+
 /**
  * Created by baetschjunge on 05/05/16.
  * Project name is Raytracer-doge.
