@@ -10,9 +10,9 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.*;
 
 public class OrthographicCamera extends Camera{
 	
-	private final double s;
+	public final double s;
 	
-	public OrthographicCamera (final Point3 e, final Vector3 g, Vector3 t, final double s){
+	public OrthographicCamera (final Point3 e, final Vector3 g, final Vector3 t, final double s){
 		super(e, g, t);
 		this.s = s;
 	}
