@@ -6,6 +6,7 @@ import de.beuth.cg1.dogeraytracer.camera.PerspectiveCamera;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.Geometry;
 import de.beuth.cg1.dogeraytracer.geometry.Plane;
+import de.beuth.cg1.dogeraytracer.geometry.Sphere;
 import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
@@ -58,7 +59,9 @@ public class CanvasController implements Initializable {
 
     private  World world;
 
-    private Camera camera;
+    private Camera perspective;
+
+    private Camera orthographic;
 
     /*
      * variable to store a bufferedImage Object
@@ -91,13 +94,16 @@ public class CanvasController implements Initializable {
     private void initSetup() {
 
         Plane plane = new Plane(new Color(0,1,0),new Point3(0,-1,0),new Normal3(0,1,0));
+        Sphere sphere = new Sphere(new Color(1,0,0), new Point3(-1,0,-3), 0.5);
 
         ArrayList<Geometry> objects = new ArrayList<>();
-        objects.add(plane);
+        objects.add(sphere);
 
-        world = new World(objects,new Color(0,1,0));
+        world = new World(objects,new Color(0,0,0));
 
-        camera = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
+        perspective = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
+
+        orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
 
     }
 
@@ -139,7 +145,7 @@ public class CanvasController implements Initializable {
         bufferedImage = new BufferedImage(width, height, TYPE_INT_RGB);
         final WritableRaster raster = bufferedImage.getRaster();
 
-        raytracer = new Raytracer(raster, world, camera);
+        raytracer = new Raytracer(raster, world, orthographic);
 
         raytracer.trace(bufferedImage.getColorModel());
 

@@ -23,19 +23,21 @@ public class World {
 
     public Hit hit(Ray ray) {
         Hit hit = null;
+        ArrayList<Hit> hits = new ArrayList<>();
 
-        if(!objects.isEmpty()) {
-            for (Geometry object: objects) {
-                double t = object.hit(ray).t;
+        for (Geometry object: objects) {
+            hit = object.hit(ray);
                 if (hit != null) {
-                    if(t>0 && t < hit.t) {
-                        hit = object.hit(ray);
-                    } else {
-                        continue;
-                    }
+                    hits.add(hit);
                 }
-
             }
+
+        double min = Double.MAX_VALUE;
+        for ( Hit h : hits) {
+            if (h.t < min) {
+                min = h.t;
+            }
+            hit = h;
         }
         return hit;
     }
