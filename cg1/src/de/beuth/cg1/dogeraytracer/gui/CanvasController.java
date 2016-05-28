@@ -105,6 +105,8 @@ public class CanvasController implements Initializable {
 
         orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
 
+
+
     }
 
     private void printWidth() {
