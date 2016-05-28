@@ -1,8 +1,10 @@
 package de.beuth.cg1.dogeraytracer.geometry;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Mat3x3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 
 /**
  * Created by baetschjunge on 26/05/16.
@@ -48,7 +50,11 @@ public class Triangle extends Geometry{
      */
     @Override
     public Hit hit(Ray r) {
-        return null;
+        Mat3x3 A = new Mat3x3(a.x-b.x, a.y-b.y, a.z-b.z, a.x-c.x, a.y-c.y, a.z-c.z, r.d.x, r.d.y, r.d.z);
+        Vector3 A1Vec = new Vector3(a.x-r.o.x, a.y-r.o.y, a.z-r.o.z);   // changeCol needs vec3
+        Mat3x3 A1 = A.changeCol1(A1Vec);
+        double beta = A.determinant/A1.determinant;
+        return new Hit(beta, r, this);
     }
 
     /**

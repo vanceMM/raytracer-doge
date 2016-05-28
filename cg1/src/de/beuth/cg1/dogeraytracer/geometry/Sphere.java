@@ -3,13 +3,14 @@ package de.beuth.cg1.dogeraytracer.geometry;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
-import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 
 /**
  * Created by baetschjunge on 26/05/16.
  * Project name is raytracer-doge.
  * This is Class representing Sphere Objects in 3d Space
  */
+
+@SuppressWarnings("WeakerAccess")
 public class Sphere extends Geometry {
 
     /**
@@ -51,7 +52,24 @@ public class Sphere extends Geometry {
         // ( ⃗o − ⃗c ) • ( ⃗o − ⃗c ) − r 2
         cc = r.o.sub(c).dot(r.o.sub(c)) - Math.pow(radius,2);
 
-        return new Hit(Math.pow(b,2) - 4 * a *cc, r, this);
+        double d;
+        d = Math.pow(b,2) - 4 * a *cc;
+
+        double t, t2;
+
+        //if (d < 0) return null;
+        if (d == 0) {
+            t = (-1)*b + Math.sqrt(d) / 2*a;
+            return new Hit(t, r, this);
+        }
+        if (d > 0) {
+            t = (-1)*b + Math.sqrt(d) / 2*a;
+            t2 = (-1)*b - Math.sqrt(d) / 2*a;
+
+            if (t < t2) return new Hit(t, r, this);
+            else return new Hit(t2, r, this);
+        }
+        else return null;
     }
 
     /**
@@ -75,8 +93,7 @@ public class Sphere extends Geometry {
 
         Sphere sphere = (Sphere) o;
 
-        if (Double.compare(sphere.radius, radius) != 0) return false;
-        return c != null ? c.equals(sphere.c) : sphere.c == null;
+        return Double.compare(sphere.radius, radius) == 0 && (c != null ? c.equals(sphere.c) : sphere.c == null);
 
     }
 
