@@ -35,15 +35,8 @@ public class Raytracer {
                 final Color color;
                 Hit hit = this.world.hit(ray);
                 if (hit!=null) {
-                    /**
-                     * @TODO
-                     * set the pixel color to the color of the geometry if hit() returns a value, if not set to
-                     * world.backgroundColor.
-                     */
                     color = hit.geo.color;
-
                 } else {
-
                     color = world.getBackgroundColor();
                 }
                 java.awt.Color color1 = new java.awt.Color((int) color.r*255, (int) color.g*255,(int) color.b*255);
