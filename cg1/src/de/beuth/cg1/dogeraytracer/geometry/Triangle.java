@@ -51,10 +51,24 @@ public class Triangle extends Geometry{
     @Override
     public Hit hit(Ray r) {
         Mat3x3 A = new Mat3x3(a.x-b.x, a.y-b.y, a.z-b.z, a.x-c.x, a.y-c.y, a.z-c.z, r.d.x, r.d.y, r.d.z);
+
         Vector3 A1Vec = new Vector3(a.x-r.o.x, a.y-r.o.y, a.z-r.o.z);   // changeCol needs vec3
+
+
         Mat3x3 A1 = A.changeCol1(A1Vec);
-        double beta = A.determinant/A1.determinant;
-        return new Hit(beta, r, this);
+        Mat3x3 A2 = A.changeCol2(A1Vec);
+        Mat3x3 A3 = A.changeCol3(A1Vec);
+
+        double beta     = A1.determinant / A.determinant;
+        double gamma    = A2.determinant / A.determinant;
+        double t        = A3.determinant / A.determinant;
+
+        if (beta >= 0 && gamma >= 0 && beta + gamma <= 1 && t > 0){
+            return new Hit(t, r, this);
+            //else return null;
+        }
+        else return null;
+        //return new Hit(beta, r, this);
     }
 
     /**
