@@ -1,8 +1,13 @@
 package de.beuth.cg1.dogeraytracer.geometry;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
+
+import javax.crypto.AEADBadTagException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by baetschjunge on 26/05/16.
@@ -20,6 +25,15 @@ public class AxisAlignedBox extends Geometry {
      */
     public final Point3 run;
 
+    private final Plane upper;
+    private final Plane bottom;
+    private final Plane left;
+    private final Plane right;
+    private final Plane far;
+    private final Plane near;
+
+
+
     /**
      * Constructor for the Geometry Object
      * Creates a new instance of {@link AxisAlignedBox} with defined attributes.
@@ -32,6 +46,15 @@ public class AxisAlignedBox extends Geometry {
         super(color);
         this.lbf = lbf;
         this.run = run;
+
+        this.upper = new Plane(color,run, new Normal3(0,1,0));
+        this.bottom = new Plane(color,lbf, new Normal3(0,-1,0));
+        this.left = new Plane(color,lbf, new Normal3(-1,0,0));
+        this.right = new Plane(color,run, new Normal3(1,0,0));
+        this.far = new Plane(color,lbf, new Normal3(0,0,-1));
+        this.near = new Plane(color,run, new Normal3(0,0,1));
+
+
     }
 
     /**
@@ -42,7 +65,40 @@ public class AxisAlignedBox extends Geometry {
      */
     @Override
     public Hit hit(Ray r) {
-        return null;
+
+        ArrayList<Plane> planes = new ArrayList<>();
+        planes.add(upper);
+        planes.add(bottom);
+        planes.add(left);
+        planes.add(right);
+        planes.add(far);
+        planes.add(near);
+
+        Iterator<Plane> it = planes.iterator();
+        while (it.hasNext()) {
+            Plane plane = it.next();
+            if(r.d.mul(-1).dot(plane.n)<=0) {
+                it.remove();
+            }
+        }
+
+        Hit hit = null;
+
+        for (Plane p : planes) {
+            Hit temp = p.hit(r);
+            if(hit == null || hit.t<temp.t) {
+                hit = temp;
+            }
+        }
+
+        Point3 p = r.at(hit.t);
+
+        if(lbf.x<=p.x && p.x<=run.x && lbf.y<=p.y && p.y<=run.y && lbf.z<=p.z && p.z<=run.z) {
+            return hit;
+        } else {
+            return null;
+        }
+
     }
 
     /**

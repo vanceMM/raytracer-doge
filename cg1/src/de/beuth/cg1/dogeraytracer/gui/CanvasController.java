@@ -4,6 +4,7 @@ import de.beuth.cg1.dogeraytracer.camera.Camera;
 import de.beuth.cg1.dogeraytracer.camera.OrthographicCamera;
 import de.beuth.cg1.dogeraytracer.camera.PerspectiveCamera;
 import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.geometry.AxisAlignedBox;
 import de.beuth.cg1.dogeraytracer.geometry.Geometry;
 import de.beuth.cg1.dogeraytracer.geometry.Plane;
 import de.beuth.cg1.dogeraytracer.geometry.Sphere;
@@ -96,16 +97,16 @@ public class CanvasController implements Initializable {
         Plane plane = new Plane(new Color(0,1,0),new Point3(0,-1,0),new Normal3(0,1,0));
         Sphere sphere = new Sphere(new Color(1,0,0), new Point3(-1,0,-3), 0.5);
         Sphere sphere1 = new Sphere(new Color(1,0,0), new Point3(0,0,-3), 0.5);
+        AxisAlignedBox box = new AxisAlignedBox(new Color(0,0,1), new Point3(-0.5,0,-0.5), new Point3(0.5,1,0.5));
 
         ArrayList<Geometry> objects = new ArrayList<>();
-        objects.add(sphere1);
+        objects.add(box);
 
         world = new World(objects,new Color(0,0,0));
 
-        perspective = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
+        perspective = new PerspectiveCamera(new Point3(3,3,3),new Vector3(-3,-3,-3), new Vector3(0,1,0) ,Math.PI/4);
 
         orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
-
 
 
     }
