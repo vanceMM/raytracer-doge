@@ -40,7 +40,7 @@ public class Raytracer {
                     color = world.getBackgroundColor();
                 }
                 java.awt.Color color1 = new java.awt.Color((int) color.r*255, (int) color.g*255,(int) color.b*255);
-                raster.setDataElements(x,y, colorModel.getDataElements(color1.getRGB(),null));
+                raster.setDataElements(x,raster.getHeight()-y, colorModel.getDataElements(color1.getRGB(),null));
             }
         }
     }

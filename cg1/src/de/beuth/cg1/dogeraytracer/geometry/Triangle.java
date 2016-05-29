@@ -55,9 +55,8 @@ public class Triangle extends Geometry{
         Mat3x3 A = new Mat3x3(a.x-b.x, a.y-b.y, a.z-b.z, a.x-c.x, a.y-c.y, a.z-c.z, r.d.x, r.d.y, r.d.z);
         //Mat3x3 A = new Mat3x3(b.x-a.x, b.y-a.y, b.z-a.z, c.x-a.x, c.y-a.y, c.z-a.z, r.d.x, r.d.y, r.d.z);
 
-        //Vector3 A1Vec = new Vector3(a.x-r.o.x, a.y-r.o.y, a.z-r.o.z);   // changeCol needs vec3
+        Vector3 A1Vec = new Vector3(a.x-r.o.x, a.y-r.o.y, a.z-r.o.z);   // changeCol needs vec3
         //Vector3 A1Vec = new Vector3(r.o.x-a.x, r.o.y-a.y, r.o.z-a.z);   // changeCol needs vec3
-        Vector3 A1Vec = a.sub(r.o);
 
         Mat3x3 A1 = A.changeCol1(A1Vec);
         Mat3x3 A2 = A.changeCol2(A1Vec);
