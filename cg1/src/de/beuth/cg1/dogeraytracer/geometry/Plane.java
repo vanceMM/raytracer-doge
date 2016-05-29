@@ -49,7 +49,7 @@ public class Plane extends Geometry {
 
         double t = zähler/nenner;
 
-        if (nenner != 0.0 && t > 0) {
+        if (nenner != 0.0 && t < 0) {
             return  new Hit(t, r, this);
         } else {
             return null;
