@@ -9,18 +9,37 @@ import java.util.ArrayList;
 
 /**
  * Created by valentin on 23/05/16.
+ * Project name is raytracer-doge.
+ * This is Class representing World Object in 3d Space
  */
 public class World {
 
+    /**
+     *
+     */
     public final ArrayList<Geometry> objects;
 
+    /**
+     *
+     */
     public  final Color backgroundColor;
 
+    /**
+     *
+     *
+     * @param objects
+     * @param backgroundColor
+     */
     public World(ArrayList<Geometry> objects, Color backgroundColor) {
         this.backgroundColor = backgroundColor;
         this.objects = objects;
     }
 
+    /**
+     *
+     * @param ray
+     * @return
+     */
     public Hit hit(Ray ray) {
         Hit hit = null;
         ArrayList<Hit> hits = new ArrayList<>();
@@ -31,7 +50,9 @@ public class World {
                     hits.add(hit);
                 }
             }
-
+        /**
+         *
+         */
         double min = Double.MAX_VALUE;
         for ( Hit h : hits) {
             if (h.t < min) {
