@@ -60,16 +60,23 @@ public class Sphere extends Geometry {
         //if (d < 0) return null;
         if (d == 0) {
             t = (-1)*b + Math.sqrt(d) / 2*a;
+            if (t <= 0) return null;
             return new Hit(t, r, this);
         }
-        if (d > 0) {
+        if (d > 0 ) {
             t = (-1)*b + Math.sqrt(d) / 2*a;
             t2 = (-1)*b - Math.sqrt(d) / 2*a;
 
-            if (t < t2) return new Hit(t, r, this);
-            else return new Hit(t2, r, this);
+            if (t < t2) {
+                if (t >= 0)
+                    return new Hit(t, r, this);
+            }
+            else {
+                if (t2 >= 0)
+                    return new Hit(t2, r, this);
+            }
         }
-        else return null;
+        return null;
     }
 
 

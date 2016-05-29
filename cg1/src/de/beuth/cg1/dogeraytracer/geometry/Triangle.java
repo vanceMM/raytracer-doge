@@ -11,6 +11,8 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
  * Project name is raytracer-doge.
  * This is Class representing Triangle Objects in 3d Space
  */
+
+@SuppressWarnings("WeakerAccess")
 public class Triangle extends Geometry{
 
     /**
