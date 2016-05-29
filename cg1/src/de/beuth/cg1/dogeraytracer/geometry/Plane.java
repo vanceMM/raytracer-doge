@@ -47,8 +47,10 @@ public class Plane extends Geometry {
         double zähler = (n.dot(a.sub(r.o)));
         double nenner = (r.d).dot(n);
 
-        if (nenner != 0.0) {
-            return  new Hit(zähler/nenner, r, this);
+        double t = zähler/nenner;
+
+        if (nenner != 0.0 && t > 0) {
+            return  new Hit(t, r, this);
         } else {
             return null;
         }
