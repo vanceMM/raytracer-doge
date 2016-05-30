@@ -6,9 +6,7 @@ import de.beuth.cg1.dogeraytracer.geometry.Hit;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 import de.beuth.cg1.dogeraytracer.world.World;
 
-import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
-import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 
 /**
@@ -17,28 +15,29 @@ import java.awt.image.WritableRaster;
  * check if there is a Hit or not.
  * Project name is raytracer-doge.
  */
+@SuppressWarnings("WeakerAccess")
 public class Raytracer {
 
     /**
-     * A Writable raster in which we can set the Pixel data.
+     * A {@link WritableRaster} in which we can set the Pixel data.
      */
     public final WritableRaster raster;
-
     /**
-     * A world which holds Geometry Objects and has a background color
+     * A {@link World} which holds Geometry Objects and has a background color
      */
     public final World world;
-
     /**
-     * A Camera which is the origin of the Rays
+     * A {@link Camera} which is the origin of the Rays
      */
     public final Camera camera;
 
     /**
+     * Constructor for the Geometry Object
+     * Creates a new instance of {@link Raytracer} with defined attributes.
      *
-     * @param raster a writable Raster
-     * @param world a world object
-     * @param camera an instance of a camera(eg. perspective)
+     * @param raster Value of a {@link WritableRaster} Object
+     * @param world the Value of a {@link World} Object
+     * @param camera the Value of a {@link Camera} Object
      */
     public Raytracer( WritableRaster raster,  World world, Camera camera) {
         this.raster = raster;
@@ -47,10 +46,11 @@ public class Raytracer {
     }
 
     /**
-     * This Methods iterates over every pixel of an image. For every Pixel a ray is created and in the world we check for
-     * Hits with Objects. If there is a Hit, the Pixel Color is set as the Geometry's Color which is hitten. Otherwise, the
-     * backgroundcolor of the world is set as Pixel Color.
-     * @param colorModel The ColorModel of the image which is created.
+     * This Methods iterates over every pixel of an image. For every Pixel a {@link Ray} is created and in the {@link World} we check for
+     * Hits with Objects. If there is a {@link Hit}, the Pixel Color is set as the {@link de.beuth.cg1.dogeraytracer.geometry.Geometry}'s Color which is hitten. Otherwise, the
+     * Background-color of the world is set as Pixel Color.
+     *
+     * @param colorModel The {@link ColorModel} of the image which is created.
      */
     public void trace(ColorModel colorModel) {
         for (int x=0; x<raster.getWidth(); x++) {
