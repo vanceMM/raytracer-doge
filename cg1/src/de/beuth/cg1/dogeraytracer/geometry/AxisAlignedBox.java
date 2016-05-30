@@ -54,8 +54,6 @@ public class AxisAlignedBox extends Geometry {
         this.right = new Plane(color,run, new Normal3(1,0,0));
         this.far = new Plane(color,lbf, new Normal3(0,0,-1));
         this.near = new Plane(color,run, new Normal3(0,0,1));
-
-
     }
 
     /**
