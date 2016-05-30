@@ -33,6 +33,7 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
  * Created by valentin on 05/05/16.
  * FXML Controller Class for the CanvasViewer.
  */
+@SuppressWarnings({"unused", "FieldCanBeLocal"})
 public class CanvasController implements Initializable {
 
 
