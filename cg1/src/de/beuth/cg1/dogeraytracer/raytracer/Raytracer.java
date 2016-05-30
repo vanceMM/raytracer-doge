@@ -53,6 +53,7 @@ public class Raytracer {
      * @param colorModel The {@link ColorModel} of the image which is created.
      */
     public void trace(final ColorModel colorModel) {
+        if (colorModel == null) throw new IllegalArgumentException("Param colorModel can't be null");
         for (int x=0; x<raster.getWidth(); x++) {
             for (int y = 0; y < raster.getHeight(); y++) {
                 final  Ray ray = camera.rayFor(raster.getWidth(), raster.getHeight(), x,y);

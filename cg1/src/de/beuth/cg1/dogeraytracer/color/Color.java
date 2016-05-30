@@ -71,10 +71,11 @@ public class Color {
     /**
      * this method multiplies the existing color with a passed scalar-value
      *
-     * @param scalar Multiply the Color with a given Scalar
+     * @param scalar Multiply the Color with a given Scalar, if scalar is NaN throw new {@link IllegalArgumentException}
      * @return returns a new additive Color
      */
     public Color mulScalarColor(final double scalar) {
+        //if (!Double.isNaN(scalar)) throw new IllegalArgumentException();
         return new Color(scalar*this.r, scalar*this.g, scalar*this.b);
     }
 
