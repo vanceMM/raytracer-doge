@@ -28,15 +28,17 @@ public class PerspectiveCamera extends Camera{
      * @return
      */
 	@Override
-	public Ray rayFor(int w, int h, int x, int y){
-		final Vector3 px = u.mul(x-((w-1)/2));
-		final Vector3 py = v.mul(y-((h-1)/2));
-		final Vector3 vecW = g.normalized().mul(-1.0);
-		//final Point3 o = e.add(px).add(py);
-		final Vector3 r = vecW.mul(-((h/2))/Math.tan(angle)).add(px).add(py);
-		final Vector3 d = r.normalized();
-		final Point3 o = e;
-		//final Vector3 d = g.mul(-((h/2)/Math.tan(angle)));
-		return new Ray(o, d);
+	public Ray rayFor(final int w1, final int h1, final int x1, final int y1) {
+
+		double w = (double) w1;
+		double h = (double) h1;
+		double x = (double) x1;
+		double y = (double) y1;
+
+		Point3 o = e;
+
+		Vector3 r = this.w.mul(-1).mul((h/2)/(Math.tan(angle/2))).add(u.mul(x-((w-1)/2))).add(v.mul(y-((h-1)/2)));
+		Vector3 d = r.normalized();
+		return new Ray(o,d);
 	}
 }
