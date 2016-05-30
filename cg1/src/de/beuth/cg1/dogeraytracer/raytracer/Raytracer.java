@@ -15,7 +15,7 @@ import java.awt.image.WritableRaster;
  * check if there is a Hit or not.
  * Project name is raytracer-doge.
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "SimplifiableIfStatement"})
 public class Raytracer {
 
     /**
@@ -66,8 +66,47 @@ public class Raytracer {
                 /* workaround for transforming our own normalized Color Representation to a awt Color.
                  */
                 java.awt.Color color1 = new java.awt.Color((int) color.r*255, (int) color.g*255,(int) color.b*255);
-                raster.setDataElements(x,raster.getHeight()-y-1, colorModel.getDataElements(color1.getRGB(),null));
+                raster.setDataElements(x,raster.getHeight()-y-1, colorModel.getDataElements(color1.getRGB(),null)); // get rid of mirroring
             }
         }
+    }
+
+    /**
+     * @see Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Raytracer{" +
+                "raster=" + raster +
+                ", world=" + world +
+                ", camera=" + camera +
+                '}';
+    }
+
+    /**
+     * @see Object#equals(Object)
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Raytracer raytracer = (Raytracer) o;
+
+        if (raster != null ? !raster.equals(raytracer.raster) : raytracer.raster != null) return false;
+        if (world != null ? !world.equals(raytracer.world) : raytracer.world != null) return false;
+        return camera != null ? camera.equals(raytracer.camera) : raytracer.camera == null;
+
+    }
+
+    /**
+     * @see Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        int result = raster != null ? raster.hashCode() : 0;
+        result = 31 * result + (world != null ? world.hashCode() : 0);
+        result = 31 * result + (camera != null ? camera.hashCode() : 0);
+        return result;
     }
 }

@@ -5,7 +5,6 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 
-import javax.crypto.AEADBadTagException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -14,6 +13,7 @@ import java.util.Iterator;
  * Project name is raytracer-doge.
  * This is Class representing AxisAlignedBoxes Objects in 3d Space
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class AxisAlignedBox extends Geometry {
 
     /**
@@ -25,14 +25,15 @@ public class AxisAlignedBox extends Geometry {
      */
     public final Point3 run;
 
+    /**
+     * the 6 Planes for the 3D Axis-Aligned-Box
+     */
     private final Plane upper;
     private final Plane bottom;
     private final Plane left;
     private final Plane right;
     private final Plane far;
     private final Plane near;
-
-
 
     /**
      * Constructor for the Geometry Object
@@ -77,7 +78,7 @@ public class AxisAlignedBox extends Geometry {
         Iterator<Plane> it = planes.iterator();
         while (it.hasNext()) {
             Plane plane = it.next();
-            if(r.d.mul(-1).dot(plane.n)<=0) {
+            if (r.d.mul(-1).dot(plane.n) <= 0) {
                 it.remove();
             }
         }
@@ -86,19 +87,18 @@ public class AxisAlignedBox extends Geometry {
 
         for (Plane p : planes) {
             Hit temp = p.hit(r);
-            if(hit == null || hit.t<temp.t) {
+            if (hit == null || hit.t < temp.t) {
                 hit = temp;
             }
         }
 
         Point3 p = r.at(hit.t);
 
-        if(lbf.x<=p.x && p.x<=run.x && lbf.y<=p.y && p.y<=run.y && lbf.z<=p.z && p.z<=run.z) {
+        if (lbf.x <= p.x && p.x <= run.x && lbf.y <= p.y && p.y <= run.y && lbf.z <= p.z && p.z <= run.z) {
             return hit;
         } else {
             return null;
         }
-
     }
 
     /**
@@ -122,8 +122,7 @@ public class AxisAlignedBox extends Geometry {
 
         AxisAlignedBox that = (AxisAlignedBox) o;
 
-        if (lbf != null ? !lbf.equals(that.lbf) : that.lbf != null) return false;
-        return run != null ? run.equals(that.run) : that.run == null;
+        return lbf != null ? lbf.equals(that.lbf) : that.lbf == null && (run != null ? run.equals(that.run) : that.run == null);
 
     }
 
