@@ -42,15 +42,15 @@ public class CanvasController implements Initializable {
     @FXML
     private Menu menu;
 
-    private  Raytracer raytracer;
+    private Raytracer raytracer;
 
-    private  World world;
+    private World world;
 
     private Camera perspective;
 
     private Camera orthographic;
 
-    /*
+    /**
      * variable to store a bufferedImage Object
      */
     private BufferedImage bufferedImage;
@@ -58,15 +58,12 @@ public class CanvasController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
         /*
          * init Layout
          */
         initMenu();
         initSetup();
         initImageView(640, 480);
-
         /*
          set TestData for the RayTracer
          */
@@ -77,11 +74,11 @@ public class CanvasController implements Initializable {
         //-------------------- Tests -------------------//
 
         //      Abb. 5
-//        Plane plane = new Plane(new Color(0,1,0),new Point3(0,-1,0),new Normal3(0,1,0));
-//        ArrayList<Geometry> objects = new ArrayList<>();
-//        objects.add(plane);
-//        world = new World(objects,new Color(0,0,0));
-//        perspective = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
+        Plane plane = new Plane(new Color(0,1,0),new Point3(0,-1,0),new Normal3(0,1,0));
+        ArrayList<Geometry> objects = new ArrayList<>();
+        objects.add(plane);
+        world = new World(objects,new Color(0,0,0));
+        perspective = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
 
 
         //      Abb. 6
@@ -102,12 +99,12 @@ public class CanvasController implements Initializable {
 //        //orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
 
         //      Abb. 8
-        Triangle triangle = new Triangle(new Color(1,0,1), new Point3(-0.5,0.5,-3), new Point3(0.5,0.5,-3), new Point3(0.5,-0.5,-3));
-        ArrayList<Geometry> objects = new ArrayList<>();
-        objects.add(triangle);
-        world = new World(objects,new Color(0,0,0));
-        perspective = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
-        //orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
+//        Triangle triangle = new Triangle(new Color(1,0,1), new Point3(-0.5,0.5,-3), new Point3(0.5,0.5,-3), new Point3(0.5,-0.5,-3));
+//        ArrayList<Geometry> objects = new ArrayList<>();
+//        objects.add(triangle);
+//        world = new World(objects,new Color(0,0,0));
+//        perspective = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
+//        //orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
 
 
         //      Abb. 9
@@ -148,12 +145,11 @@ public class CanvasController implements Initializable {
 
     /**
      * Method for initiating the ImageView and creating the BufferedImage.
-     * @param width the width of the shown Image
-     * @param height the height of the shown Image
+     * @param width the width of the shown Image, if NaN throw new {@link IllegalArgumentException}
+     * @param height the height of the shown Image, if NaN throw new {@link IllegalArgumentException}
      */
-    private void initImageView(int width, int height) {
-
-
+    private void initImageView(final int width, final int height) {
+        if (Double.isNaN(width) || Double.isNaN(height)) throw new IllegalArgumentException("Params width and height cant be NaN");
         bufferedImage = new BufferedImage(width, height, TYPE_INT_RGB);
         final WritableRaster raster = bufferedImage.getRaster();
 
@@ -178,14 +174,14 @@ public class CanvasController implements Initializable {
                 }
             }
         }
-        /**
+
+        /*
          * Setting the image to the Image View
          */
         view.setFitWidth(width);
         view.setFitHeight(height);
         view.setPreserveRatio(true);
         view.setImage(wr);
-
     }
 
 }
