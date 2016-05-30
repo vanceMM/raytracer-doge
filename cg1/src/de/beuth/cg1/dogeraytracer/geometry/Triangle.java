@@ -1,6 +1,7 @@
 package de.beuth.cg1.dogeraytracer.geometry;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Mat3x3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
@@ -33,12 +34,13 @@ public class Triangle extends Geometry{
      * Creates a new instance of {@link Triangle} with defined attributes.
      *
      * @param color the Value of the {@link Color}
-     * @param a the Value of a {@link Point3}
-     * @param b the Value of a {@link Point3}
-     * @param c the Value of a {@link Point3}
+     * @param a the Value of a {@link Point3}, if null throw new {@link IllegalArgumentException}
+     * @param b the Value of a {@link Point3}, if null throw new {@link IllegalArgumentException}
+     * @param c the Value of a {@link Point3}, if null throw new {@link IllegalArgumentException}
      */
     public Triangle(final Color color, final Point3 a, final Point3 b, final Point3 c) {
         super(color);
+        if (a == null || b == null || c == null) throw new IllegalArgumentException("Params of constructor can't be null");
         this.a = a;
         this.b = b;
         this.c = c;
@@ -54,25 +56,21 @@ public class Triangle extends Geometry{
     public Hit hit(final Ray r) {
         if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");
         Mat3x3 A = new Mat3x3(a.x-b.x, a.y-b.y, a.z-b.z, a.x-c.x, a.y-c.y, a.z-c.z, r.d.x, r.d.y, r.d.z);
-        //Mat3x3 A = new Mat3x3(b.x-a.x, b.y-a.y, b.z-a.z, c.x-a.x, c.y-a.y, c.z-a.z, r.d.x, r.d.y, r.d.z);
 
-        Vector3 A1Vec = new Vector3(a.x-r.o.x, a.y-r.o.y, a.z-r.o.z);   // changeCol needs vec3
-        //Vector3 A1Vec = new Vector3(r.o.x-a.x, r.o.y-a.y, r.o.z-a.z);   // changeCol needs vec3
+        Vector3 swapVec = new Vector3(a.x-r.o.x, a.y-r.o.y, a.z-r.o.z);   // changeCol needs vec3
 
-        Mat3x3 A1 = A.changeCol1(A1Vec);
-        Mat3x3 A2 = A.changeCol2(A1Vec);
-        Mat3x3 A3 = A.changeCol3(A1Vec);
+        Mat3x3 A1 = A.changeCol1(swapVec);
+        Mat3x3 A2 = A.changeCol2(swapVec);
+        Mat3x3 A3 = A.changeCol3(swapVec);
 
         double beta     = A1.determinant / A.determinant;
         double gamma    = A2.determinant / A.determinant;
         double t        = A3.determinant / A.determinant;
 
-        if (beta >= 0 && beta <= 1 && gamma >= 0 && gamma <= 1 && beta + gamma <= 1 && t > 0 && !Double.isNaN(t)){
+        if (beta >= Raytracer.DELTA && beta <= 1 && gamma >= 0 && gamma <= 1 && beta + gamma <= 1 && t > 0 && !Double.isNaN(t)){
             return new Hit(t, r, this);
-            //else return null;
         }
         else return null;
-        //return new Hit(beta, r, this);
     }
 
     /**
@@ -83,7 +81,7 @@ public class Triangle extends Geometry{
         return "Triangle{" +
                 "a=" + a +
                 ", b=" + b +
-                ", c=" + c +
+                ", center=" + c +
                 '}';
     }
 

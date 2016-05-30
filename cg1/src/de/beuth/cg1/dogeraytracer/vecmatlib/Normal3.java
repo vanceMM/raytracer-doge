@@ -25,8 +25,10 @@ public class Normal3 {
      * @param x the double value for x
      * @param y the double value for y
      * @param z the double value for z
+     *          if params are NaN, throw new {@link IllegalArgumentException}
      */
     public Normal3(final double x, final double y, final double z) {
+        if (Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z)) throw new IllegalArgumentException("Params of constructor can't be NaN");
         this.x = x;
         this.y = y;
         this.z = z;
@@ -34,10 +36,11 @@ public class Normal3 {
 
     /**
      * this function multiplies this Normal3 with a double value n
-     * @param n the double value the Normal3 is multiplied with
+     * @param n the double value the Normal3 is multiplied with, if NaN throw new {@link IllegalArgumentException}
      * @return resulting Normal3 of this Normal3 and n
      */
     public Normal3 mul(final double n){
+        if (Double.isNaN(n)) throw new IllegalArgumentException("Param n cant be NaN");
         return new Normal3(this.x * n, this.y * n, this.z * n);
     }
 

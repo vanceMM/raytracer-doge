@@ -17,12 +17,10 @@ import java.awt.image.WritableRaster;
  */
 @SuppressWarnings({"WeakerAccess", "SimplifiableIfStatement"})
 public class Raytracer {
-
     /**
      * DELTA is Used for round-off errors
      */
     public static double DELTA = 0.00001;
-
     /**
      * A {@link WritableRaster} in which we can set the Pixel data.
      */
@@ -40,11 +38,12 @@ public class Raytracer {
      * Constructor for the Geometry Object
      * Creates a new instance of {@link Raytracer} with defined attributes.
      *
-     * @param raster Value of a {@link WritableRaster} Object
-     * @param world the Value of a {@link World} Object
-     * @param camera the Value of a {@link Camera} Object
+     * @param raster Value of a {@link WritableRaster} Object, if raster is null throw new {@link IllegalArgumentException}
+     * @param world the Value of a {@link World} Object, if world is null throw new {@link IllegalArgumentException}
+     * @param camera the Value of a {@link Camera} Object, if camera is null throw new {@link IllegalArgumentException}
      */
     public Raytracer(final WritableRaster raster,  final World world, final Camera camera) {
+        if (raster == null || world == null || camera == null) throw new IllegalArgumentException("Params of constructor can't be null");
         this.raster = raster;
         this.world = world;
         this.camera = camera;
@@ -52,7 +51,7 @@ public class Raytracer {
 
     /**
      * This Methods iterates over every pixel of an image. For every Pixel a {@link Ray} is created and in the {@link World} we check for
-     * Hits with Objects. If there is a {@link Hit}, the Pixel Color is set as the {@link de.beuth.cg1.dogeraytracer.geometry.Geometry}'s Color which is hitten. Otherwise, the
+     * Hits with Objects. If there is a {@link Hit}, the Pixel Color is set as the {@link de.beuth.cg1.dogeraytracer.geometry.Geometry}'s Color which is hit. Otherwise, the
      * Background-color of the world is set as Pixel Color.
      *
      * @param colorModel The {@link ColorModel} of the image which is created.
@@ -99,9 +98,9 @@ public class Raytracer {
 
         Raytracer raytracer = (Raytracer) o;
 
-        if (raster != null ? !raster.equals(raytracer.raster) : raytracer.raster != null) return false;
-        if (world != null ? !world.equals(raytracer.world) : raytracer.world != null) return false;
-        return camera != null ? camera.equals(raytracer.camera) : raytracer.camera == null;
+        if (!raster.equals(raytracer.raster)) return false;
+        if (!world.equals(raytracer.world)) return false;
+        return camera.equals(raytracer.camera);
 
     }
 
@@ -110,9 +109,9 @@ public class Raytracer {
      */
     @Override
     public int hashCode() {
-        int result = raster != null ? raster.hashCode() : 0;
-        result = 31 * result + (world != null ? world.hashCode() : 0);
-        result = 31 * result + (camera != null ? camera.hashCode() : 0);
+        int result = raster.hashCode();
+        result = 31 * result + world.hashCode();
+        result = 31 * result + camera.hashCode();
         return result;
     }
 }

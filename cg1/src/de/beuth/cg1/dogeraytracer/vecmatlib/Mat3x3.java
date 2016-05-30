@@ -48,8 +48,10 @@ public class Mat3x3 {
      * @param m31 the double value for m31
      * @param m32 the double value for m32
      * @param m33 the double value for m33
+     *            if params are NaN, throw new {@link IllegalArgumentException}
      */
     public Mat3x3(final double m11, final double m12, final double m13, final double m21, final double m22, final double m23, final double m31, final double m32, final double m33) {
+        if (Double.isNaN(m11) || Double.isNaN(m12) ||Double.isNaN(m13) ||Double.isNaN(m21) ||Double.isNaN(m22) ||Double.isNaN(m23) ||Double.isNaN(m31) || Double.isNaN(m32) || Double.isNaN(m33)) throw new IllegalArgumentException("Params of constructor can't be NaN");
         this.m11 = m11;
         this.m12 = m12;
         this.m13 = m13;

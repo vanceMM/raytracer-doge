@@ -10,13 +10,13 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
  * This is Class representing Sphere Objects in 3d Space
  */
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class Sphere extends Geometry {
 
     /**
      * the Center {@link Point3} on the Sphere
      */
-    public final Point3 c;
+    public final Point3 center;
     /**
      * the Radius of the Sphere
      */
@@ -26,13 +26,14 @@ public class Sphere extends Geometry {
      * Constructor for the Geometry Object
      * Creates a new instance of {@link Sphere} with defined attributes.
      *
-     * @param color the Color Value of a {@link Color}
-     * @param c the Point3 Value of a {@link Point3}
+     * @param color the Color Value of a {@link Color}, if color null throw {@link IllegalArgumentException}
+     * @param center the Point3 Value of a {@link Point3}
      * @param radius the double Value of Radius
      */
-    public Sphere(final Color color, final Point3 c, final double radius) {
+    public Sphere(final Color color, final Point3 center, final double radius) {
         super(color);
-        this.c = c;
+        if (center == null || Double.isNaN(radius)) throw new IllegalArgumentException("Param of constructor can't be null or NaN");
+        this.center = center;
         this.radius = radius;
     }
 
@@ -45,20 +46,13 @@ public class Sphere extends Geometry {
     @Override
     public Hit hit(final Ray r) {
         if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");
-        double a;
+        double a, b, c, d, t, t2;
         a = r.d.dot(r.d);
-        double b;
-        b = r.d.dot((r.o.sub(c)).mul(2));
-        double cc;
-        // ( ⃗o − ⃗c ) • ( ⃗o − ⃗c ) − r 2
-        cc = r.o.sub(c).dot(r.o.sub(c)) - Math.pow(radius,2);
+        b = r.d.dot((r.o.sub(center)).mul(2));
+        c = r.o.sub(center).dot(r.o.sub(center)) - Math.pow(radius,2);      // ( ⃗o − ⃗c ) • ( ⃗o − ⃗c ) − r 2
 
-        double d;
-        d = Math.pow(b,2) - 4 * a *cc;
+        d = Math.pow(b,2) - 4 * a *c;
 
-        double t, t2;
-
-        //if (d < 0) return null;
         if (d == 0) {
             t = (-1)*b + Math.sqrt(d) / 2*a;
             if (t <= 0) return null;
@@ -86,7 +80,7 @@ public class Sphere extends Geometry {
     @Override
     public String toString() {
         return "Sphere{" +
-                "c=" + c +
+                "center=" + center +
                 ", r=" + radius +
                 '}';
     }
@@ -101,7 +95,7 @@ public class Sphere extends Geometry {
 
         Sphere sphere = (Sphere) o;
 
-        return Double.compare(sphere.radius, radius) == 0 && (c != null ? c.equals(sphere.c) : sphere.c == null);
+        return Double.compare(sphere.radius, radius) == 0 && (center != null ? center.equals(sphere.center) : sphere.center == null);
 
     }
 
@@ -112,7 +106,7 @@ public class Sphere extends Geometry {
     public int hashCode() {
         int result;
         long temp;
-        result = c != null ? c.hashCode() : 0;
+        result = center != null ? center.hashCode() : 0;
         temp = Double.doubleToLongBits(radius);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;

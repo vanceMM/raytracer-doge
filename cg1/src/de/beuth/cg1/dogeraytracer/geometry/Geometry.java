@@ -18,9 +18,10 @@ public abstract class Geometry {
     /**
      * Constructor for the Geometry Object
      *
-     * @param color the Value of the {@link Color}
+     * @param color the Value of the {@link Color}, if color is null throw new {@link IllegalArgumentException}
      */
     public Geometry(final Color color) {
+        if (color == null) throw new IllegalArgumentException("Param color of constructor can't be null");
         this.color = color;
     }
 

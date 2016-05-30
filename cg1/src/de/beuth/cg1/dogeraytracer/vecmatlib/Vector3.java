@@ -30,13 +30,15 @@ public class Vector3 {
      * @param x the double value for x
      * @param y the double value for y
      * @param z the double value for z
+     *          if params are NaN, throw new {@link IllegalArgumentException}
      */
     public Vector3(final double x, final double y, final double z){
-            this.x = x;
-            this.y = y;
-            this.z = z;
+        if (Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z)) throw new IllegalArgumentException("Params of constructor can't be NaN");
+        this.x = x;
+        this.y = y;
+        this.z = z;
 
-            this.magnitude = sqrt((pow(x, 2)) + (pow(y, 2)) + pow(z, 2));
+        this.magnitude = sqrt((pow(x, 2)) + (pow(y, 2)) + pow(z, 2));
     }
 
     /**
@@ -71,10 +73,11 @@ public class Vector3 {
 
     /**
      * this function multiplies the passed double Value with this Vector3
-     * @param c passed double value
+     * @param c passed double value, if c is NaN throw new {@link IllegalArgumentException}
      * @return resulting Vector3
      */
     public Vector3 mul(final double c){
+        if (Double.isNaN(c)) throw new IllegalArgumentException("Param c cant be NaN");
         return new Vector3(this.x * c, this.y * c, this.z * c);
     }
 

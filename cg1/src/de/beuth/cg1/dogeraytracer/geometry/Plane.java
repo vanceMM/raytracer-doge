@@ -28,11 +28,12 @@ public class Plane extends Geometry {
      * Creates a new instance of {@link Plane} with defined attributes.
      *
      * @param color the Color Value of a {@link Color}
-     * @param a the Point3 Value of a {@link Point3}
-     * @param n the Normal3 Value of a {@link Normal3}
+     * @param a the Point3 Value of a {@link Point3}, if null throw new {@link IllegalArgumentException}
+     * @param n the Normal3 Value of a {@link Normal3}, if null throw new {@link IllegalArgumentException}
      */
     public Plane (final Color color, final Point3 a, final Normal3 n) {
         super(color);
+        if (a == null || n == null) throw new IllegalArgumentException("Params of constructor can't be null");
         this.a = a;
         this.n = n;
     }

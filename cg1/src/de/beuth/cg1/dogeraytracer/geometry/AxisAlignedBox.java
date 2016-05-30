@@ -41,11 +41,12 @@ public class AxisAlignedBox extends Geometry {
      * Creates a new instance of {@link AxisAlignedBox} with defined attributes.
      *
      * @param color the Value of the {@link Color}
-     * @param lbf the Value of the left bottom far {@link Point3}
-     * @param run the Value of the right upper near {@link Point3}
+     * @param lbf the Value of the left bottom far {@link Point3}, if null throw new {@link IllegalArgumentException}
+     * @param run the Value of the right upper near {@link Point3}, if null throw new {@link IllegalArgumentException}
      */
     public AxisAlignedBox(final Color color, final Point3 lbf, final Point3 run) {
         super(color);
+        if (lbf == null || run == null) throw new IllegalArgumentException("Params of constructor can't be null");
         this.lbf = lbf;
         this.run = run;
 
@@ -60,7 +61,7 @@ public class AxisAlignedBox extends Geometry {
     /**
      * This Methods takes a {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.
      *
-     * @param r passed {@link Ray} that hits the Object, if r null throw new {@link IllegalArgumentException}
+     * @param r passed {@link Ray} that hits the Object, if r is null throw new {@link IllegalArgumentException}
      * @return Hit Object which represents the Intersection between the AxisAlignedBox and the given {@link Ray}.
      */
     @SuppressWarnings("ConstantConditions")
@@ -75,6 +76,7 @@ public class AxisAlignedBox extends Geometry {
         planes.add(far);
         planes.add(near);
 
+        // iterate over planes-list and remove all planes that are not hit
         Iterator<Plane> it = planes.iterator();
         while (it.hasNext()) {
             Plane plane = it.next();
@@ -82,20 +84,22 @@ public class AxisAlignedBox extends Geometry {
                 it.remove();
             }
         }
-
-        Hit hit = null;
-
+        
+        Hit farthestHit = null;
+        // iterate over visible planes and store farthest point
         for (Plane p : planes) {
-            Hit temp = p.hit(r);
-            if (hit == null || hit.t < temp.t) {
-                hit = temp;
+            Hit current = p.hit(r);
+            if (farthestHit == null || current.t > farthestHit.t) {
+                farthestHit = current;
             }
         }
 
-        Point3 p = r.at(hit.t);
+        // get the point that is hit by the ray
+        Point3 p = r.at(farthestHit.t);
 
+        // check if hit-point is in the axis-aligned-box
         if (lbf.x <= p.x + Raytracer.DELTA && p.x <= run.x + Raytracer.DELTA && lbf.y <= p.y + Raytracer.DELTA && p.y <= run.y + Raytracer.DELTA && lbf.z <= p.z + Raytracer.DELTA  && p.z <= run.z + Raytracer.DELTA ) {
-            return hit;
+            return farthestHit;
         } else {
             return null;
         }

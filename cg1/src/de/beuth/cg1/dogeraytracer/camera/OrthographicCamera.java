@@ -23,25 +23,26 @@ public class OrthographicCamera extends Camera{
 	 * @param e value of the {@link Camera} position as a {@link Point3}
 	 * @param g value of the {@link Camera} gaze as a {@link Vector3}
 	 * @param t value of the {@link Camera} of the up-Vector as a {@link Vector3}
-     * @param s value of the scale-factor of the OrthographicCamera as double
+     * @param s value of the scale-factor of the OrthographicCamera as double, if NaN throw new {@link IllegalArgumentException}
      */
 	public OrthographicCamera (final Point3 e, final Vector3 g, final Vector3 t, final double s){
 		super(e, g, t);
+        if ( Double.isNaN(s)) throw new IllegalArgumentException("Param s of constructor can't be NaN");
 		this.s = s;
 	}
 
 	/**
 	 * This Method calculates a {@link Ray} for every pixel of the Image for an {@link OrthographicCamera}
 	 *
-	 * @param w is the passed width of the Image as int
-	 * @param h is the passed height of the Image as int
-	 * @param x coordinate of the pixel of the Image as int
-	 * @param y coordinate of the pixel of the Image as int
+	 * @param w is the passed width of the Image as int, if NaN throw new {@link IllegalArgumentException}
+	 * @param h is the passed height of the Image as int, if NaN throw new {@link IllegalArgumentException}
+	 * @param x coordinate of the pixel of the Image as int, if NaN throw new {@link IllegalArgumentException}
+	 * @param y coordinate of the pixel of the Image as int, if NaN throw new {@link IllegalArgumentException}
      * @return {@link Ray} Object
      */
 	@Override
-	public Ray rayFor(int w, int h, int x, int y){
-
+	public Ray rayFor(final int w, final int h, final int x, final int y){
+        if (Double.isNaN(w) || Double.isNaN(h) || Double.isNaN(x) || Double.isNaN(y)) throw new IllegalArgumentException("Params can't be NaN");
 		final double a = (double) w / (double) h;			// width/height = aspect ratio
 		final Vector3 d = this.w.mul(-1);					// direction = -width
 		final Vector3 px = u.mul(a*s*(x-((w)/2))/(w-1));

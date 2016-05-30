@@ -44,11 +44,12 @@ public abstract class Camera {
      * Constructor for the Camera Object
      * Creates a new instance of {@link Camera} with defined attributes.
      *
-     * @param e the value of the e {@link Point3}
-     * @param g the value of the g {@link Vector3}
-     * @param t the value of the t {@link Vector3}
+     * @param e the value of the e {@link Point3}, if null throw new {@link IllegalArgumentException}
+     * @param g the value of the g {@link Vector3}, if null throw new {@link IllegalArgumentException}
+     * @param t the value of the t {@link Vector3}, if null throw new {@link IllegalArgumentException}
      */
 	public Camera(final Point3 e, final Vector3 g, final Vector3 t){
+        if (e == null || g == null || t == null) throw new IllegalArgumentException("Params of constructor cant't be null");
 		this.e = e;
 		this.g = g;
 		this.t = t;

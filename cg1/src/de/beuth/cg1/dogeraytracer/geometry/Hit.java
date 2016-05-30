@@ -6,6 +6,7 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
  * Created by valentin on 22/05/16.
  * This Class referes to a Ray a Geometry Object and the intersection point between the both of them.
  */
+@SuppressWarnings("WeakerAccess")
 public class Hit {
 
     /**
@@ -24,11 +25,12 @@ public class Hit {
     /**
      * Creates a new instance of {@link Hit} with defined attributes.
      *
-     * @param t double Value for the intersection Point
-     * @param ray the Ray Value for a {@link Ray}
-     * @param geo the Geometry Value for a {@link Geometry}
+     * @param t double Value for the intersection Point, if NaN throw new {@link IllegalArgumentException}
+     * @param ray the Ray Value for a {@link Ray}, if null throw new {@link IllegalArgumentException}
+     * @param geo the Geometry Value for a {@link Geometry}, if null throw new {@link IllegalArgumentException}
      */
     public Hit(final double t, final Ray ray, final Geometry geo) {
+        if (Double.isNaN(t) || ray == null || geo == null) throw new IllegalArgumentException("Params of constructor can't be null or NaN");
         this.t = t;
         this.ray = ray;
         this.geo = geo;

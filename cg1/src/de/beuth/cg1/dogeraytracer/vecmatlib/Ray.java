@@ -6,6 +6,7 @@ package de.beuth.cg1.dogeraytracer.vecmatlib;
  * Project name is raytracer-doge.
  * This is Class representing Ray Objects
  */
+@SuppressWarnings("unused")
 public class Ray {
 
     /**
@@ -21,23 +22,24 @@ public class Ray {
      * Constructor for the Geometry Object
      * Creates a new instance of {@link Ray} with defined attributes.
      *
-     * @param o value of the position of the Ray as {@link Point3}
-     * @param d value of the direction of the Ray as {@link Vector3}
+     * @param o value of the position of the Ray as {@link Point3}, if null throw new {@link IllegalArgumentException}
+     * @param d value of the direction of the Ray as {@link Vector3}, if null throw new {@link IllegalArgumentException}
      */
 	public Ray(final Point3 o, final Vector3 d){
+        if (o == null || d == null) throw new IllegalArgumentException("Params of constructor can't be null");
 		this.o = o;
 		this.d = d;
 	}
 
     /**
      * this method calculates the {@link Point3} that the Ray hits by Ray-direction and distance
+     * ray = origin + (direction*distance)
      *
-     * @param t distance
+     * @param t distance, if NaN throw new {@link IllegalArgumentException}
      * @return Point3 that is hit by the ray
      */
 	public Point3 at(final double t) {
-		// ray = origin + (direction*distance)
-		// return the point on the ray
+        if (Double.isNaN(t)) throw new IllegalArgumentException("Param t can't be NaN");
 		return o.add(d.mul(t));
 	}
 

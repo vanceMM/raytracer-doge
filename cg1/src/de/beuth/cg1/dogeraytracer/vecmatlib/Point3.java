@@ -25,8 +25,10 @@ public class Point3 {
      * @param x the double value for x
      * @param y the double value for y
      * @param z the double value for z
+     *          if params NaN, throw new {@link IllegalArgumentException}
      */
     public Point3(final double x, final double y, final double z) {
+        if (Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z)) throw new IllegalArgumentException("Params of constructor can't be NaN");
         this.x = x;
         this.y = y;
         this.z = z;
