@@ -111,20 +111,20 @@ public class CanvasController implements Initializable {
 
 
         //      Abb. 7
-        AxisAlignedBox box = new AxisAlignedBox(new Color(1,0,1),new Point3(-0.5,0,-0.5), new Point3(0.5,1,0.5));
-        ArrayList<Geometry> objects = new ArrayList<>();
-        objects.add(box);
-        world = new World(objects,new Color(0,0,0));
-        perspective = new PerspectiveCamera(new Point3(3,3,3),new Vector3(-3,-3,-3), new Vector3(0,1,0) ,Math.PI/4);
-        //orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
+//        AxisAlignedBox box = new AxisAlignedBox(new Color(1,0,1),new Point3(-0.5,0,-0.5), new Point3(0.5,1,0.5));
+//        ArrayList<Geometry> objects = new ArrayList<>();
+//        objects.add(box);
+//        world = new World(objects,new Color(0,0,0));
+//        perspective = new PerspectiveCamera(new Point3(3,3,3),new Vector3(-3,-3,-3), new Vector3(0,1,0) ,Math.PI/4);
+//        //orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
 
         //      Abb. 8
-//        Triangle triangle = new Triangle(new Color(1,0,1), new Point3(-0.5,0.5,-3), new Point3(0.5,0.5,-3), new Point3(0.5,-0.5,-3));
-//        ArrayList<Geometry> objects = new ArrayList<>();
-//        objects.add(triangle);
-//        world = new World(objects,new Color(0,0,0));
-//        perspective = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
-//        //orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
+        Triangle triangle = new Triangle(new Color(1,0,1), new Point3(-0.5,0.5,-3), new Point3(0.5,0.5,-3), new Point3(0.5,-0.5,-3));
+        ArrayList<Geometry> objects = new ArrayList<>();
+        objects.add(triangle);
+        world = new World(objects,new Color(0,0,0));
+        perspective = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
+        //orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
 
 
         //      Abb. 9

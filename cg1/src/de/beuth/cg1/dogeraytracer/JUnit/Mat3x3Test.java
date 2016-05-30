@@ -21,6 +21,7 @@ public class Mat3x3Test {
     private Vector3 v1;
     private Vector3 v2;
     private Point3 p1;
+    private double determinant;
 
     @Before
     public void setUp() throws Exception {
@@ -34,6 +35,12 @@ public class Mat3x3Test {
     @After
     public void tearDown() throws Exception {
 
+    }
+
+    @Test
+    public void calcDeterminante() throws Exception {
+        double resD = mat1.determinant;
+        assertEquals(0.0, resD, 0.00001);
     }
 
     @Test
