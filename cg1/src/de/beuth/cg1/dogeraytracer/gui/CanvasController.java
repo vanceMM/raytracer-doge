@@ -59,12 +59,6 @@ public class CanvasController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        /*
-         * add event listeners for the width and height property of the Pane node
-         */
-
-       /* pane.widthProperty().addListener(e-> initImageView((int)pane.getWidth(), (int)pane.getHeight()));
-        pane.heightProperty().addListener(e-> initImageView((int)pane.getWidth(), (int)pane.getHeight()));*/
 
         /*
          * init Layout
