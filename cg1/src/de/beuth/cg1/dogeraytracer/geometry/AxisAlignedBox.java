@@ -63,6 +63,7 @@ public class AxisAlignedBox extends Geometry {
      * @param r passed {@link Ray} that hits the Object, if r null throw new {@link IllegalArgumentException}
      * @return Hit Object which represents the Intersection between the AxisAlignedBox and the given {@link Ray}.
      */
+    @SuppressWarnings("ConstantConditions")
     @Override
     public Hit hit(final Ray r) {
         if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");

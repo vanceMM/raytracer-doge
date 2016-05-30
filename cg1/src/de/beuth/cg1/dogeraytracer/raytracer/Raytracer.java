@@ -19,7 +19,7 @@ import java.awt.image.WritableRaster;
 public class Raytracer {
 
     /**
-     * Used for round-off errors
+     * DELTA is Used for round-off errors
      */
     public static double DELTA = 0.00001;
 
