@@ -10,6 +10,8 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
  * Project name is raytracer-doge.
  * This is Class representing Plane Objects in 3d Space
  */
+
+@SuppressWarnings({"WeakerAccess", "SimplifiableIfStatement"})
 public class Plane extends Geometry {
 
     /**
@@ -36,7 +38,7 @@ public class Plane extends Geometry {
     }
 
     /**
-     * This Methods takes an {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.
+     * This Method takes a {@link Ray} as input and calculates the intersection between the {@link Ray} and the Geometry Object.
      *
      * @param r passed {@link Ray} that hits the Object
      * @return Hit Object which represents the Intersection between the Plane and the given {@link Ray}.

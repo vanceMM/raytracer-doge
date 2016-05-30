@@ -13,6 +13,7 @@ import java.awt.image.WritableRaster;
 
 /**
  * Created by valentin on 24/05/16.
+ * Project name is raytracer-doge.
  */
 public class Raytracer {
 
