@@ -39,7 +39,7 @@ public class Raytracer {
      * @param world the Value of a {@link World} Object
      * @param camera the Value of a {@link Camera} Object
      */
-    public Raytracer( WritableRaster raster,  World world, Camera camera) {
+    public Raytracer(final WritableRaster raster,  final World world, final Camera camera) {
         this.raster = raster;
         this.world = world;
         this.camera = camera;
@@ -52,7 +52,7 @@ public class Raytracer {
      *
      * @param colorModel The {@link ColorModel} of the image which is created.
      */
-    public void trace(ColorModel colorModel) {
+    public void trace(final ColorModel colorModel) {
         for (int x=0; x<raster.getWidth(); x++) {
             for (int y = 0; y < raster.getHeight(); y++) {
                 final  Ray ray = camera.rayFor(raster.getWidth(), raster.getHeight(), x,y);
@@ -61,7 +61,7 @@ public class Raytracer {
                 if (hit!=null) {
                     color = hit.geo.color;
                 } else {
-                    color = world.getBackgroundColor();
+                    color = world.backgroundColor;
                 }
                 /* workaround for transforming our own normalized Color Representation to a awt Color.
                  */

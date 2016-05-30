@@ -59,12 +59,12 @@ public class AxisAlignedBox extends Geometry {
     /**
      * This Methods takes a {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.
      *
-     * @param r passed {@link Ray} that hits the Object
+     * @param r passed {@link Ray} that hits the Object, if r null throw new {@link IllegalArgumentException}
      * @return Hit Object which represents the Intersection between the AxisAlignedBox and the given {@link Ray}.
      */
     @Override
-    public Hit hit(Ray r) {
-
+    public Hit hit(final Ray r) {
+        if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");
         ArrayList<Plane> planes = new ArrayList<>();
         planes.add(upper);
         planes.add(bottom);

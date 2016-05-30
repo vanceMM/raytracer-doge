@@ -140,14 +140,10 @@ public class CanvasController implements Initializable {
 
     }
 
-    private void printWidth() {
-        System.out.println(pane.getWidth());
-    }
-
     /**
      * Building the Menu and adding an eventHandler to the "save" MenuItem
      */
-    public void initMenu() {
+    private void initMenu() {
 
         menu.getItems().add(new MenuItem("save"));
         menu.getItems().get(0).setOnAction(e-> save());
@@ -172,7 +168,7 @@ public class CanvasController implements Initializable {
      * @param width the width of the shown Image
      * @param height the height of the shown Image
      */
-    public void initImageView(int width, int height) {
+    private void initImageView(int width, int height) {
 
 
         bufferedImage = new BufferedImage(width, height, TYPE_INT_RGB);
