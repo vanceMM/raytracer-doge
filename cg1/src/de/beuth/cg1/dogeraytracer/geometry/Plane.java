@@ -40,12 +40,12 @@ public class Plane extends Geometry {
     /**
      * This Method takes a {@link Ray} as input and calculates the intersection between the {@link Ray} and the Geometry Object.
      *
-     * @param r passed {@link Ray} that hits the Object
+     * @param r passed {@link Ray} that hits the Object, if r null throw new {@link IllegalArgumentException}
      * @return Hit Object which represents the Intersection between the Plane and the given {@link Ray}.
      */
     @Override
-    public Hit hit(Ray r) {
-
+    public Hit hit(final Ray r) {
+        if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");
         double zähler = (n.dot(a.sub(r.o)));
         double nenner = (r.d).dot(n);
 

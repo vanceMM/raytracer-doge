@@ -39,11 +39,12 @@ public class Sphere extends Geometry {
     /**
      * This Methods takes an {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.
      *
-     * @param r passed {@link Ray} that hits the Sphere Object
+     * @param r passed {@link Ray} that hits the Sphere Object, if r null throw new {@link IllegalArgumentException}
      * @return Hit Object which represents the Intersection between the Sphere and the given {@link Ray}.
      */
     @Override
-    public Hit hit(Ray r) {
+    public Hit hit(final Ray r) {
+        if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");
         double a;
         a = r.d.dot(r.d);
         double b;
@@ -78,7 +79,6 @@ public class Sphere extends Geometry {
         }
         return null;
     }
-
 
     /**
      * @see Object#toString()

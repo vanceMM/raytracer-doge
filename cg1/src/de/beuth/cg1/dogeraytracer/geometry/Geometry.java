@@ -30,5 +30,5 @@ public abstract class Geometry {
      * @param r passed {@link Ray} that hits the Object
      * @return Hit Object which references to a {@link Ray} an the intersection point t where the object is hit by the {@link Ray}.
      */
-    public abstract Hit hit(Ray r);
+    public abstract Hit hit(final Ray r);
 }

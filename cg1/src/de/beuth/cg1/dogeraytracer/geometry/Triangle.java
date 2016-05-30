@@ -12,7 +12,7 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
  * This is Class representing Triangle Objects in 3d Space
  */
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class Triangle extends Geometry{
 
     /**
@@ -47,11 +47,12 @@ public class Triangle extends Geometry{
     /**
      * This Methods takes an {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.
      *
-     * @param r passed {@link Ray} that hits the Object
+     * @param r passed {@link Ray} that hits the Object, if ray is null throw new {@link IllegalArgumentException}
      * @return Hit Object which represents the Intersection between the Triangle and the given {@link Ray}.
      */
     @Override
-    public Hit hit(Ray r) {
+    public Hit hit(final Ray r) {
+        if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");
         Mat3x3 A = new Mat3x3(a.x-b.x, a.y-b.y, a.z-b.z, a.x-c.x, a.y-c.y, a.z-c.z, r.d.x, r.d.y, r.d.z);
         //Mat3x3 A = new Mat3x3(b.x-a.x, b.y-a.y, b.z-a.z, c.x-a.x, c.y-a.y, c.z-a.z, r.d.x, r.d.y, r.d.z);
 
@@ -96,9 +97,7 @@ public class Triangle extends Geometry{
 
         Triangle triangle = (Triangle) o;
 
-        if (a != null ? !a.equals(triangle.a) : triangle.a != null) return false;
-        if (b != null ? !b.equals(triangle.b) : triangle.b != null) return false;
-        return c != null ? c.equals(triangle.c) : triangle.c == null;
+        return a != null ? a.equals(triangle.a) : triangle.a == null && (b != null ? b.equals(triangle.b) : triangle.b == null && (c != null ? c.equals(triangle.c) : triangle.c == null));
 
     }
 
