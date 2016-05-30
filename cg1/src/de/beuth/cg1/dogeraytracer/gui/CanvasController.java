@@ -13,10 +13,8 @@ import de.beuth.cg1.dogeraytracer.world.World;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
 
@@ -27,7 +25,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
@@ -38,20 +35,12 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
  */
 public class CanvasController implements Initializable {
 
-    @FXML
-    private AnchorPane pane;
 
     @FXML
     private ImageView view;
 
     @FXML
-    private MenuBar menuBar;
-
-    @FXML
     private Menu menu;
-
-    @FXML
-    private MenuItem save;
 
     private  Raytracer raytracer;
 
@@ -158,7 +147,7 @@ public class CanvasController implements Initializable {
         File selection = chooser.showSaveDialog(null);
         try {
             ImageIO.write(bufferedImage, "jpeg", selection);
-        } catch (IOException e) {
+        } catch (IOException | IllegalArgumentException e) {
             e.printStackTrace();
         }
     }
