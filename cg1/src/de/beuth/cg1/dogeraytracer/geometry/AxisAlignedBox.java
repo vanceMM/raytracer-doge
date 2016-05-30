@@ -1,6 +1,7 @@
 package de.beuth.cg1.dogeraytracer.geometry;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
@@ -92,7 +93,7 @@ public class AxisAlignedBox extends Geometry {
 
         Point3 p = r.at(hit.t);
 
-        if (lbf.x <= p.x && p.x <= run.x && lbf.y <= p.y && p.y <= run.y && lbf.z <= p.z && p.z <= run.z) {
+        if (lbf.x <= p.x + Raytracer.DELTA && p.x <= run.x + Raytracer.DELTA && lbf.y <= p.y + Raytracer.DELTA && p.y <= run.y + Raytracer.DELTA && lbf.z <= p.z + Raytracer.DELTA  && p.z <= run.z + Raytracer.DELTA ) {
             return hit;
         } else {
             return null;

@@ -111,12 +111,12 @@ public class CanvasController implements Initializable {
 
 
         //      Abb. 7
-//        AxisAlignedBox box = new AxisAlignedBox(new Color(1,0,1),new Point3(-0.5,0,-0.5), new Point3(0.5,1,0.5));
-//        ArrayList<Geometry> objects = new ArrayList<>();
-//        objects.add(box);
-//        world = new World(objects,new Color(0,0,0));
-//        perspective = new PerspectiveCamera(new Point3(3,3,3),new Vector3(-3,-3,-3), new Vector3(0,1,0) ,Math.PI/4);
-//        //orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
+        AxisAlignedBox box = new AxisAlignedBox(new Color(1,0,1),new Point3(-0.5,0,-0.5), new Point3(0.5,1,0.5));
+        ArrayList<Geometry> objects = new ArrayList<>();
+        objects.add(box);
+        world = new World(objects,new Color(0,0,0));
+        perspective = new PerspectiveCamera(new Point3(3,3,3),new Vector3(-3,-3,-3), new Vector3(0,1,0) ,Math.PI/4);
+        //orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
 
         //      Abb. 8
 //        Triangle triangle = new Triangle(new Color(1,0,1), new Point3(-0.5,0.5,-3), new Point3(0.5,0.5,-3), new Point3(0.5,-0.5,-3));
@@ -128,15 +128,15 @@ public class CanvasController implements Initializable {
 
 
         //      Abb. 9
-        Sphere sphere1 = new Sphere(new Color(1,0,0), new Point3(-1,0,-3), 0.5);
-        Sphere sphere2 = new Sphere(new Color(1,0,0), new Point3(1,0,-6), 0.5);
-        ArrayList<Geometry> objects = new ArrayList<>();
-        objects.add(sphere1);
-        objects.add(sphere2);
-        world = new World(objects,new Color(0,0,0));
-        //perspective = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
-        //      Abb. 10
-        orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
+//        Sphere sphere1 = new Sphere(new Color(1,0,0), new Point3(-1,0,-3), 0.5);
+//        Sphere sphere2 = new Sphere(new Color(1,0,0), new Point3(1,0,-6), 0.5);
+//        ArrayList<Geometry> objects = new ArrayList<>();
+//        objects.add(sphere1);
+//        objects.add(sphere2);
+//        world = new World(objects,new Color(0,0,0));
+//        //perspective = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
+//        //      Abb. 10
+//        orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
 
     }
 
@@ -174,8 +174,8 @@ public class CanvasController implements Initializable {
         bufferedImage = new BufferedImage(width, height, TYPE_INT_RGB);
         final WritableRaster raster = bufferedImage.getRaster();
 
-        //raytracer = new Raytracer(raster, world, perspective);
-        raytracer = new Raytracer(raster, world, orthographic);
+        raytracer = new Raytracer(raster, world, perspective);
+        //raytracer = new Raytracer(raster, world, orthographic);
 
         raytracer.trace(bufferedImage.getColorModel());
 

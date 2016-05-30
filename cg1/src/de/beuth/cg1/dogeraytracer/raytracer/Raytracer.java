@@ -19,6 +19,11 @@ import java.awt.image.WritableRaster;
 public class Raytracer {
 
     /**
+     * Used for round-off errors
+     */
+    public static double DELTA = 0.00001;
+
+    /**
      * A {@link WritableRaster} in which we can set the Pixel data.
      */
     public final WritableRaster raster;
