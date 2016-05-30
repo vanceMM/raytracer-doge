@@ -13,11 +13,9 @@ import java.awt.image.WritableRaster;
 
 /**
  * Created by valentin on 24/05/16.
-
  * This Class represents the Raytracer, where for every Pixel of the images's Raster a Ray is created and for which we
  * check if there is a Hit or not.
  * Project name is raytracer-doge.
-
  */
 public class Raytracer {
 
