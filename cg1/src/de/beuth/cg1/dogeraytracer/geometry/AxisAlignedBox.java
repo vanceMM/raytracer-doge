@@ -76,7 +76,7 @@ public class AxisAlignedBox extends Geometry {
         planes.add(far);
         planes.add(near);
 
-        // iterate over planes-list and remove all planes that are not hit
+        // iterate over planes-list and remove all planes that are not visible
         Iterator<Plane> it = planes.iterator();
         while (it.hasNext()) {
             Plane plane = it.next();

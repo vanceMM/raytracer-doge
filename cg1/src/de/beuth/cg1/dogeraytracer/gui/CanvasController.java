@@ -75,11 +75,11 @@ public class CanvasController implements Initializable {
         //-------------------- Tests -------------------//
 
         //      Abb. 5
-        Plane plane = new Plane(new Color(0,1,0),new Point3(0,-1,0),new Normal3(0,1,0));
-        ArrayList<Geometry> objects = new ArrayList<>();
-        objects.add(plane);
-        world = new World(objects,new Color(0,0,0));
-        perspective = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
+//        Plane plane = new Plane(new Color(0,1,0),new Point3(0,-1,0),new Normal3(0,1,0));
+//        ArrayList<Geometry> objects = new ArrayList<>();
+//        objects.add(plane);
+//        world = new World(objects,new Color(0,0,0));
+//        perspective = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
 
 
         //      Abb. 6
@@ -109,15 +109,15 @@ public class CanvasController implements Initializable {
 
 
         //      Abb. 9
-//        Sphere sphere1 = new Sphere(new Color(1,0,0), new Point3(-1,0,-3), 0.5);
-//        Sphere sphere2 = new Sphere(new Color(1,0,0), new Point3(1,0,-6), 0.5);
-//        ArrayList<Geometry> objects = new ArrayList<>();
-//        objects.add(sphere1);
-//        objects.add(sphere2);
-//        world = new World(objects,new Color(0,0,0));
-//        perspective = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
+        Sphere sphere1 = new Sphere(new Color(1,0,0), new Point3(-1,0,-3), 0.5);
+        Sphere sphere2 = new Sphere(new Color(1,0,0), new Point3(1,0,-6), 0.5);
+        ArrayList<Geometry> objects = new ArrayList<>();
+        objects.add(sphere1);
+        objects.add(sphere2);
+        world = new World(objects,new Color(0,0,0));
+        //perspective = new PerspectiveCamera(new Point3(0,0,0),new Vector3(0,0,-1), new Vector3(0,1,0) ,Math.PI/4);
 //        //      Abb. 10
-//        //orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
+        orthographic = new OrthographicCamera(new Point3(0,0,0), new Vector3(0,0,-1), new Vector3(0,1,0), 3);
 
     }
 

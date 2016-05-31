@@ -46,22 +46,24 @@ public class Sphere extends Geometry {
     @Override
     public Hit hit(final Ray r) {
         if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");
-        double a, b, c, d, t, t2;
-        a = r.d.dot(r.d);
-        b = r.d.dot((r.o.sub(center)).mul(2));
+        double a, b, c, dis, t, t2;
+        a = r.d.dot(r.d);                                                   // d⃗ • d⃗
+        b = r.d.dot((r.o.sub(center)).mul(2));                              // d⃗ • [2(⃗o − ⃗c)]
         c = r.o.sub(center).dot(r.o.sub(center)) - Math.pow(radius,2);      // ( ⃗o − ⃗c ) • ( ⃗o − ⃗c ) − r 2
 
-        d = Math.pow(b,2) - 4 * a *c;
+        // if discriminant of t calculation is negative this will result in error in sqrt = no hit
+        dis = Math.pow(b,2) - 4 * a *c;                                       // d = b^2 −4ac
 
-        if (d == 0) {
-            t = (-1)*b + Math.sqrt(d) / 2*a;
+        if (dis == 0) {
+            t = (-1)*b + Math.sqrt(dis) / 2*a;
             if (t <= 0) return null;
             return new Hit(t, r, this);
         }
-        if (d > 0 ) {
-            t = (-1)*b + Math.sqrt(d) / 2*a;
-            t2 = (-1)*b - Math.sqrt(d) / 2*a;
+        if (dis > 0 ) {
+            t = (-1)*b + Math.sqrt(dis) / 2*a;
+            t2 = (-1)*b - Math.sqrt(dis) / 2*a;
 
+            // get the nearest hit t
             if (t < t2) {
                 if (t >= 0)
                     return new Hit(t, r, this);

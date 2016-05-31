@@ -57,7 +57,7 @@ public class Triangle extends Geometry{
         if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");
         Mat3x3 A = new Mat3x3(a.x-b.x, a.y-b.y, a.z-b.z, a.x-c.x, a.y-c.y, a.z-c.z, r.d.x, r.d.y, r.d.z);
 
-        Vector3 swapVec = new Vector3(a.x-r.o.x, a.y-r.o.y, a.z-r.o.z);   // changeCol needs vec3
+        Vector3 swapVec = new Vector3(a.x-r.o.x, a.y-r.o.y, a.z-r.o.z);   // (A1,2,3) changeCol needs vec3
 
         Mat3x3 A1 = A.changeCol1(swapVec);
         Mat3x3 A2 = A.changeCol2(swapVec);
