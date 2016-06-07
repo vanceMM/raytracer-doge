@@ -51,6 +51,9 @@ public class LambertMaterial extends Material{
                 '}';
     }
 
+    /**
+     * @see Object#equals(Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,6 +65,9 @@ public class LambertMaterial extends Material{
 
     }
 
+    /**
+     * @see Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return color.hashCode();
