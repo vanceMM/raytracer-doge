@@ -53,8 +53,7 @@ public class SpotLight extends Light {
         // -l⃗ dot d⃗l<cos(alpha)
         final Vector3 pl = point.sub(position);
         final Vector3 dl = direction;
-        final boolean angle = pl.dot(dl)<halfAngle;
-        return true;
+        return pl.dot(dl)<halfAngle;
     }
 
     /**
