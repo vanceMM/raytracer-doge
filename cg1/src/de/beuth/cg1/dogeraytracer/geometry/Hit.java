@@ -1,5 +1,6 @@
 package de.beuth.cg1.dogeraytracer.geometry;
 
+import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 
 /**
@@ -23,17 +24,23 @@ public class Hit {
     public final Geometry geo;
 
     /**
+     * {@link Normal3} for the Hit Object of the intersection (point)
+     */
+    public final Normal3 normal;
+
+    /**
      * Creates a new instance of {@link Hit} with defined attributes.
-     *
-     * @param t double Value for the intersection Point, if NaN throw new {@link IllegalArgumentException}
+     *  @param t double Value for the intersection Point, if NaN throw new {@link IllegalArgumentException}
      * @param ray the Ray Value for a {@link Ray}, if null throw new {@link IllegalArgumentException}
      * @param geo the Geometry Value for a {@link Geometry}, if null throw new {@link IllegalArgumentException}
+     * @param normal
      */
-    public Hit(final double t, final Ray ray, final Geometry geo) {
-        if (Double.isNaN(t) || ray == null || geo == null) throw new IllegalArgumentException("Params of constructor can't be null or NaN");
+    public Hit(final double t, final Ray ray, final Geometry geo, final Normal3 normal) {
+        if (Double.isNaN(t) || ray == null || geo == null || normal == null) throw new IllegalArgumentException("Params of constructor can't be null or NaN");
         this.t = t;
         this.ray = ray;
         this.geo = geo;
+        this.normal = normal;
     }
 
     /**

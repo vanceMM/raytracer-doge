@@ -1,6 +1,7 @@
 package de.beuth.cg1.dogeraytracer.geometry;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 
@@ -40,24 +41,27 @@ public class Sphere extends Geometry {
     /**
      * This Methods takes an {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.
      *
-     * @param r passed {@link Ray} that hits the Sphere Object, if r null throw new {@link IllegalArgumentException}
+     * @param ray passed {@link Ray} that hits the Sphere Object, if ray null throw new {@link IllegalArgumentException}
      * @return Hit Object which represents the Intersection between the Sphere and the given {@link Ray}.
      */
     @Override
-    public Hit hit(final Ray r) {
-        if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");
+    public Hit hit(final Ray ray) {
+        if (ray == null) throw new IllegalArgumentException("Param ray (ray) can't be null");
         double a, b, c, dis, t, t2;
-        a = r.d.dot(r.d);                                                   // d⃗ • d⃗
-        b = r.d.dot((r.o.sub(center)).mul(2));                              // d⃗ • [2(⃗o − ⃗c)]
-        c = r.o.sub(center).dot(r.o.sub(center)) - Math.pow(radius,2);      // ( ⃗o − ⃗c ) • ( ⃗o − ⃗c ) − r 2
+        a = ray.d.dot(ray.d);                                                   // d⃗ • d⃗
+        b = ray.d.dot((ray.o.sub(center)).mul(2));                              // d⃗ • [2(⃗o − ⃗c)]
+        c = ray.o.sub(center).dot(ray.o.sub(center)) - Math.pow(radius,2);      // ( ⃗o − ⃗c ) • ( ⃗o − ⃗c ) − ray 2
 
         // if discriminant of t calculation is negative this will result in error in sqrt = no hit
         dis = Math.pow(b,2) - 4 * a *c;                                       // d = b^2 −4ac
 
+        // intersectionNormal of the hit point3
+        //Normal3 intersectionNormal = null;
+
         if (dis == 0) {
             t = (-1)*b + Math.sqrt(dis) / 2*a;
             if (t <= 0) return null;
-            return new Hit(t, r, this);
+            return new Hit(t, ray, this, calcIntersectionNormal(ray, t));
         }
         if (dis > 0 ) {
             t = (-1)*b + Math.sqrt(dis) / 2*a;
@@ -66,14 +70,18 @@ public class Sphere extends Geometry {
             // get the nearest hit t
             if (t < t2) {
                 if (t >= 0)
-                    return new Hit(t, r, this);
+                    return new Hit(t, ray, this, calcIntersectionNormal(ray, t));
             }
             else {
                 if (t2 >= 0)
-                    return new Hit(t2, r, this);
+                    return new Hit(t2, ray, this, calcIntersectionNormal(ray, t2));
             }
         }
         return null;
+    }
+
+    private Normal3 calcIntersectionNormal(Ray r, double t){
+        return r.at(t).sub(center).normalized().asNormal();
     }
 
     /**
