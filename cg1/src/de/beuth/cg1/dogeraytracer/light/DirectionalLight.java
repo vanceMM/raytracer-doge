@@ -9,7 +9,7 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
  * Project name is raytracer-doge.
  * This class is representing the Directional-light imitating the sunlight which shines evenly from the same direction
  */
-@SuppressWarnings({"WeakerAccess", "unused"})
+
 public class DirectionalLight extends Light {
 
     /**
@@ -36,9 +36,11 @@ public class DirectionalLight extends Light {
      * @return true if point is hit, false if not
      */
     @Override
-    public Boolean illuminates(Point3 point) {
+    public boolean illuminates(Point3 point) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
-        return null;
+        // -d⃗L;
+        direction.mul(-1);
+        return true;
     }
 
     /**
@@ -50,7 +52,7 @@ public class DirectionalLight extends Light {
     @Override
     public Vector3 directionFrom(Point3 point) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
-        return null;
+        return direction.mul(-1).normalized();
     }
 
     /**

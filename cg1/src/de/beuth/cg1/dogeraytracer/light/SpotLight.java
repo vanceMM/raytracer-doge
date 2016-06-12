@@ -9,7 +9,7 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
  * Project name is raytracer-doge.
  * This class is representing the SpotLight which shines from a specific origin in a specific direction within a specific angle
  */
-@SuppressWarnings({"WeakerAccess", "unused", "SimplifiableIfStatement"})
+
 public class SpotLight extends Light {
 
     /**
@@ -48,13 +48,13 @@ public class SpotLight extends Light {
      * @return true if point is hit, false if not
      */
     @Override
-    public Boolean illuminates(Point3 point) {
+    public boolean illuminates(Point3 point) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
         // -l⃗ dot d⃗l<cos(alpha)
         final Vector3 pl = point.sub(position);
         final Vector3 dl = direction;
-        final boolean angle = pl.dot(dl)<halfAngle;
-        return true;
+        final double angle = pl.dot(dl);
+        return angle <= halfAngle;
     }
 
     /**
@@ -93,9 +93,7 @@ public class SpotLight extends Light {
 
         SpotLight spotLight = (SpotLight) o;
 
-        if (Double.compare(spotLight.halfAngle, halfAngle) != 0) return false;
-        if (!position.equals(spotLight.position)) return false;
-        return direction.equals(spotLight.direction);
+        return Double.compare(spotLight.halfAngle, halfAngle) == 0 && position.equals(spotLight.position) && direction.equals(spotLight.direction);
 
     }
 

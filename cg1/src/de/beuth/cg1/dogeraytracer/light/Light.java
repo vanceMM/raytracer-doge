@@ -34,7 +34,7 @@ public abstract class Light {
      * @param point to check if the {@link Point3} is hit by light, if null throw new {@link IllegalArgumentException}
      * @return true if point is hit, false if not
      */
-    public abstract Boolean illuminates(final Point3 point);
+    public abstract boolean illuminates(final Point3 point);
 
     /**
      * This method calculates the {@link Vector3} l⃗  which points to the light-source, for the passed {@link Point3} point

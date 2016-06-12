@@ -9,7 +9,7 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
  * Project name is raytracer-doge.
  * This Class is representing the PointLight which shines evenly in every direction
  */
-@SuppressWarnings({"WeakerAccess", "unused"})
+
 public class PointLight extends Light {
 
     /**
@@ -37,9 +37,10 @@ public class PointLight extends Light {
      * @return true if point is hit, false if not
      */
     @Override
-    public Boolean illuminates(final Point3 point) {
+    public boolean illuminates(final Point3 point) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
-        return null;
+        point.sub(position);
+        return true;
     }
 
     /**
