@@ -3,6 +3,7 @@ package de.beuth.cg1.dogeraytracer.world;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.Geometry;
 import de.beuth.cg1.dogeraytracer.geometry.Hit;
+import de.beuth.cg1.dogeraytracer.light.Light;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 
 import java.util.ArrayList;
@@ -22,18 +23,30 @@ public class World {
     /**
      * backgroundColor is the {@link Color} of the World
      */
-    public  final Color backgroundColor;
+    public final Color backgroundColor;
+    /**
+     * the ambientLightColor {@link Color} for the World
+     */
+    public final Color ambientLightColor;
+    /**
+     * the list of all {@link Light}-Sources of the World Object
+     */
+    public final ArrayList<Light> lightSources;
 
     /**
      * Constructor for the World Object
      * Creates a new instance of {@link World} with defined attributes.
-     *
      * @param objects the ArrayList with the {@link Geometry} Objects
-     * @param backgroundColor value for the {@link Color} of the World
+     * @param backgroundColor value for the {@link Color} of the World, if null throw new {@link IllegalArgumentException}
+     * @param lightSources value for the {@link Light}-sources
+     * @param ambientLightColor value for the ambientLightColor {@link Color}, if null throw new {@link IllegalArgumentException}
      */
-    public World(ArrayList<Geometry> objects, final Color backgroundColor) {
-        this.backgroundColor = backgroundColor;
+    public World(ArrayList<Geometry> objects, final Color backgroundColor, ArrayList<Light> lightSources, final Color ambientLightColor) {
+        if (backgroundColor == null || ambientLightColor == null) throw new IllegalArgumentException("Params of constructor cant be null");
         this.objects = objects;
+        this.backgroundColor = backgroundColor;
+        this.lightSources = lightSources;
+        this.ambientLightColor = ambientLightColor;
     }
 
     /**
@@ -85,7 +98,7 @@ public class World {
 
         World world = (World) o;
 
-        return objects != null ? objects.equals(world.objects) : world.objects == null && (backgroundColor != null ? backgroundColor.equals(world.backgroundColor) : world.backgroundColor == null);
+        return objects != null ? objects.equals(world.objects) : world.objects == null && backgroundColor.equals(world.backgroundColor);
 
     }
 
@@ -95,7 +108,7 @@ public class World {
     @Override
     public int hashCode() {
         int result = objects != null ? objects.hashCode() : 0;
-        result = 31 * result + (backgroundColor != null ? backgroundColor.hashCode() : 0);
+        result = 31 * result + backgroundColor.hashCode();
         return result;
     }
 }

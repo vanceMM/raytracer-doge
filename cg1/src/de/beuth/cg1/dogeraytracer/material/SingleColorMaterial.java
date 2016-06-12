@@ -31,7 +31,7 @@ public class SingleColorMaterial extends Material{
     /**
      * This method calculates the {@link Color} for a passed {@link Hit} Object in the given {@link World}
      *
-     * @param hit   on the {@link Geometry}, if null throw new {@link IllegalArgumentException}
+     * @param hit on the {@link Geometry}, if null throw new {@link IllegalArgumentException}
      * @param world is used for determining the light sources, if null throw new {@link IllegalArgumentException}
      * @return {@link Color} of the {@link Hit} Object
      */

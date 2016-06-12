@@ -53,7 +53,7 @@ public class Plane extends Geometry {
         double t = numerator/denominator;
 
         if (denominator != 0.0 && t > 0) {
-            return  new Hit(t, r, this);
+            return  new Hit(t, r, this, n);
         } else {
             return null;
         }
