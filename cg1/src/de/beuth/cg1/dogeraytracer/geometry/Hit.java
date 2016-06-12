@@ -33,7 +33,7 @@ public class Hit {
      *  @param t double Value for the intersection Point, if NaN throw new {@link IllegalArgumentException}
      * @param ray the Ray Value for a {@link Ray}, if null throw new {@link IllegalArgumentException}
      * @param geo the Geometry Value for a {@link Geometry}, if null throw new {@link IllegalArgumentException}
-     * @param normal
+     * @param normal value of the {@link Normal3} of the intersection point of the {@link Geometry} and {@link Ray}, if null throw new {@link IllegalArgumentException}
      */
     public Hit(final double t, final Ray ray, final Geometry geo, final Normal3 normal) {
         if (Double.isNaN(t) || ray == null || geo == null || normal == null) throw new IllegalArgumentException("Params of constructor can't be null or NaN");
