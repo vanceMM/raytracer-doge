@@ -50,7 +50,11 @@ public class SpotLight extends Light {
     @Override
     public Boolean illuminates(Point3 point) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
-        return null;
+        // -l⃗ dot d⃗l<cos(alpha)
+        final Vector3 pl = point.sub(position);
+        final Vector3 dl = direction;
+        final boolean angle = pl.dot(dl)<halfAngle;
+        return true;
     }
 
     /**
@@ -62,7 +66,8 @@ public class SpotLight extends Light {
     @Override
     public Vector3 directionFrom(Point3 point) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
-        return null;
+        // l⃗ = P⃗l-P⃗r/|P⃗l-P⃗r|
+        return position.sub(point).normalized();
     }
 
     /**

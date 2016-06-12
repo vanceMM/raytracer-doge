@@ -51,7 +51,8 @@ public class PointLight extends Light {
     @Override
     public Vector3 directionFrom(final Point3 point) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
-        return null;
+        // l⃗ = P⃗l-P⃗r/|P⃗l-P⃗r|
+        return position.sub(point).normalized();
     }
 
     /**
