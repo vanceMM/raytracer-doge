@@ -1,6 +1,7 @@
 package de.beuth.cg1.dogeraytracer.geometry;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.material.Material;
 import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.*;
 
@@ -57,7 +58,7 @@ public class Triangle extends Geometry{
      * @param bn Value of the {@link Normal3} of b, if null throw new {@link IllegalArgumentException}
      * @param cn Value of the {@link Normal3} of c, if null throw new {@link IllegalArgumentException}
      */
-    public Triangle(final Color color, final Point3 a, final Point3 b, final Point3 c, final Normal3 an, final Normal3 bn, final Normal3 cn){
+    public Triangle(final Material color, final Point3 a, final Point3 b, final Point3 c, final Normal3 an, final Normal3 bn, final Normal3 cn){
         super(color);
         this.a = a;
         this.b = b;
@@ -77,7 +78,7 @@ public class Triangle extends Geometry{
      * @param b the Value of a {@link Point3}, if null throw new {@link IllegalArgumentException}
      * @param c the Value of a {@link Point3}, if null throw new {@link IllegalArgumentException}
      */
-    public Triangle(final Color color, final Point3 a, final Point3 b, final Point3 c) {
+    public Triangle(final Material color, final Point3 a, final Point3 b, final Point3 c) {
         super(color);
         if (a == null || b == null || c == null) throw new IllegalArgumentException("Params of constructor can't be null");
         this.a = a;
@@ -114,10 +115,13 @@ public class Triangle extends Geometry{
         double alpha    = 1.0 - beta - gamma;
 
         // calculate normal3 for the hit point on the geometry
-        Normal3 interpolatedNormal = an.mul(alpha).add(bn.mul(beta)).add(cn.mul(gamma));
+
 
         if (beta >= Raytracer.DELTA && beta <= 1 && gamma >= 0 && gamma <= 1 && beta + gamma <= 1 && t > 0 && !Double.isNaN(t)){
-            if (normal == null) return new Hit(t, r, this, interpolatedNormal);
+            if (normal == null) {
+                Normal3 interpolatedNormal = an.mul(alpha).add(bn.mul(beta)).add(cn.mul(gamma));
+                return new Hit(t, r, this, interpolatedNormal);
+            }
             else return new Hit(t, r, this, normal);
         }
         else return null;

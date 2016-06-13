@@ -1,6 +1,7 @@
 package de.beuth.cg1.dogeraytracer.geometry;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.material.Material;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
@@ -31,7 +32,7 @@ public class Plane extends Geometry {
      * @param a the Point3 Value of a {@link Point3}, if null throw new {@link IllegalArgumentException}
      * @param n the Normal3 Value of a {@link Normal3}, if null throw new {@link IllegalArgumentException}
      */
-    public Plane (final Color color, final Point3 a, final Normal3 n) {
+    public Plane (final Material color, final Point3 a, final Normal3 n) {
         super(color);
         if (a == null || n == null) throw new IllegalArgumentException("Params of constructor can't be null");
         this.a = a;
