@@ -51,10 +51,10 @@ public class SpotLight extends Light {
     public boolean illuminates(Point3 point) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
         // -l⃗ dot d⃗l<cos(alpha)
-        final Vector3 pl = point.sub(position);
-        final Vector3 dl = direction;
+        final Vector3 pl = point.sub(position).normalized();
+        final Vector3 dl = direction.normalized();
 //        final double angle = pl.dot(dl);
-        final double angle = Math.acos(pl.dot(dl) / (pl.magnitude*(dl.magnitude)));
+        final double angle = Math.acos(pl.dot(dl));
         if(angle > halfAngle){
             return false;
         }
