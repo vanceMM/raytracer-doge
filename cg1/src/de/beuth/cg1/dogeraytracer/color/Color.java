@@ -19,19 +19,43 @@ public class Color {
      * Constructor for the Color Object
      * Creates a new instance of {@link Color} with defined attributes.
      *
-     * @param r value for the red color as double
-     * @param g value for the green color as double
-     * @param b value for the blue color as double
+     * @param r value for the red color as double, if r < 0 || > 1 clip r, if r isNaN throw new {@link IllegalArgumentException}
+     * @param g value for the green color as double, if g < 0 || > 1 clip g, if g isNaN throw new {@link IllegalArgumentException}
+     * @param b value for the blue color as double, if b < 0 || > 1 clip b, if b isNaN throw new {@link IllegalArgumentException}
      */
     public Color ( final double r, final double g , final double b) {
-
-        if ((r < 0 && r > 1) || (g < 0 && g > 1) || (b < 0 && b > 1)) {
+        if (Double.isNaN(r) || Double.isNaN(g) || Double.isNaN(b)) {
             throw new IllegalArgumentException("Color Values should be betwenn 0 and 1");
         }
-        
-        this.b = b;
-        this.g = g;
-        this.r = r;
+        if (r < 0 || r > 1 ) {
+            if (r < 0 ) this.r = 0;
+            else this.r = 1;
+        } else this.r = r;
+
+        if (g < 0 || g > 1) {
+            if (g < 0) this.g = 0;
+            else this.g = 1;
+        } else this.g = g;
+
+        if (b < 0 || b > 1) {
+            if (b < 0) this.b = 0;
+            else this.b = 1;
+        } else this.b = b;
+
+        //this.b = b;
+        //this.g = g;
+        //this.r = r;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public java.awt.Color renderInRGB(){
+        final int r = (int) (255 * this.r);
+        final int g = (int) (255 * this.g);
+        final int b = (int) (255 * this.b);
+        return new java.awt.Color(r,g,b);
     }
 
     /**

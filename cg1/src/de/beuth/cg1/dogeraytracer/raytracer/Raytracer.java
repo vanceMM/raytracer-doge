@@ -70,8 +70,8 @@ public class Raytracer {
                 }
                 /* workaround for transforming our own normalized Color Representation to a awt Color.
                  */
-                java.awt.Color color1 = new java.awt.Color((int) color.r*255, (int) color.g*255,(int) color.b*255);
-                raster.setDataElements(x,raster.getHeight()-y-1, colorModel.getDataElements(color1.getRGB(),null)); // get rid of mirroring
+                //java.awt.Color color1 = new java.awt.Color((int) color.r*255, (int) color.g*255,(int) color.b*255);
+                raster.setDataElements(x,raster.getHeight()-y-1, colorModel.getDataElements(color.renderInRGB().getRGB(),null)); // get rid of mirroring
             }
         }
     }
