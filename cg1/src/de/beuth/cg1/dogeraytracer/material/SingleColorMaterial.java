@@ -38,7 +38,7 @@ public class SingleColorMaterial extends Material{
     @Override
     public Color colorFor(final Hit hit, final World world) {
         if(hit == null || world == null) throw new IllegalArgumentException("Param hit or world cant be null");
-        return null;
+        return hit.geo.material.colorFor(hit,world);
     }
 
     /**
