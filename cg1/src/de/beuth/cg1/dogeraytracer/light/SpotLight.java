@@ -57,8 +57,7 @@ public class SpotLight extends Light {
         final Vector3 l = point.sub(position).normalized();
         final Vector3 dl = direction.normalized();
         final double angle = Math.acos(l.dot(dl));
-        if (angle < halfAngle) return true;
-        else return false;
+        return angle < halfAngle;
     }
 
     /**
