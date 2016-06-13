@@ -38,8 +38,6 @@ public class DirectionalLight extends Light {
     @Override
     public boolean illuminates(Point3 point) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
-        // -d⃗L;
-        direction.mul(-1);
         return true;
     }
 

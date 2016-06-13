@@ -1,6 +1,7 @@
 package de.beuth.cg1.dogeraytracer.light;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.material.Material;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 
@@ -50,11 +51,13 @@ public class SpotLight extends Light {
     @Override
     public boolean illuminates(Point3 point) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
-        // -l⃗ dot d⃗l<cos(alpha)
-        final Vector3 pl = point.sub(position);
-        final Vector3 dl = direction;
-        final double angle = pl.dot(dl);
-        return angle <= halfAngle;
+        // -l⃗ dot d⃗l < cos(alpha)
+        // dl = direction
+        // l = vector from intersectionPoint to lightSource
+        final Vector3 l = point.sub(position).normalized();
+        final Vector3 dl = direction.normalized();
+        final double angle = Math.acos(l.dot(dl));
+        return angle < halfAngle;
     }
 
     /**
