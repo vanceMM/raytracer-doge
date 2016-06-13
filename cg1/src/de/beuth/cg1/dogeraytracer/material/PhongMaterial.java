@@ -60,19 +60,21 @@ public class PhongMaterial extends Material{
 
         final Normal3 n = hit.normal;
         final Point3 p = hit.ray.at(hit.t);
-        Color colorHit = world.ambientLightColor.mulColor(diffuse);
+        Color ambient = world.ambientLightColor.mulColor(diffuse);
+        Color rest = new Color(0,0,0);
         ArrayList<Light> lights = world.lightSources;
         Vector3 e = hit.ray.d.mul(-1).normalized();
         for (Light light : lights) {
-            Vector3 l = light.directionFrom(p).normalized();
-            Color color = new Color(0, 0, 0);
-            Vector3 r = l.reflectOn(n);
             if (light.illuminates(p)) {
-                color = color.addColor(light.color.mulColor(this.diffuse).mulScalarColor(Math.max(0, n.dot(l)))).addColor(light.color.mulColor(this.specular).mulScalarColor(Math.pow(Math.max(0, r.dot(e)),exponent)));
+                Vector3 l = light.directionFrom(p).normalized();
+                Vector3 r = l.reflectOn(n);
+                Color dif = this.diffuse.mulColor(light.color).mulScalarColor(Math.max(0.0,n.dot(l)));
+                Color glow = this.diffuse.mulColor(light.color).mulScalarColor(Math.pow((Math.max(0.0,e.dot(r))),exponent));
+                rest = rest.addColor(dif).addColor(glow);
             }
-            colorHit = colorHit.addColor(color);
+            ambient = ambient.addColor(rest);
         }
-        return colorHit;
+        return ambient;
 
     }
 
