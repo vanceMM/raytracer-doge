@@ -82,7 +82,8 @@ public class Sphere extends Geometry {
     }
 
     private Normal3 calcIntersectionNormal(Ray r, double t){
-        return r.at(t).sub(center).normalized().asNormal();
+        //return r.at(t).sub(center).normalized().asNormal();
+        return new Normal3(r.at(t).x - center.x, r.at(t).y - center.y, r.at(t).z - center.z);
     }
 
     /**

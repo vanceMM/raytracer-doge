@@ -3,8 +3,7 @@ package de.beuth.cg1.dogeraytracer.gui;
 import de.beuth.cg1.dogeraytracer.camera.*;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.*;
-import de.beuth.cg1.dogeraytracer.light.DirectionalLight;
-import de.beuth.cg1.dogeraytracer.light.Light;
+import de.beuth.cg1.dogeraytracer.light.*;
 import de.beuth.cg1.dogeraytracer.material.*;
 import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
@@ -111,10 +110,10 @@ public class CanvasController implements Initializable {
 
         //      Abb. 9
         Plane plane = new Plane(new LambertMaterial(new Color(1,0,0)),new Point3(0,0,0),new Normal3(0,1,0));
-        Sphere sphere1 = new Sphere(new SingleColorMaterial(new Color(0,1,0)), new Point3(1,1,1), 0.5);
-        //Sphere sphere2 = new Sphere(new SingleColorMaterial(new Color(1,0,0)), new Point3(1,0,-6), 0.5);
-        AxisAlignedBox box = new AxisAlignedBox(new SingleColorMaterial(new Color(0,0,1)),new Point3(-1.5,0.5,0.5), new Point3(-0.5,1.5,1.5));
-        Triangle triangle = new Triangle(new SingleColorMaterial(new Color(0,1,1)), new Point3(0,0,-1), new Point3(1,0,-1), new Point3(1,1,-1));
+        Sphere sphere1 = new Sphere(new LambertMaterial(new Color(0,1,0)), new Point3(1,1,1), 0.5);
+        Sphere sphere2 = new Sphere(new LambertMaterial(new Color(1,0,0)), new Point3(1,1,2), 0.3);
+        AxisAlignedBox box = new AxisAlignedBox(new LambertMaterial(new Color(0,0,1)),new Point3(-1.5,0.5,0.5), new Point3(-0.5,1.5,1.5));
+        Triangle triangle = new Triangle(new LambertMaterial(new Color(0,1,1)), new Point3(0,0,-1), new Point3(1,0,-1), new Point3(1,1,-1));
         ArrayList<Geometry> objects = new ArrayList<>();
         objects.add(plane);
         objects.add(sphere1);
@@ -122,11 +121,11 @@ public class CanvasController implements Initializable {
         objects.add(triangle);
         //objects.add(sphere2);
         // light
-        DirectionalLight sun = new DirectionalLight(new Color(1,0,0), new Vector3(-1,-1,-1));
+        PointLight sun = new PointLight(new Color(1,1,1), new Point3(1,1,1));
         ArrayList<Light> lightSources = new ArrayList<>();
         lightSources.add(sun);
         // initialize world and cam
-        world = new World(objects,new Color(0,0,0), lightSources, new Color(1,1,1));
+        world = new World(objects,new Color(0,0,0), lightSources, new Color(0.25,0.25,0.25));
         perspective = new PerspectiveCamera(new Point3(4,4,4),new Vector3(-1,-1,-1), new Vector3(0,1,0) ,Math.PI/4);
     }
 

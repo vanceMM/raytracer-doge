@@ -43,7 +43,7 @@ public class LambertMaterial extends Material{
      */
     @Override
     public Color colorFor(Hit hit, World world) {
-        if(hit == null || world == null) throw new IllegalArgumentException("Param color of constructor can't be null ");
+        //if(hit == null || world == null) throw new IllegalArgumentException("Param color of constructor can't be null ");
         final Normal3 n = hit.normal;
         final Point3 p = hit.ray.at(hit.t);
         Color colorHit = world.ambientLightColor;
@@ -52,7 +52,7 @@ public class LambertMaterial extends Material{
            Vector3 l = light.directionFrom(p);
            Color color = new Color(0,0,0);
            if (light.illuminates(p)) {
-               color = color.addColor(light.color).mulColor(hit.geo.color).mulScalarColor(Math.max(0, n.dot(l)));
+               color = color.addColor(light.color).mulColor(this.color).mulScalarColor(Math.max(0, n.dot(l)));
            }
            colorHit = colorHit.addColor(color);
         }

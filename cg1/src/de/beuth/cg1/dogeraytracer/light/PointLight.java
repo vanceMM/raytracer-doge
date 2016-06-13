@@ -24,7 +24,7 @@ public class PointLight extends Light {
      * @param color value for the {@link Color} of the {@link Light}, if null throw new {@link IllegalArgumentException}
      * @param position value for the position of the PointLight, if null throw new {@link IllegalArgumentException}
      */
-    protected PointLight(final Color color, final Point3 position) {
+    public PointLight(final Color color, final Point3 position) {
         super(color);
         if (position == null) throw new IllegalArgumentException("Param position of constructor can't be null");
         this.position = position;
@@ -53,7 +53,8 @@ public class PointLight extends Light {
     public Vector3 directionFrom(final Point3 point) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
         // l⃗ = P⃗l-P⃗r/|P⃗l-P⃗r|
-        return position.sub(point).normalized();
+        //return (position.sub(point)).normalized();
+        return new Vector3(position.x - point.x, position.y - point.y, position.z - point.z).normalized();
     }
 
     /**

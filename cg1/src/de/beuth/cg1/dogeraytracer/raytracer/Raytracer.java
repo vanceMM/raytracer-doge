@@ -64,7 +64,7 @@ public class Raytracer {
                 final Color color;
                 Hit hit = this.world.hit(ray);
                 if (hit!=null) {
-                    color = hit.geo.material.colorFor(null, world);
+                    color = hit.geo.material.colorFor(hit, world);
                 } else {
                     color = world.backgroundColor;
                 }
