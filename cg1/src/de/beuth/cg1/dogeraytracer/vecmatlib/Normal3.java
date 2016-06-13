@@ -5,6 +5,8 @@ package de.beuth.cg1.dogeraytracer.vecmatlib;
  * Project name is VecMatLib.
  */
 
+import com.sun.tools.doclint.Entity;
+
 /**
  * This Class represents a Normal3
  * @author baetschjunge
@@ -29,9 +31,10 @@ public class Normal3 {
      */
     public Normal3(final double x, final double y, final double z) {
         if (Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z)) throw new IllegalArgumentException("Params of constructor can't be NaN");
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        double length = Math.sqrt(Math.pow(x,2) +Math.pow(y,2) +Math.pow(z,2));
+        this.x = x / length;
+        this.y = y / length;
+        this.z = z / length;
     }
 
     /**

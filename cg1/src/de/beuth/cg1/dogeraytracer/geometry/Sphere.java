@@ -60,13 +60,13 @@ public class Sphere extends Geometry {
         //Normal3 intersectionNormal = null;
 
         if (discremenant == 0) {
-            t = (-1)*b + Math.sqrt(discremenant) / 2*a;
+            t = ((-1.0)*b + Math.sqrt(discremenant)) / 2.0*a;
             if (t <= 0) return null;
             return new Hit(t, ray, this, calcIntersectionNormal(ray, t));
         }
         if (discremenant > 0 ) {
-            t = (-1)*b + Math.sqrt(discremenant) / 2*a;
-            t2 = (-1)*b - Math.sqrt(discremenant) / 2*a;
+            t = ((-1.0)*b + Math.sqrt(discremenant)) / 2.0*a;
+            t2 = ((-1.0)*b - Math.sqrt(discremenant)) / 2.0*a;
 
             // get the nearest hit t
             if (t < t2) {
@@ -82,8 +82,10 @@ public class Sphere extends Geometry {
     }
 
     private Normal3 calcIntersectionNormal(Ray r, double t){
-        return r.at(t).sub(center).normalized().asNormal();
-        //return new Normal3(r.at(t).x - center.x, r.at(t).y - center.y, r.at(t).z - center.z);
+        //return r.at(t).sub(center).normalized().asNormal();
+        Point3 at = r.at(t);
+        Normal3 normal3 = new Normal3(at.x - center.x, at.y - center.y, at.z - center.z);
+        return normal3.mul(1);
     }
 
     /**
