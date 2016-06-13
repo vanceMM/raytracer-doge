@@ -48,8 +48,8 @@ public class Color {
     }
 
     /**
-     *
-     * @return
+     * this method defines our colormodel
+     * @return colormodel for rgb
      */
     public java.awt.Color renderInRGB(){
         final int r = (int) (255 * this.r);

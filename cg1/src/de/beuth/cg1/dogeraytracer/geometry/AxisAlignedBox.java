@@ -1,6 +1,7 @@
 package de.beuth.cg1.dogeraytracer.geometry;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.material.Material;
 import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
@@ -44,7 +45,7 @@ public class AxisAlignedBox extends Geometry {
      * @param lbf the Value of the left bottom far {@link Point3}, if null throw new {@link IllegalArgumentException}
      * @param run the Value of the right upper near {@link Point3}, if null throw new {@link IllegalArgumentException}
      */
-    public AxisAlignedBox(final Color color, final Point3 lbf, final Point3 run) {
+    public AxisAlignedBox(final Material color, final Point3 lbf, final Point3 run) {
         super(color);
         if (lbf == null || run == null) throw new IllegalArgumentException("Params of constructor can't be null");
         this.lbf = lbf;

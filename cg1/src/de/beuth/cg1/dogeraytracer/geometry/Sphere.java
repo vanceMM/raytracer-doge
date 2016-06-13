@@ -1,6 +1,7 @@
 package de.beuth.cg1.dogeraytracer.geometry;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.material.Material;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
@@ -31,7 +32,7 @@ public class Sphere extends Geometry {
      * @param center the Point3 Value of a {@link Point3}
      * @param radius the double Value of Radius
      */
-    public Sphere(final Color color, final Point3 center, final double radius) {
+    public Sphere(final Material color, final Point3 center, final double radius) {
         super(color);
         if (center == null || Double.isNaN(radius)) throw new IllegalArgumentException("Param of constructor can't be null or NaN");
         this.center = center;
