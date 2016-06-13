@@ -9,7 +9,7 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.*;
  * This is an abstract Class representing Geometry Objects in 3d Space
  */
 public abstract class Geometry {
-    
+
     /**
      * the {@link Material} of a Geometry
      */
