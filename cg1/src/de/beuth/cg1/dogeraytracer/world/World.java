@@ -42,7 +42,7 @@ public class World {
      * @param ambientLightColor value for the ambientLightColor {@link Color}, if null throw new {@link IllegalArgumentException}
      */
     public World(ArrayList<Geometry> objects, final Color backgroundColor, ArrayList<Light> lightSources, final Color ambientLightColor) {
-        if (backgroundColor == null || ambientLightColor == null) throw new IllegalArgumentException("Params of constructor cant be null");
+        if (backgroundColor == null ) throw new IllegalArgumentException("Params of constructor cant be null");
         this.objects = objects;
         this.backgroundColor = backgroundColor;
         this.lightSources = lightSources;

@@ -48,25 +48,25 @@ public class Sphere extends Geometry {
     @Override
     public Hit hit(final Ray ray) {
         if (ray == null) throw new IllegalArgumentException("Param ray (ray) can't be null");
-        double a, b, c, dis, t, t2;
+        double a, b, c, discremenant, t, t2;
         a = ray.d.dot(ray.d);                                                   // d⃗ • d⃗
         b = ray.d.dot((ray.o.sub(center)).mul(2));                              // d⃗ • [2(⃗o − ⃗c)]
         c = ray.o.sub(center).dot(ray.o.sub(center)) - Math.pow(radius,2);      // ( ⃗o − ⃗c ) • ( ⃗o − ⃗c ) − ray 2
 
         // if discriminant of t calculation is negative this will result in error in sqrt = no hit
-        dis = Math.pow(b,2) - 4 * a *c;                                       // d = b^2 −4ac
+        discremenant = Math.pow(b,2) - 4 * a *c;                                       // d = b^2 −4ac
 
         // intersectionNormal of the hit point3
         //Normal3 intersectionNormal = null;
 
-        if (dis == 0) {
-            t = (-1)*b + Math.sqrt(dis) / 2*a;
+        if (discremenant == 0) {
+            t = (-1)*b + Math.sqrt(discremenant) / 2*a;
             if (t <= 0) return null;
             return new Hit(t, ray, this, calcIntersectionNormal(ray, t));
         }
-        if (dis > 0 ) {
-            t = (-1)*b + Math.sqrt(dis) / 2*a;
-            t2 = (-1)*b - Math.sqrt(dis) / 2*a;
+        if (discremenant > 0 ) {
+            t = (-1)*b + Math.sqrt(discremenant) / 2*a;
+            t2 = (-1)*b - Math.sqrt(discremenant) / 2*a;
 
             // get the nearest hit t
             if (t < t2) {
@@ -82,8 +82,8 @@ public class Sphere extends Geometry {
     }
 
     private Normal3 calcIntersectionNormal(Ray r, double t){
-        //return r.at(t).sub(center).normalized().asNormal();
-        return new Normal3(r.at(t).x - center.x, r.at(t).y - center.y, r.at(t).z - center.z);
+        return r.at(t).sub(center).normalized().asNormal();
+        //return new Normal3(r.at(t).x - center.x, r.at(t).y - center.y, r.at(t).z - center.z);
     }
 
     /**
