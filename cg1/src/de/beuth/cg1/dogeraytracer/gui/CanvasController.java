@@ -5,8 +5,7 @@ import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.*;
 import de.beuth.cg1.dogeraytracer.light.DirectionalLight;
 import de.beuth.cg1.dogeraytracer.light.Light;
-import de.beuth.cg1.dogeraytracer.material.Material;
-import de.beuth.cg1.dogeraytracer.material.SingleColorMaterial;
+import de.beuth.cg1.dogeraytracer.material.*;
 import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
@@ -111,7 +110,7 @@ public class CanvasController implements Initializable {
 
 
         //      Abb. 9
-        Plane plane = new Plane(new SingleColorMaterial(new Color(1,0,0)),new Point3(0,0,0),new Normal3(0,1,0));
+        Plane plane = new Plane(new LambertMaterial(new Color(1,0,0)),new Point3(0,0,0),new Normal3(0,1,0));
         Sphere sphere1 = new Sphere(new SingleColorMaterial(new Color(0,1,0)), new Point3(1,1,1), 0.5);
         //Sphere sphere2 = new Sphere(new SingleColorMaterial(new Color(1,0,0)), new Point3(1,0,-6), 0.5);
         AxisAlignedBox box = new AxisAlignedBox(new SingleColorMaterial(new Color(0,0,1)),new Point3(-1.5,0.5,0.5), new Point3(-0.5,1.5,1.5));
