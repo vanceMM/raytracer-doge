@@ -3,7 +3,13 @@ package de.beuth.cg1.dogeraytracer.material;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.Geometry;
 import de.beuth.cg1.dogeraytracer.geometry.Hit;
+import de.beuth.cg1.dogeraytracer.light.Light;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 import de.beuth.cg1.dogeraytracer.world.World;
+
+import java.util.ArrayList;
 
 /**
  * Created by User on 31.05.2016.
@@ -38,7 +44,19 @@ public class LambertMaterial extends Material{
     @Override
     public Color colorFor(Hit hit, World world) {
         if(hit == null || world == null) throw new IllegalArgumentException("Param color of constructor can't be null ");
-        return null;
+        final Normal3 n = hit.normal;
+        final Point3 p = hit.ray.at(hit.t);
+        Color colorHit = world.ambientLightColor;
+        ArrayList<Light> lights = world.lightSources;
+        for (Light light: lights) {
+           Vector3 l = light.directionFrom(p);
+           Color color = new Color(0,0,0);
+           if (light.illuminates(p)) {
+               color = color.addColor(light.color).mulColor(hit.geo.color).mulScalarColor(Math.max(0, n.dot(l)));
+           }
+           colorHit = colorHit.addColor(color);
+        }
+        return colorHit;
     }
 
     /**
