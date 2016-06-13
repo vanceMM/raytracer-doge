@@ -1,8 +1,7 @@
 package de.beuth.cg1.dogeraytracer.geometry;
 
-import de.beuth.cg1.dogeraytracer.color.Color;
-import de.beuth.cg1.dogeraytracer.vecmatlib.*;
 import de.beuth.cg1.dogeraytracer.material.Material;
+import de.beuth.cg1.dogeraytracer.vecmatlib.*;
 
 /**
  * Created by valentin on 22/05/16.
@@ -10,32 +9,22 @@ import de.beuth.cg1.dogeraytracer.material.Material;
  * This is an abstract Class representing Geometry Objects in 3d Space
  */
 public abstract class Geometry {
-
-    /**
-     * the {@link Color} of a Geometry
-     */
-    public Color color;
-
+    
     /**
      * the {@link Material} of a Geometry
      */
-    public Material material;
+
+    public final Material material;
 
     /**
      * Constructor for the Geometry Object
      *
-     * @param color the Value of the {@link Color}, if color is null throw new {@link IllegalArgumentException}
+     * @param material the Value of the {@link Material}, if material is null throw new {@link IllegalArgumentException}
      */
-    public Geometry(final Color color) {
-        if (color == null) throw new IllegalArgumentException("Param color of constructor can't be null");
-        this.color = color;
-    }
-
     public Geometry(final Material material) {
         if (material == null) throw new IllegalArgumentException("Param material of constructor can't be null");
         this.material = material;
     }
-
 
     /**
      * This Methods takes an {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.
@@ -51,7 +40,7 @@ public abstract class Geometry {
     @Override
     public String toString() {
         return "Geometry{" +
-                "color=" + color +
+                "material=" + material +
                 '}';
     }
 
@@ -65,7 +54,7 @@ public abstract class Geometry {
 
         Geometry geometry = (Geometry) o;
 
-        return color.equals(geometry.color);
+        return material.equals(geometry.material);
 
     }
 
@@ -74,6 +63,6 @@ public abstract class Geometry {
      */
     @Override
     public int hashCode() {
-        return color.hashCode();
+        return material.hashCode();
     }
 }
