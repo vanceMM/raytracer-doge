@@ -2,6 +2,7 @@ package de.beuth.cg1.dogeraytracer.geometry;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.vecmatlib.*;
+import de.beuth.cg1.dogeraytracer.material.Material;
 
 /**
  * Created by valentin on 22/05/16.
@@ -13,7 +14,12 @@ public abstract class Geometry {
     /**
      * the {@link Color} of a Geometry
      */
-    public final Color color;
+    public Color color;
+
+    /**
+     * the {@link Material} of a Geometry
+     */
+    public Material material;
 
     /**
      * Constructor for the Geometry Object
@@ -24,6 +30,12 @@ public abstract class Geometry {
         if (color == null) throw new IllegalArgumentException("Param color of constructor can't be null");
         this.color = color;
     }
+
+    public Geometry(final Material material) {
+        if (material == null) throw new IllegalArgumentException("Param material of constructor can't be null");
+        this.material = material;
+    }
+
 
     /**
      * This Methods takes an {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.
