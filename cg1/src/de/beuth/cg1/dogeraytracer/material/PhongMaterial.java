@@ -3,7 +3,12 @@ package de.beuth.cg1.dogeraytracer.material;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.Geometry;
 import de.beuth.cg1.dogeraytracer.geometry.Hit;
+import de.beuth.cg1.dogeraytracer.light.Light;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.world.World;
+
+import java.util.ArrayList;
 
 /**
  * Created by User on 31.05.2016.
@@ -50,7 +55,13 @@ public class PhongMaterial extends Material{
     @Override
     public Color colorFor(Hit hit, World world) {
         if(hit == null || world == null) throw new IllegalArgumentException("Param color of constructor can't be null ");
-        return null;
+
+        final Normal3 n = hit.normal;
+        final Point3 p = hit.ray.at(hit.t);
+        Color colorHit = world.ambientLightColor;
+        ArrayList<Light> lights = world.lightSources;
+        hit.ray.d.mul(-1).normalized();
+
     }
 
     /**
