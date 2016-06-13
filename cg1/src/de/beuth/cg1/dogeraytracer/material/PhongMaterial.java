@@ -68,7 +68,7 @@ public class PhongMaterial extends Material{
             Color color = new Color(0, 0, 0);
             Vector3 r = l.reflectOn(n);
             if (light.illuminates(p)) {
-                color = color.addColor(light.color).mulColor(this.diffuse).mulScalarColor(Math.max(0, n.dot(l))).addColor(light.color).mulColor(this.specular).mulScalarColor(Math.pow(Math.max(0, r.dot(e)),exponent));
+                color = color.addColor(light.color.mulColor(this.diffuse).mulScalarColor(Math.max(0, n.dot(l)))).addColor(light.color.mulColor(this.specular).mulScalarColor(Math.pow(Math.max(0, r.dot(e)),exponent)));
             }
             colorHit = colorHit.addColor(color);
         }
