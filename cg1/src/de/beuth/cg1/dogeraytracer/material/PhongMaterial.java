@@ -58,10 +58,9 @@ public class PhongMaterial extends Material{
         if (hit == null || world == null)
             throw new IllegalArgumentException("Param color of constructor can't be null ");
 
-        final Normal3 n = hit.normal;
-        final Point3 p = hit.ray.at(hit.t);
+        Normal3 n = hit.normal;
+        Point3 p = hit.ray.at(hit.t);
         Color ambient = world.ambientLightColor.mulColor(diffuse);
-        Color rest = new Color(0,0,0);
         ArrayList<Light> lights = world.lightSources;
         Vector3 e = hit.ray.d.mul(-1).normalized();
         for (Light light : lights) {
@@ -69,10 +68,12 @@ public class PhongMaterial extends Material{
                 Vector3 l = light.directionFrom(p).normalized();
                 Vector3 r = l.reflectOn(n);
                 Color dif = this.diffuse.mulColor(light.color).mulScalarColor(Math.max(0.0,n.dot(l)));
-                Color glow = this.diffuse.mulColor(light.color).mulScalarColor(Math.pow((Math.max(0.0,e.dot(r))),exponent));
-                rest = rest.addColor(dif).addColor(glow);
+                Color glow = this.specular.mulColor(light.color).mulScalarColor(Math.pow((Math.max(0.0,e.dot(r))),64));
+
+
+                ambient = ambient.addColor(dif).addColor(glow);
             }
-            ambient = ambient.addColor(rest);
+
         }
         return ambient;
 
