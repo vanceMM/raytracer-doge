@@ -39,7 +39,6 @@ public class PointLight extends Light {
     @Override
     public boolean illuminates(final Point3 point) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
-        point.sub(position);
         return true;
     }
 
