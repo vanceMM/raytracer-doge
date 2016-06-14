@@ -139,7 +139,7 @@ public class Vector3 {
      */
     public Vector3 reflectOn(final Normal3 n){
         if (n == null) throw new IllegalArgumentException("Parameter n can't be null");
-        return sub(n.mul(dot(n)).mul(2)).mul(-1);
+        return sub(n.mul(dot(n)).mul(2.0)).mul(-1.0);
     }
 
     /**

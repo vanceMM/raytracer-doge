@@ -155,11 +155,11 @@ public class CanvasController implements Initializable {
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-//    //      Demo 5      -   PhongMaterial
+////    //      Demo 5      -   PhongMaterial
     Plane plane = new Plane(new PhongMaterial(new Color(1,0,0),new Color(1,1,1),64),new Point3(0,0,0),new Normal3(0,1,0));
     Sphere sphere1 = new Sphere(new PhongMaterial(new Color(0,1,0), new Color(1,1,1), 64), new Point3(1,1,1), 0.5);
     AxisAlignedBox box = new AxisAlignedBox(new PhongMaterial(new Color(0,0,1), new Color(1,1,1), 64),new Point3(-1.5,0.5,0.5), new Point3(-0.5,1.5,1.5));
-    Triangle triangle = new Triangle(new PhongMaterial(new Color(0,1,1), new Color(1,1,1), 64), new Point3(0,0,-1), new Point3(1,0,-1), new Point3(1,1,-1));
+    Triangle triangle = new Triangle(new PhongMaterial(new Color(1,1,0), new Color(1,1,1), 64), new Point3(0,0,-1), new Point3(1,0,-1), new Point3(1,1,-1));
     ArrayList<Geometry> objects = new ArrayList<>();
     objects.add(plane);
     objects.add(sphere1);
@@ -178,10 +178,10 @@ public class CanvasController implements Initializable {
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //        //      Demo 6      -   DirectionLight
-//        Plane plane = new Plane(new LambertMaterial(new Color(1,0,0)),new Point3(0,0,0),new Normal3(0,1,0));
-//        Sphere sphere1 = new Sphere(new LambertMaterial(new Color(0,1,0)), new Point3(1,1,1), 0.5);
-//        AxisAlignedBox box = new AxisAlignedBox(new LambertMaterial(new Color(0,0,1)),new Point3(-1.5,0.5,0.5), new Point3(-0.5,1.5,1.5));
-//        Triangle triangle = new Triangle(new LambertMaterial(new Color(0,1,1)), new Point3(0,0,-1), new Point3(1,0,-1), new Point3(1,1,-1));
+//        Plane plane = new Plane(new PhongMaterial(new Color(1,0,0),new Color(1,1,1),64),new Point3(0,0,0),new Normal3(0,1,0));
+//        Sphere sphere1 = new Sphere(new PhongMaterial(new Color(0,1,0), new Color(1,1,1), 64), new Point3(1,1,1), 0.5);
+//        AxisAlignedBox box = new AxisAlignedBox(new PhongMaterial(new Color(0,0,1), new Color(1,1,1), 64),new Point3(-1.5,0.5,0.5), new Point3(-0.5,1.5,1.5));
+//        Triangle triangle = new Triangle(new PhongMaterial(new Color(0,1,1), new Color(1,1,1), 64), new Point3(0,0,-1), new Point3(1,0,-1), new Point3(1,1,-1));
 //        ArrayList<Geometry> objects = new ArrayList<>();
 //        objects.add(plane);
 //        objects.add(sphere1);
@@ -197,12 +197,12 @@ public class CanvasController implements Initializable {
 //    }
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-//
+
 //    //      Demo 7      -   Spotlight
-//    Plane plane = new Plane(new LambertMaterial(new Color(1,0,0)),new Point3(0,0,0),new Normal3(0,1,0));
-//    Sphere sphere1 = new Sphere(new LambertMaterial(new Color(0,1,0)), new Point3(1,1,1), 0.5);
-//    AxisAlignedBox box = new AxisAlignedBox(new LambertMaterial(new Color(0,0,1)),new Point3(-1.5,0.5,0.5), new Point3(-0.5,1.5,1.5));
-//    Triangle triangle = new Triangle(new LambertMaterial(new Color(0,1,1)), new Point3(0,0,-1), new Point3(1,0,-1), new Point3(1,1,-1));
+//    Plane plane = new Plane(new PhongMaterial(new Color(1,0,0),new Color(1,1,1),64),new Point3(0,0,0),new Normal3(0,1,0));
+//    Sphere sphere1 = new Sphere(new PhongMaterial(new Color(0,1,0), new Color(1,1,1), 64), new Point3(1,1,1), 0.5);
+//    AxisAlignedBox box = new AxisAlignedBox(new PhongMaterial(new Color(0,0,1), new Color(1,1,1), 64),new Point3(-1.5,0.5,0.5), new Point3(-0.5,1.5,1.5));
+//    Triangle triangle = new Triangle(new PhongMaterial(new Color(0,1,1), new Color(1,1,1), 64), new Point3(0,0,-1), new Point3(1,0,-1), new Point3(1,1,-1));
 //    ArrayList<Geometry> objects = new ArrayList<>();
 //    objects.add(plane);
 //    objects.add(sphere1);
@@ -220,10 +220,10 @@ public class CanvasController implements Initializable {
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         //      Demo 8      -   Spotlight + ambientLight
-//        Plane plane = new Plane(new LambertMaterial(new Color(1, 0, 0)), new Point3(0, 0, 0), new Normal3(0, 1, 0));
-//        Sphere sphere1 = new Sphere(new LambertMaterial(new Color(0, 1, 0)), new Point3(1, 1, 1), 0.5);
-//        AxisAlignedBox box = new AxisAlignedBox(new LambertMaterial(new Color(0, 0, 1)), new Point3(-1.5, 0.5, 0.5), new Point3(-0.5, 1.5, 1.5));
-//        Triangle triangle = new Triangle(new LambertMaterial(new Color(0, 1, 1)), new Point3(0, 0, -1), new Point3(1, 0, -1), new Point3(1, 1, -1));
+//        Plane plane = new Plane(new PhongMaterial(new Color(1,0,0),new Color(1,1,1),64),new Point3(0,0,0),new Normal3(0,1,0));
+//        Sphere sphere1 = new Sphere(new PhongMaterial(new Color(0,1,0), new Color(1,1,1), 64), new Point3(1,1,1), 0.5);
+//        AxisAlignedBox box = new AxisAlignedBox(new PhongMaterial(new Color(0,0,1), new Color(1,1,1), 64),new Point3(-1.5,0.5,0.5), new Point3(-0.5,1.5,1.5));
+//        Triangle triangle = new Triangle(new PhongMaterial(new Color(0,1,1), new Color(1,1,1), 64), new Point3(0,0,-1), new Point3(1,0,-1), new Point3(1,1,-1));
 //        ArrayList<Geometry> objects = new ArrayList<>();
 //        objects.add(plane);
 //        objects.add(sphere1);
