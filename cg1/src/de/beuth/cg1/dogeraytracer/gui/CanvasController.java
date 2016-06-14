@@ -135,7 +135,6 @@ public class CanvasController implements Initializable {
 
 //        //      Demo 4    -   LambertMaterial
 //        Plane plane = new Plane(new LambertMaterial(new Color(1,0,0)),new Point3(0,0,0),new Normal3(0,1,0));
-
 //        Sphere sphere1 = new Sphere(new LambertMaterial(new Color(0,1,0)), new Point3(1,1,1), 0.5);
 //        AxisAlignedBox box = new AxisAlignedBox(new LambertMaterial(new Color(0,0,1)),new Point3(-1.5,0.5,0.5), new Point3(-0.5,1.5,1.5));
 //        Triangle triangle = new Triangle(new LambertMaterial(new Color(0,1,1)), new Point3(0,0,-1), new Point3(1,0,-1), new Point3(1,1,-1));
@@ -155,24 +154,24 @@ public class CanvasController implements Initializable {
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-////    //      Demo 5      -   PhongMaterial
-    Plane plane = new Plane(new PhongMaterial(new Color(1,0,0),new Color(1,1,1),64),new Point3(0,0,0),new Normal3(0,1,0));
-    Sphere sphere1 = new Sphere(new PhongMaterial(new Color(0,1,0), new Color(1,1,1), 64), new Point3(1,1,1), 0.5);
-    AxisAlignedBox box = new AxisAlignedBox(new PhongMaterial(new Color(0,0,1), new Color(1,1,1), 64),new Point3(-1.5,0.5,0.5), new Point3(-0.5,1.5,1.5));
-    Triangle triangle = new Triangle(new PhongMaterial(new Color(1,1,0), new Color(1,1,1), 64), new Point3(0,0,-1), new Point3(1,0,-1), new Point3(1,1,-1));
-    ArrayList<Geometry> objects = new ArrayList<>();
-    objects.add(plane);
-    objects.add(sphere1);
-    objects.add(box);
-    objects.add(triangle);
-    // light
-    PointLight sun = new PointLight(new Color(1,1,1), new Point3(4,4,4));
-    ArrayList<Light> lightSources = new ArrayList<>();
-    lightSources.add(sun);
-    // initialize world and cam
-    world = new World(objects,new Color(0,0,0), lightSources, new Color(0,0,0));
-    perspective = new PerspectiveCamera(new Point3(4,4,4),new Vector3(-1,-1,-1), new Vector3(0,1,0) ,Math.PI/4);
-}
+    //      Demo 5      -   PhongMaterial
+//    Plane plane = new Plane(new PhongMaterial(new Color(1,0,0),new Color(1,1,1),64),new Point3(0,0,0),new Normal3(0,1,0));
+//    Sphere sphere1 = new Sphere(new PhongMaterial(new Color(0,1,0), new Color(1,1,1), 64), new Point3(1,1,1), 0.5);
+//    AxisAlignedBox box = new AxisAlignedBox(new PhongMaterial(new Color(0,0,1), new Color(1,1,1), 64),new Point3(-1.5,0.5,0.5), new Point3(-0.5,1.5,1.5));
+//    Triangle triangle = new Triangle(new PhongMaterial(new Color(1,1,0), new Color(1,1,1), 64), new Point3(0,0,-1), new Point3(1,0,-1), new Point3(1,1,-1));
+//    ArrayList<Geometry> objects = new ArrayList<>();
+//    objects.add(plane);
+//    objects.add(sphere1);
+//    objects.add(box);
+//    objects.add(triangle);
+//    // light
+//    PointLight sun = new PointLight(new Color(1,1,1), new Point3(4,4,4));
+//    ArrayList<Light> lightSources = new ArrayList<>();
+//    lightSources.add(sun);
+//    // initialize world and cam
+//    world = new World(objects,new Color(0,0,0), lightSources, new Color(0,0,0));
+//    perspective = new PerspectiveCamera(new Point3(4,4,4),new Vector3(-1,-1,-1), new Vector3(0,1,0) ,Math.PI/4);
+//}
 
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -220,23 +219,24 @@ public class CanvasController implements Initializable {
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
         //      Demo 8      -   Spotlight + ambientLight
-//        Plane plane = new Plane(new PhongMaterial(new Color(1,0,0),new Color(1,1,1),64),new Point3(0,0,0),new Normal3(0,1,0));
-//        Sphere sphere1 = new Sphere(new PhongMaterial(new Color(0,1,0), new Color(1,1,1), 64), new Point3(1,1,1), 0.5);
-//        AxisAlignedBox box = new AxisAlignedBox(new PhongMaterial(new Color(0,0,1), new Color(1,1,1), 64),new Point3(-1.5,0.5,0.5), new Point3(-0.5,1.5,1.5));
-//        Triangle triangle = new Triangle(new PhongMaterial(new Color(0,1,1), new Color(1,1,1), 64), new Point3(0,0,-1), new Point3(1,0,-1), new Point3(1,1,-1));
-//        ArrayList<Geometry> objects = new ArrayList<>();
-//        objects.add(plane);
-//        objects.add(sphere1);
-//        objects.add(box);
-//        objects.add(triangle);
-//        // light
-//        SpotLight sun = new SpotLight(new Color(1, 1, 1), new Point3(4, 4, 4), new Vector3(-1, -1, -1), Math.PI / 14);
-//        ArrayList<Light> lightSources = new ArrayList<>();
-//        lightSources.add(sun);
-//        // initialize world and cam
-//        world = new World(objects, new Color(0, 0, 0), lightSources, new Color(0.25,0.25,0.25));
-//        perspective = new PerspectiveCamera(new Point3(4, 4, 4), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI / 4);
-//    }
+        Plane plane = new Plane(new PhongMaterial(new Color(1,0,0),new Color(1,1,1),64),new Point3(0,0,0),new Normal3(0,1,0));
+        Sphere sphere1 = new Sphere(new PhongMaterial(new Color(0,1,0), new Color(1,1,1), 64), new Point3(1,1,1), 0.5);
+        AxisAlignedBox box = new AxisAlignedBox(new PhongMaterial(new Color(0,0,1), new Color(1,1,1), 64),new Point3(-1.5,0.5,0.5), new Point3(-0.5,1.5,1.5));
+        Triangle triangle = new Triangle(new PhongMaterial(
+                new Color(0,1,1), new Color(1,1,1), 64), new Point3(0,0,-1), new Point3(1,0,-1), new Point3(1,1,-1));
+        ArrayList<Geometry> objects = new ArrayList<>();
+        objects.add(plane);
+        objects.add(sphere1);
+        objects.add(box);
+        objects.add(triangle);
+        // light
+        SpotLight sun = new SpotLight(new Color(1, 1, 1), new Point3(4, 4, 4), new Vector3(-1, -1, -1), Math.PI / 14);
+        ArrayList<Light> lightSources = new ArrayList<>();
+        lightSources.add(sun);
+        // initialize world and cam
+        world = new World(objects, new Color(0, 0, 0), lightSources, new Color(0.25,0.25,0.25));
+        perspective = new PerspectiveCamera(new Point3(4, 4, 4), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI / 4);
+    }
 
     /**
      * Building the Menu and adding an eventHandler to the "save" MenuItem
