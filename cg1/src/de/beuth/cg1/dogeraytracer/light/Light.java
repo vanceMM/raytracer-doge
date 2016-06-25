@@ -18,14 +18,21 @@ public abstract class Light {
     public final Color color;
 
     /**
+     * this field defines if a light is casting a shadow or not
+     */
+    public final boolean castsShadow;
+
+    /**
      * Constructor for the Light Object
      * Creates a new instance of Light with defined attributes.
      *
      * @param color value for the {@link Color} of the {@link Light}, if null throw new {@link IllegalArgumentException}
+     * @param castsShadow value for a boolean, if true the light casts shadow, if false it doesn't
      */
-    public Light(final Color color) {
+    public Light(final Color color, final boolean castsShadow) {
         if (color == null) throw new IllegalArgumentException("Param color of constructor cant be null");
         this.color = color;
+        this.castsShadow = castsShadow;
     }
 
     /**

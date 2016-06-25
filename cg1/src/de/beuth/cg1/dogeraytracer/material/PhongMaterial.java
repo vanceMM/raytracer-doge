@@ -70,7 +70,7 @@ public class PhongMaterial extends Material{
                 final Vector3 l = light.directionFrom(p);
                 final Vector3 r = l.reflectOn(hit.normal);
                 double max = Math.max(0.0, l.dot(n));
-                double max2 = Math.pow((Math.max(0.0, e.dot(r.mul(-1)))), 20);
+                double max2 = Math.pow((Math.max(0.0, e.dot(r.mul(-1)))), 12);
                 Color lightColor = light.color;
                 ambient = ambient
                         .addColor(this.diffuse.mulColor(lightColor).mulScalarColor(max))

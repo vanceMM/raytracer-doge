@@ -24,8 +24,8 @@ public class DirectionalLight extends Light {
      * @param color value for the {@link Color} of the {@link Light}, if null throw new {@link IllegalArgumentException}
      * @param direction value for the direction of the DirectionalLight
      */
-    public DirectionalLight(final Color color, final Vector3 direction) {
-        super(color);
+    public DirectionalLight(final Color color, final boolean castsShadow, final Vector3 direction) {
+        super(color, castsShadow);
         this.direction = direction;
     }
 

@@ -1,7 +1,6 @@
 package de.beuth.cg1.dogeraytracer.light;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
-import de.beuth.cg1.dogeraytracer.material.Material;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 
@@ -34,8 +33,8 @@ public class SpotLight extends Light {
      * @param direction value for the direction of the SpotLight, if null throw new {@link IllegalArgumentException}
      * @param halfAngle value for the angle of the SpotLight, if NaN throw new {@link IllegalArgumentException}
      */
-    public SpotLight(Color color, Point3 position, Vector3 direction, double halfAngle) {
-        super(color);
+    public SpotLight(Color color, Point3 position, final boolean castsShadow, Vector3 direction, double halfAngle) {
+        super(color, castsShadow);
         if (position == null || direction == null || Double.isNaN(halfAngle)) throw new IllegalArgumentException("Params of constructor cant be null or NaN");
         this.position = position;
         this.direction = direction;
@@ -48,6 +47,7 @@ public class SpotLight extends Light {
      * @param point to check if the {@link Point3} is hit by light, if null throw new {@link IllegalArgumentException}
      * @return true if point is hit, false if not
      */
+    // TODO pixel failure, light (angle) not hitting pixel at 0
     @Override
     public boolean illuminates(Point3 point) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
