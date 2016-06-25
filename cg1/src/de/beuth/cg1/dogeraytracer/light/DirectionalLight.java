@@ -3,6 +3,7 @@ package de.beuth.cg1.dogeraytracer.light;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
+import de.beuth.cg1.dogeraytracer.world.World;
 
 /**
  * Created by baetschjunge on 31/05/16.
@@ -36,7 +37,7 @@ public class DirectionalLight extends Light {
      * @return true if point is hit, false if not
      */
     @Override
-    public boolean illuminates(Point3 point) {
+    public boolean illuminates(Point3 point, final World world) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
         return true;
     }

@@ -3,6 +3,7 @@ package de.beuth.cg1.dogeraytracer.light;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
+import de.beuth.cg1.dogeraytracer.world.World;
 
 /**
  * Created by baetschjunge on 31/05/16.
@@ -49,7 +50,7 @@ public class SpotLight extends Light {
      */
     // TODO pixel failure, light (angle) not hitting pixel at 0
     @Override
-    public boolean illuminates(Point3 point) {
+    public boolean illuminates(Point3 point, final World world) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
         // -l⃗ dot d⃗l < cos(alpha)
         // dl = direction
@@ -70,7 +71,9 @@ public class SpotLight extends Light {
     public Vector3 directionFrom(Point3 point) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
         // l⃗ = P⃗l-P⃗r/|P⃗l-P⃗r|
-        return position.sub(point).normalized();
+//        return position.sub(point).normalized();
+        return new Vector3(position.x - point.x, position.y - point.y, position.z - point.z).normalized();
+
     }
 
     /**

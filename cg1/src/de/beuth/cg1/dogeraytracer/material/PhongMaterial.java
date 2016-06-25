@@ -8,6 +8,7 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 import de.beuth.cg1.dogeraytracer.world.World;
+import jdk.internal.instrumentation.Tracer;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class PhongMaterial extends Material{
      * @return {@link Color} of the {@link Hit} Object
      */
     @Override
-    public Color colorFor(Hit hit, World world) {
+    public Color colorFor(Hit hit, World world, final Tracer tracer) {
         if (hit == null || world == null)
             throw new IllegalArgumentException("Param color of constructor can't be null ");
         
