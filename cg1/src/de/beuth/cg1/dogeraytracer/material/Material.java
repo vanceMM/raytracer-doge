@@ -18,7 +18,7 @@ public abstract class Material {
      * @param world is used for determining the light sources, if null throw new {@link IllegalArgumentException}
      * @return {@link Color} of the {@link Hit} Object
      */
-    public abstract Color colorFor(final Hit hit, final World world);
+    public abstract Color colorFor(final Hit hit, final World world, Tracer tracer);
 
     /**
      * @see Object#toString()

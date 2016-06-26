@@ -55,8 +55,9 @@ public class ReflectiveMaterial extends Material {
      * @param world is used for determining the light sources, if null throw new {@link IllegalArgumentException}
      * @return {@link Color} of the {@link Hit} Object
      */
+
     @Override
-    public Color colorFor(Hit hit, World world) {
-        return null;
+    public Color colorFor(Hit hit, World world, Tracer tracer) {
+        
     }
 }
