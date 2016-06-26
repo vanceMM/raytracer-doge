@@ -267,6 +267,10 @@ public class CanvasController implements Initializable {
         perspective = new PerspectiveCamera(new Point3(4, 4, 4), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI / 4);
     }
 
+    private void showDemo04_1() {
+
+    }
+
     /**
      * Building the Menu and adding an eventHandler to the "save" MenuItem
      */

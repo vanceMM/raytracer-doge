@@ -1,7 +1,9 @@
 package de.beuth.cg1.dogeraytracer.light;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.geometry.Hit;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 import de.beuth.cg1.dogeraytracer.world.World;
 
@@ -40,7 +42,25 @@ public class PointLight extends Light {
     @Override
     public boolean illuminates(final Point3 point, final World world) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
-        return true;
+
+        if (this.castsShadow) {
+            Ray ray = new Ray(point, this.directionFrom(point));
+            Hit hit = world.hit(ray);
+
+            // if there is no hit with any geometry return true, so the light illuminates this point
+            if (hit == null) {
+                return true;
+            }
+
+            //check if the point is hidden by a geometry
+            if (hit.t < ray.tOf(this.position)) {
+                return false;
+            } else  {
+                return  true;
+            }
+        } else {
+            return true;
+        }
     }
 
     /**
