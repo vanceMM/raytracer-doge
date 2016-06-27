@@ -76,7 +76,7 @@ public class ReflectiveMaterial extends Material {
         final double phi = n.dot(hit.ray.d.mul(-1.0))*2.0;
 
         for (Light light : lights) {
-           if (light.illuminates(p, world)){
+           if (light.illuminates( p, world )){
 
                final Vector3 l = light.directionFrom(p);
                final Vector3 r = l.reflectOn(hit.normal);

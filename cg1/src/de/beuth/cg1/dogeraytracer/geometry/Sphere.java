@@ -2,6 +2,7 @@ package de.beuth.cg1.dogeraytracer.geometry;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.material.Material;
+import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
@@ -50,11 +51,11 @@ public class Sphere extends Geometry {
         if (ray == null) throw new IllegalArgumentException("Param ray (ray) can't be null");
         double a, b, c, discremenant, t, t2;
         a = ray.d.dot(ray.d);                                                   // d⃗ • d⃗
-        b = ray.d.dot((ray.o.sub(center)).mul(2));                              // d⃗ • [2(⃗o − ⃗c)]
-        c = ray.o.sub(center).dot(ray.o.sub(center)) - Math.pow(radius,2);      // ( ⃗o − ⃗c ) • ( ⃗o − ⃗c ) − ray 2
+        b = ray.d.dot((ray.o.sub(center)).mul(2.0));                              // d⃗ • [2(⃗o − ⃗c)]
+        c = ray.o.sub(center).dot(ray.o.sub(center)) - Math.pow(radius,2.0);      // ( ⃗o − ⃗c ) • ( ⃗o − ⃗c ) − ray 2
 
         // if discriminant of t calculation is negative this will result in error in sqrt = no hit
-        discremenant = Math.pow(b,2) - 4 * a *c;                                       // d = b^2 −4ac
+        discremenant = Math.pow(b,2.0) - 4.0 * a *c;                                       // d = b^2 −4ac
 
         // intersectionNormal of the hit point3
         //Normal3 intersectionNormal = null;
@@ -70,11 +71,11 @@ public class Sphere extends Geometry {
 
             // get the nearest hit t
             if (t < t2) {
-                if (t >= 0)
+                if (t >= Raytracer.DELTA)
                     return new Hit(t, ray, this, calcIntersectionNormal(ray, t));
             }
             else {
-                if (t2 >= 0)
+                if (t2 >= Raytracer.DELTA)
                     return new Hit(t2, ray, this, calcIntersectionNormal(ray, t2));
             }
         }
@@ -84,8 +85,9 @@ public class Sphere extends Geometry {
     private Normal3 calcIntersectionNormal(Ray r, double t){
         //return r.at(t).sub(center).normalized().asNormal();
         Point3 at = r.at(t);
-        Normal3 normal3 = new Normal3(at.x - center.x, at.y - center.y, at.z - center.z);
-        return normal3.mul(1);
+        //Normal3 normal3 = new Normal3(at.x - center.x, at.y - center.y, at.z - center.z);
+        //return normal3.mul(1);
+        return new Normal3(at.x - center.x, at.y - center.y, at.z - center.z);
     }
 
     /**

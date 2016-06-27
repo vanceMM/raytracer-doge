@@ -291,9 +291,11 @@ public class CanvasController implements Initializable {
 
 
         PointLight light = new PointLight(new Color(1,1,1), true, new Point3(8,8,0));
+        DirectionalLight light2 = new DirectionalLight(new Color(1,1,1), false, new Vector3(0,1,1));
 
         ArrayList<Light> lightSources = new ArrayList<>();
         lightSources.add(light);
+        //lightSources.add(light2);
 
         world = new World(objects,new Color(0,0,0), lightSources, new Color(0.25, 0.25, 0.25), 0);
         perspective = new PerspectiveCamera(new Point3(5,5,5), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);

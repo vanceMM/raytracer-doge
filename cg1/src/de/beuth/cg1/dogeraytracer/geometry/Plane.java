@@ -54,9 +54,9 @@ public class Plane extends Geometry {
 
         double t = numerator/denominator;
 
-//-Raytracer.DELTA
-        if (denominator != 0 && t > 0) {
-            return  new Hit(t, r, this, n);
+
+        if (denominator != 0 && t > Raytracer.DELTA) {
+            return new Hit(t, r, this, this.n);
         } else {
             return null;
         }
