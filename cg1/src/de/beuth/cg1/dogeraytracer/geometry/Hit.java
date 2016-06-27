@@ -11,7 +11,7 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 public class Hit {
 
     /**
-     * double value fot the intersection point
+     * double value for the intersection point
      */
     public final double t;
     /**
@@ -30,7 +30,7 @@ public class Hit {
 
     /**
      * Creates a new instance of {@link Hit} with defined attributes.
-     *  @param t double Value for the intersection Point, if NaN throw new {@link IllegalArgumentException}
+     * @param t double Value for the intersection Point, if NaN throw new {@link IllegalArgumentException}
      * @param ray the Ray Value for a {@link Ray}, if null throw new {@link IllegalArgumentException}
      * @param geo the Geometry Value for a {@link Geometry}, if null throw new {@link IllegalArgumentException}
      * @param normal value of the {@link Normal3} of the intersection point of the {@link Geometry} and {@link Ray}, if null throw new {@link IllegalArgumentException}

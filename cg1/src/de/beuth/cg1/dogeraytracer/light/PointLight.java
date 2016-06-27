@@ -56,7 +56,7 @@ public class PointLight extends Light {
             if (hit.t < ray.tOf(position)) {
                 return false;
             } else  {
-                return  true;
+                return true;
             }
         } else {
             return true;

@@ -5,7 +5,7 @@ package de.beuth.cg1.dogeraytracer.color;
  *
  * This Class represents a Color in RGB Color Space.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class Color {
 
     /**

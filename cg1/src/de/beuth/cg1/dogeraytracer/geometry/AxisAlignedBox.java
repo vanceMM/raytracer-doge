@@ -90,9 +90,14 @@ public class AxisAlignedBox extends Geometry {
         // iterate over visible planes and store farthest point
         for (Plane p : planes) {
             Hit current = p.hit(r);
-            if (farthestHit == null || current.t > farthestHit.t) {
+            if (current !=null && (farthestHit == null || current.t > farthestHit.t)) {
                 farthestHit = current;
             }
+        }
+
+        // if we hit no plane return null
+        if(farthestHit == null) {
+            return null;
         }
 
         // get the point that is hit by the ray

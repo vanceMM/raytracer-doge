@@ -58,25 +58,31 @@ public class ReflectiveMaterial extends Material {
     /**
      * This method calculates the {@link Color} for a passed {@link Hit} Object in the given {@link World}
      *
-     * @param hit   on the {@link Geometry}, if null throw new {@link IllegalArgumentException}
+     * @param hit on the {@link Geometry}, if null throw new {@link IllegalArgumentException}
      * @param world is used for determining the light sources, if null throw new {@link IllegalArgumentException}
      * @return {@link Color} of the {@link Hit} Object
      */
 
+    @SuppressWarnings("Duplicates")
     @Override
     public Color colorFor(Hit hit, World world, Tracer tracer) {
+
         final Normal3 n = hit.normal;
         final Point3 p = hit.ray.at(hit.t);
         Color ambient = world.ambientLightColor.mulColor(diffuse);
+
         ArrayList<Light> lights = world.lightSources;
         Vector3 e = hit.ray.d;
-        final double phi = hit.normal.dot(hit.ray.d.mul(-1.0))*2;
+        final double phi = n.dot(hit.ray.d.mul(-1.0))*2;
+
         for (Light light : lights) {
            if (light.illuminates(p, world)){
+
                final Vector3 l = light.directionFrom(p);
                final Vector3 r = l.reflectOn(hit.normal);
                double max = Math.max(0.0, l.dot(n));
-               double max2 = Math.pow((Math.max(0.0, e.dot(r.mul(-1)))), 12);
+               double max2 = Math.pow((Math.max(0.0, l.dot(e))), this.exponent);
+
                Color lightColor = light.color;
                ambient = ambient
                        .addColor(this.diffuse.mulColor(lightColor).mulScalarColor(max))
@@ -84,6 +90,6 @@ public class ReflectiveMaterial extends Material {
            }
         }
         Color reflected = tracer.colorFor(new Ray(p, hit.ray.d.add(hit.normal.mul(phi))));
-        return reflection.addColor(reflection.mulColor(reflected));
+        return ambient.addColor(this.reflection.mulColor(reflected));
     }
 }

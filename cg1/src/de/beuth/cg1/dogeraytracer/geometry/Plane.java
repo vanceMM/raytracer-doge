@@ -2,6 +2,7 @@ package de.beuth.cg1.dogeraytracer.geometry;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.material.Material;
+import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
@@ -53,7 +54,8 @@ public class Plane extends Geometry {
 
         double t = numerator/denominator;
 
-        if (denominator != 0.0 && t > 0) {
+//-Raytracer.DELTA
+        if (denominator != 0 && t > 0) {
             return  new Hit(t, r, this, n);
         } else {
             return null;

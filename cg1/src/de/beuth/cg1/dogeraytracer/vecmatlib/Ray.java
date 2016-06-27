@@ -54,4 +54,11 @@ public class Ray {
 		return p.sub(o).magnitude / this.d.magnitude;
 	}
 
+	@Override
+	public String toString() {
+		return "Ray{" +
+				"o=" + o +
+				", d=" + d +
+				'}';
+	}
 }

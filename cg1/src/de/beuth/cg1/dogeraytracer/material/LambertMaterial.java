@@ -53,8 +53,6 @@ public class LambertMaterial extends Material{
            Color color = new Color(0,0,0);
            if (light.illuminates(p, world)) {
                color = color.addColor(light.color).mulColor(this.color).mulScalarColor(Math.max(0, n.dot(l)));
-           } else {
-               System.out.println("does not illuminate");
            }
            colorHit = colorHit.addColor(color);
         }
