@@ -32,6 +32,10 @@ public class World {
      * the list of all {@link Light}-Sources of the World Object
      */
     public final ArrayList<Light> lightSources;
+    /**
+     * index of Refraction
+     */
+    public final double indexOfRefraction;
 
     /**
      * Constructor for the World Object
@@ -41,12 +45,13 @@ public class World {
      * @param lightSources value for the {@link Light}-sources
      * @param ambientLightColor value for the ambientLightColor {@link Color}, if null throw new {@link IllegalArgumentException}
      */
-    public World(ArrayList<Geometry> objects, final Color backgroundColor, ArrayList<Light> lightSources, final Color ambientLightColor) {
+    public World(ArrayList<Geometry> objects, final Color backgroundColor, ArrayList<Light> lightSources, final Color ambientLightColor, final double indexOfRefraction) {
         if (backgroundColor == null ) throw new IllegalArgumentException("Params of constructor cant be null");
         this.objects = objects;
         this.backgroundColor = backgroundColor;
         this.lightSources = lightSources;
         this.ambientLightColor = ambientLightColor;
+        this.indexOfRefraction = indexOfRefraction;
     }
 
     /**
