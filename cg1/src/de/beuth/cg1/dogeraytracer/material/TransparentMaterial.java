@@ -43,27 +43,37 @@ public class TransparentMaterial extends Material {
     @Override
     public Color colorFor(Hit hit, World world, Tracer tracer) {
         // Normale der Oberfläche
-        final Normal3 n = hit.normal;
+        Normal3 n = hit.normal;
         // Reflektierter Vektor d⃗
         final Vector3 rd = hit.ray.d.mul(-1).reflectOn(n);
         // Winkel = (-d⃗)°n⃗
         final double angle1 = n.dot(rd);
         // Winkel2 = sqrt(1-(n1/n2)^2*(1-cos^2*angle1))
         final double angle2 = Math.sqrt(1-(Math.pow(world.indexOfRefraction/indexOfRefraction, 2)*(1-Math.pow(angle1,2))));
+        double rateRef;
+        if (rd.dot(n)<0){
+            rateRef = indexOfRefraction / world.indexOfRefraction;
+            n = n.mul(-1);
+        } else {
+            rateRef = world.indexOfRefraction / indexOfRefraction;
+        }
         // t⃗ = n⃗*(n1/n2*d⃗-(cos(angle2)-(n1/n2)cos(angle1)))
-        final Vector3 t = hit.ray.d.mul(world.indexOfRefraction/indexOfRefraction).sub(n.mul(angle2-((world.indexOfRefraction/indexOfRefraction)*angle1)));
+        final Vector3 t = hit.ray.d.mul(rateRef).sub(n.mul(angle2-((rateRef)*angle1)));
+        if (angle2<0){
+            return tracer.colorFor(new Ray(hit.ray.at(hit.t-Raytracer.DELTA), rd));
+        } else {
+            // R0 = (n1-n2/n1+n2)^2
+            final double R0 = Math.pow((rateRef)/(rateRef), 2);
+            // R = Anteil der Reflexion
+            // R = R0+(1-R0)(1-cos(angle1))^5
+            final double R = R0 + (1 - R0) * Math.pow(1 - angle1, 5);
+            // T = Anteil der Transmission
+            // T = 1-R
+            final double T = 1 - R;
 
-        // R0 = (n1-n2/n1+n2)^2
-        final double R0 = Math.pow((world.indexOfRefraction-indexOfRefraction)/(world.indexOfRefraction+indexOfRefraction),2);
-        // R = Anteil der Reflexion
-        // R = R0+(1-R0)(1-cos(angle1))^5
-        final double R = R0+(1-R0)*Math.pow(1-angle1,5);
-        // T = Anteil der Transmission
-        // T = 1-R
-        final double T = 1-R;
-
-        // Transparentes Material Gleichung (Uebungsblatt)
-        return tracer.colorFor(new Ray(hit.ray.at(hit.t - Raytracer.DELTA), rd)).mulScalarColor(R).addColor(tracer.colorFor(new Ray(hit.ray.at(hit.t + Raytracer.DELTA), t)).mulScalarColor(T));
+            // Transparentes Material Gleichung (Uebungsblatt)
+            return tracer.colorFor(new Ray(hit.ray.at(hit.t - Raytracer.DELTA), rd)).mulScalarColor(R).addColor(tracer.colorFor(new Ray(hit.ray.at(hit.t + Raytracer.DELTA), t)).mulScalarColor(T));
+        }
     }
 }
 
