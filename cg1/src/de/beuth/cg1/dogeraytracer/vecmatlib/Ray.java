@@ -51,7 +51,7 @@ public class Ray {
      */
 	public double tOf(final Point3 p){
 		if (p == null) throw new IllegalArgumentException("Parameter p can't be null");
-		return d.dot(o.sub(p));
+		return p.sub(o).magnitude / this.d.magnitude;
 	}
 
 }

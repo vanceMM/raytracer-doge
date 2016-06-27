@@ -8,7 +8,6 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 import de.beuth.cg1.dogeraytracer.world.World;
-import jdk.internal.instrumentation.Tracer;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -66,7 +65,7 @@ public class PhongMaterial extends Material{
         ArrayList<Light> lights = world.lightSources;
         Vector3 e = hit.ray.d;
         for (Light light : lights) {
-            if (light.illuminates(p)) {
+            if (light.illuminates(p, world)) {
 
                 final Vector3 l = light.directionFrom(p);
                 final Vector3 r = l.reflectOn(hit.normal);
@@ -96,6 +95,7 @@ public class PhongMaterial extends Material{
         }
         */
     }
+
 
     /**
      * @see Object#toString()

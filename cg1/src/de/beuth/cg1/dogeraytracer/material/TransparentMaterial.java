@@ -37,7 +37,7 @@ public class TransparentMaterial extends Material {
      * @return {@link Color} of the {@link Hit} Object
      */
     @Override
-    public Color colorFor(Hit hit, World world) {
+    public Color colorFor(Hit hit, World world, Tracer tracer) {
         return null;
     }
 }

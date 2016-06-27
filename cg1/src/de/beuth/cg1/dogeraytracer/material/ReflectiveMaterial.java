@@ -3,7 +3,14 @@ package de.beuth.cg1.dogeraytracer.material;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.Geometry;
 import de.beuth.cg1.dogeraytracer.geometry.Hit;
+import de.beuth.cg1.dogeraytracer.light.Light;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 import de.beuth.cg1.dogeraytracer.world.World;
+
+import java.util.ArrayList;
 
 /**
  * Created by baetschjunge on 15/06/16.
@@ -58,6 +65,25 @@ public class ReflectiveMaterial extends Material {
 
     @Override
     public Color colorFor(Hit hit, World world, Tracer tracer) {
-        
+        final Normal3 n = hit.normal;
+        final Point3 p = hit.ray.at(hit.t);
+        Color ambient = world.ambientLightColor.mulColor(diffuse);
+        ArrayList<Light> lights = world.lightSources;
+        Vector3 e = hit.ray.d;
+        final double phi = hit.normal.dot(hit.ray.d.mul(-1.0))*2;
+        for (Light light : lights) {
+           if (light.illuminates(p, world)){
+               final Vector3 l = light.directionFrom(p);
+               final Vector3 r = l.reflectOn(hit.normal);
+               double max = Math.max(0.0, l.dot(n));
+               double max2 = Math.pow((Math.max(0.0, e.dot(r.mul(-1)))), 12);
+               Color lightColor = light.color;
+               ambient = ambient
+                       .addColor(this.diffuse.mulColor(lightColor).mulScalarColor(max))
+                       .addColor(this.specular.mulColor(lightColor).mulScalarColor(max2));
+           }
+        }
+        Color reflected = tracer.colorFor(new Ray(p, hit.ray.d.add(hit.normal.mul(phi))));
+        return reflection.addColor(reflection.mulColor(reflected));
     }
 }

@@ -36,7 +36,7 @@ public class SingleColorMaterial extends Material{
      * @return {@link Color} of the {@link Hit} Object
      */
     @Override
-    public Color colorFor(final Hit hit, final World world) {
+    public Color colorFor(final Hit hit, final World world, Tracer tracer) {
         //if(hit == null || world == null) throw new IllegalArgumentException("Param hit or world cant be null");
         return this.color;
     }

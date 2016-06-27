@@ -18,6 +18,7 @@ public class Tracer {
     public final World world;
 
     public Tracer(final World world) {
+        super();
         this.world = world;
     }
 
@@ -26,7 +27,7 @@ public class Tracer {
 
         Hit hit = world.hit(ray);
         if (hit != null) {
-            return hit.geo.material.colorFor(hit, world, new Tracer(world));
+            return hit.geo.material.colorFor(hit, world, new Tracer(this.world));
         } else {
             return world.backgroundColor;
         }

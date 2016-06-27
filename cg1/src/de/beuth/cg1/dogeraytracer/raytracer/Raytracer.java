@@ -3,6 +3,7 @@ package de.beuth.cg1.dogeraytracer.raytracer;
 import de.beuth.cg1.dogeraytracer.camera.Camera;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.Hit;
+import de.beuth.cg1.dogeraytracer.material.Tracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 import de.beuth.cg1.dogeraytracer.world.World;
 
@@ -64,7 +65,7 @@ public class Raytracer {
                 final Color color;
                 Hit hit = this.world.hit(ray);
                 if (hit!=null) {
-                    color = hit.geo.material.colorFor(hit, world);
+                    color = hit.geo.material.colorFor(hit, world, new Tracer(world));
                 } else {
                     color = world.backgroundColor;
                 }

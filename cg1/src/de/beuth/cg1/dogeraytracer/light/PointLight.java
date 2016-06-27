@@ -43,7 +43,7 @@ public class PointLight extends Light {
     public boolean illuminates(final Point3 point, final World world) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
 
-        if (this.castsShadow) {
+        if (castsShadow) {
             Ray ray = new Ray(point, this.directionFrom(point));
             Hit hit = world.hit(ray);
 
@@ -53,7 +53,7 @@ public class PointLight extends Light {
             }
 
             //check if the point is hidden by a geometry
-            if (hit.t < ray.tOf(this.position)) {
+            if (hit.t < ray.tOf(position)) {
                 return false;
             } else  {
                 return  true;
