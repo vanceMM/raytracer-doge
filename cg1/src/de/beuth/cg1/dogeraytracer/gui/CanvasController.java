@@ -267,6 +267,8 @@ public class CanvasController implements Initializable {
         perspective = new PerspectiveCamera(new Point3(4, 4, 4), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI / 4);
     }
 
+
+    // ------------------------------------- R E F L E C T I O N   D E M O   ----------------------------------------
     private void showDemo4_1() {
 
         Plane plane = new Plane(new ReflectiveMaterial(new Color(0.9,0.9,0.9), new Color(0,0,0), 64, new Color(0.5,0.5,0.5)), new Point3(0,0,0), new Normal3(0,1,0) );
@@ -294,6 +296,8 @@ public class CanvasController implements Initializable {
 
     }
 
+
+    // ------------------------------------- S H A D O W   D E M O   ----------------------------------------
     private void showDemo4_2() {
 
         Plane plane = new Plane(new LambertMaterial(new Color(0.8,0.8,0.8)),new Point3(0,0,0), new Normal3(0,1,0) );
@@ -315,6 +319,7 @@ public class CanvasController implements Initializable {
         perspective = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
 
     }
+
 
     // ------------------------------------- TRANSPARENT MAT  ----------------------------------------
     private void showDemo4_5() {

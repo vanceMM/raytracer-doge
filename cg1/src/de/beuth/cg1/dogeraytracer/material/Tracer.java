@@ -59,7 +59,7 @@ public class Tracer {
         } else {
             Hit hit = world.hit(ray);
             if (hit != null) {
-                return hit.geo.material.colorFor(hit, world, new Tracer(this.world, depth));
+                return hit.geo.material.colorFor(hit, world, new Tracer(this.world, depth-1));
             } else {
                 return world.backgroundColor;
             }
