@@ -72,16 +72,17 @@ public class ReflectiveMaterial extends Material {
         Color ambient = world.ambientLightColor.mulColor(diffuse);
 
         ArrayList<Light> lights = world.lightSources;
-        Vector3 e = hit.ray.d;
-        final double phi = n.dot(hit.ray.d.mul(-1.0))*2;
+        Vector3 e = hit.ray.d.mul(-1.0).normalized();
+        final double phi = n.dot(hit.ray.d.mul(-1.0))*2.0;
 
         for (Light light : lights) {
            if (light.illuminates(p, world)){
 
                final Vector3 l = light.directionFrom(p);
                final Vector3 r = l.reflectOn(hit.normal);
+
                double max = Math.max(0.0, l.dot(n));
-               double max2 = Math.pow((Math.max(0.0, l.dot(e))), this.exponent);
+               double max2 = Math.pow((Math.max(0.0, r.dot(e))), this.exponent);
 
                Color lightColor = light.color;
                ambient = ambient
