@@ -263,7 +263,7 @@ public class CanvasController implements Initializable {
         lightSources.add(sun);
 
         // initialize world and cam
-        world = new World(objects, new Color(0, 0, 0), lightSources, new Color(0.25,0.25,0.25));
+        //world = new World(objects, new Color(0, 0, 0), lightSources, new Color(0.25,0.25,0.25));
         perspective = new PerspectiveCamera(new Point3(4, 4, 4), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI / 4);
     }
 
@@ -289,7 +289,7 @@ public class CanvasController implements Initializable {
         ArrayList<Light> lightSources = new ArrayList<>();
         lightSources.add(light);
 
-        world = new World(objects,new Color(0,0,0), lightSources, new Color(0.25, 0.25, 0.25));
+        world = new World(objects,new Color(0,0,0), lightSources, new Color(0.25, 0.25, 0.25), 0);
         perspective = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
 
     }
@@ -311,7 +311,35 @@ public class CanvasController implements Initializable {
         ArrayList<Light> lightSources = new ArrayList<>();
         lightSources.add(light);
 
-        world = new World(objects,new Color(0,0,0), lightSources, new Color(0.25, 0.25, 0.25));
+        world = new World(objects,new Color(0,0,0), lightSources, new Color(0.25, 0.25, 0.25), 0);
+        perspective = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
+
+    }
+
+    // ------------------------------------- TRANSPARENT MAT  ----------------------------------------
+    private void showDemo4_5() {
+
+        Plane plane = new Plane(new LambertMaterial(new Color(0.8,0.8,0.8)),new Point3(0,0,0), new Normal3(0,1,0));
+        Sphere sphere1 = new Sphere(new TransparentMaterial(1.3), new Point3(-3,1,0), 1);
+        Sphere sphere2 = new Sphere(new TransparentMaterial(1.3), new Point3(0,1,0), 1);
+        Sphere sphere3 = new Sphere(new TransparentMaterial(1.3), new Point3(3,1,0), 1);
+        //AxisAlignedBox box1 = new AxisAlignedBox(new ReflectiveMaterial(new Color(0,1,1), new Color(1,1,1), 64, new Color(0.5, 0.5, 0.5)), new Point3(-3,0.5,0.5), new Point3(-2,1.5,1.5));
+
+
+        ArrayList<Geometry> objects = new ArrayList<>();
+        objects.add(plane);
+        objects.add(sphere1);
+        objects.add(sphere2);
+        objects.add(sphere3);
+        //objects.add(box1);
+
+
+        PointLight light = new PointLight(new Color(1,1,1), true, new Point3(8,8,0));
+
+        ArrayList<Light> lightSources = new ArrayList<>();
+        lightSources.add(light);
+
+        world = new World(objects,new Color(0,0,0), lightSources, new Color(0.25, 0.25, 0.25), 0);
         perspective = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
 
     }
