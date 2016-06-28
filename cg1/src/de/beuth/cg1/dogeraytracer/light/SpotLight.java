@@ -54,6 +54,7 @@ public class SpotLight extends Light {
     @Override
     public boolean illuminates(Point3 point, final World world) {
         if (point == null) throw new IllegalArgumentException("Param point cant be null");
+
         // -l⃗ dot d⃗l < cos(alpha)
         // dl = direction
         // l = vector from intersectionPoint to lightSource
