@@ -364,9 +364,9 @@ public class CanvasController implements Initializable {
     private void showDemo4_5() {
 
         Plane plane = new Plane(new LambertMaterial(new Color(0.8,0.8,0.8)),new Point3(0,0,0), new Normal3(0,1,0));
-        Sphere sphere1 = new Sphere(new TransparentMaterial(1.0), new Point3(-3,1,0), 1);
+        Sphere sphere1 = new Sphere(new TransparentMaterial(1.5), new Point3(-3,1,0), 1);
         Sphere sphere2 = new Sphere(new TransparentMaterial(1.33), new Point3(0,1,0), 1);
-        Sphere sphere3 = new Sphere(new TransparentMaterial(1.0), new Point3(3,1,0), 1);
+        Sphere sphere3 = new Sphere(new TransparentMaterial(1.5), new Point3(3,1,0), 1);
         AxisAlignedBox box1 = new AxisAlignedBox(new TransparentMaterial(1.33), new Point3(-2,0.5,1.5), new Point3(-1,1.5,2.5));
         Sphere s4 = new Sphere(new ReflectiveMaterial(new Color(1,1,0),new Color(1,1,1), 64, new Color(0.5,0.5,0.5) ), new Point3(2,4,1), 1);
         Sphere s5 = new Sphere(new PhongMaterial(new Color(0,1,0), new Color(0,1,0), 64), new Point3(1,1,1), 0.5);

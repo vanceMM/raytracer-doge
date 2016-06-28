@@ -5,8 +5,6 @@ package de.beuth.cg1.dogeraytracer.vecmatlib;
  * Project name is VecMatLib.
  */
 
-import com.sun.tools.doclint.Entity;
-
 /**
  * This Class represents a Normal3
  * @author baetschjunge

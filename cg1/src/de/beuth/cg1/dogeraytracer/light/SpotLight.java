@@ -1,7 +1,9 @@
 package de.beuth.cg1.dogeraytracer.light;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.geometry.Hit;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 import de.beuth.cg1.dogeraytracer.world.World;
 
@@ -58,9 +60,29 @@ public class SpotLight extends Light {
         final Vector3 l = point.sub(position).normalized();
         final Vector3 dl = direction.normalized();
         final double angle = Math.acos(l.dot(dl));
-        return angle < halfAngle;
-    }
 
+        Ray ray = new Ray(point, this.directionFrom(point));
+        Hit hit = world.hit(ray);
+
+        if (Math.asin(l.dot(dl)) <= halfAngle){
+            if (!castsShadow) {
+                return true;
+            }
+            if (hit != null) {
+                if (hit.t < ray.tOf(position)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            else {
+                return true;
+            }
+        }
+        else {
+            return false;
+        }
+    }
     /**
      * This method calculates the {@link Vector3} l⃗  which points to the light-source, for the passed {@link Point3} point
      *
