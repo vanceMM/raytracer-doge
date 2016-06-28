@@ -65,7 +65,7 @@ public class SpotLight extends Light {
         Ray ray = new Ray(point, this.directionFrom(point));
         Hit hit = world.hit(ray);
 
-        if (Math.asin(l.dot(dl)) <= halfAngle){
+        if (angle <= halfAngle){
             if (!castsShadow) {
                 return true;
             }

@@ -117,7 +117,7 @@ public class Triangle extends Geometry{
         // calculate normal3 for the hit point on the geometry
 
 
-        if (beta >= Raytracer.DELTA && beta <= 1 && gamma >= 0 && gamma <= 1 && beta + gamma <= 1 && t > 0 && !Double.isNaN(t)){
+        if (beta >= Raytracer.DELTA && beta <= 1 && gamma >= Raytracer.DELTA && gamma <= 1 && beta + gamma <= 1 && t > Raytracer.DELTA && !Double.isNaN(t)){
             if (normal == null) {
                 Normal3 interpolatedNormal = an.mul(alpha).add(bn.mul(beta)).add(cn.mul(gamma));
                 return new Hit(t, r, this, interpolatedNormal);

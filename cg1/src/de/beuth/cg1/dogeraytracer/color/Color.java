@@ -99,7 +99,7 @@ public class Color {
      * @return returns a new additive Color
      */
     public Color mulScalarColor(final double scalar) {
-        if (Double.isNaN(scalar)) throw new IllegalArgumentException();
+        if (Double.isNaN(scalar)) throw new IllegalArgumentException("param scalar can't be NaN");
         return new Color(scalar*this.r, scalar*this.g, scalar*this.b);
     }
 

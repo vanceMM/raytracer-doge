@@ -46,35 +46,45 @@ public class TransparentMaterial extends Material {
         Normal3 n = hit.normal;
         // Reflektierter Vektor d⃗
         final Vector3 rd = hit.ray.d.mul(-1).reflectOn(n);
+        System.out.println("rd: "+rd);
         // Winkel = (-d⃗)°n⃗
         final double angle1 = n.dot(rd);
         // Winkel2 = sqrt(1-(n1/n2)^2*(1-cos^2*angle1))
-        final double angle2 = Math.sqrt(1-(Math.pow(world.indexOfRefraction/indexOfRefraction, 2)*(1-Math.pow(angle1,2))));
-
+        final double angle2 = Math.sqrt(1-(Math.pow(world.indexOfRefraction/this.indexOfRefraction, 2)*(1-Math.pow(angle1,2))));
         double rateRef;
+
+        System.out.println(indexOfRefraction);
+
+
         if (rd.dot(n)<0){
-            rateRef = indexOfRefraction / world.indexOfRefraction;
+            rateRef = this.indexOfRefraction / world.indexOfRefraction;
             n = n.mul(-1);
         } else {
-            rateRef = world.indexOfRefraction / indexOfRefraction;
+            rateRef = world.indexOfRefraction / this.indexOfRefraction;
         }
         // t⃗ = n⃗*(n1/n2*d⃗-(cos(angle2)-(n1/n2)cos(angle1)))
         final Vector3 t = hit.ray.d.mul(rateRef).sub(n.mul(angle2-((rateRef)*angle1)));
         if (angle2<0){
             return tracer.colorFor(new Ray(hit.ray.at(hit.t-Raytracer.DELTA), rd));
         } else {
+
+            System.out.println("rateref :" + rateRef);
+
             // R0 = (n1-n2/n1+n2)^2
-            final double R0 = Math.pow((rateRef / rateRef), 2);
-            System.out.println("rateRef: " + rateRef);
+            final double R0 = Math.pow((rateRef)/(rateRef), 2);
+            System.out.println("r0: " +R0);
             // R = Anteil der Reflexion
             // R = R0+(1-R0)(1-cos(angle1))^5
             final double R = R0 + (1 - R0) * Math.pow(1 - angle1, 5);
             // T = Anteil der Transmission
             // T = 1-R
-            System.out.println("angle2: " + angle2);
+
             // TODO there is something strange, in the neighborhood , der wert ist noch falsch
             final double T = 1 - R;
-            System.out.println("T: " + T);
+
+            System.out.println("R: " +R);
+            System.out.println("T: " +T);
+
             // Transparentes Material Gleichung (Uebungsblatt)
             return tracer.colorFor(new Ray(hit.ray.at(hit.t - Raytracer.DELTA), rd)).mulScalarColor(R).addColor(tracer.colorFor(new Ray(hit.ray.at(hit.t + Raytracer.DELTA), t)).mulScalarColor(T));
         }
