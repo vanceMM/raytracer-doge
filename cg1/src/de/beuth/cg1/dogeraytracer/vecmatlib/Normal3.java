@@ -32,9 +32,9 @@ public class Normal3 {
     public Normal3(final double x, final double y, final double z) {
         if (Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z)) throw new IllegalArgumentException("Params of constructor can't be NaN");
         double length = Math.sqrt(Math.pow(x,2) +Math.pow(y,2) +Math.pow(z,2));
-        this.x = x / length;
-        this.y = y / length;
-        this.z = z / length;
+        this.x = x ;
+        this.y = y ;
+        this.z = z ;
     }
 
     /**
