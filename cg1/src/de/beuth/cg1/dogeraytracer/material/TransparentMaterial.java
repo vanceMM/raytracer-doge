@@ -78,7 +78,7 @@ public class TransparentMaterial extends Material {
             // T = Anteil der Transmission
             // T = 1-R
 
-            // TODO there is something strange, in the neighborhood , der wert ist noch falsch 
+            // TODO there is something strange, in the neighborhood , der wert ist noch falsch
             final double T = 1 - 0.3;
 
             System.out.println("R: " +R);
