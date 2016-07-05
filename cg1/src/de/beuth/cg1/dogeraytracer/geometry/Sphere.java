@@ -6,6 +6,7 @@ import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 
 /**
  * Created by baetschjunge on 26/05/16.
@@ -87,7 +88,8 @@ public class Sphere extends Geometry {
         Point3 at = r.at(t);
         //Normal3 normal3 = new Normal3(at.x - center.x, at.y - center.y, at.z - center.z);
         //return normal3.mul(1);
-        return new Normal3(at.x - center.x, at.y - center.y, at.z - center.z);
+        Normal3 normal3 = new Vector3(at.x - center.x, at.y - center.y, at.z - center.z).normalized().asNormal();
+        return normal3;
     }
 
     /**

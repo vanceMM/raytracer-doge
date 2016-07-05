@@ -49,13 +49,14 @@ public class Plane extends Geometry {
     @Override
     public Hit hit(final Ray r) {
         if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");
+
         double numerator = n.dot(a.sub(r.o));
         double denominator = (r.d).dot(n);
 
         double t = numerator/denominator;
 
 
-        if (denominator != 0 && t > Raytracer.DELTA) {
+        if (denominator != 0.0 && t > Raytracer.DELTA) {
             return new Hit(t, r, this, this.n);
         } else {
             return null;

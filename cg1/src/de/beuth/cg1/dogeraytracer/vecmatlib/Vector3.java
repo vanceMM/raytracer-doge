@@ -88,10 +88,12 @@ public class Vector3 {
      */
     public Vector3 x(final Vector3 v){
         if (v == null) throw new IllegalArgumentException("Parameter v can't be null");
-        final double resultX = (this.y * v.z) - (this.z * v.y);
-        final double resultY = (this.z * v.x) - (this.x * v.z);
-        final double resultZ = (this.x * v.y) - (this.y * v.x);
-        return new Vector3(resultX, resultY, resultZ);
+
+//        final double resultX = (this.y * v.z) - (this.z * v.y);
+//        final double resultY = (this.z * v.x) - (this.x * v.z);
+//        final double resultZ = (this.x * v.y) - (this.y * v.x);
+//        return new Vector3(resultX, resultY, resultZ);
+        return new Vector3((y * v.z) - (z * v.y), (z * v.x) - (x * v.z), (x * v.y) - (y * v.x));
     }
 
     /**
