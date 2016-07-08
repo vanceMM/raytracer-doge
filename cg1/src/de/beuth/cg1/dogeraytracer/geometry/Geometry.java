@@ -13,7 +13,6 @@ public abstract class Geometry {
     /**
      * the {@link Material} of a Geometry
      */
-
     public final Material material;
 
     /**
@@ -24,6 +23,13 @@ public abstract class Geometry {
     public Geometry(final Material material) {
         if (material == null) throw new IllegalArgumentException("Param material of constructor can't be null");
         this.material = material;
+    }
+
+    /**
+     * Default Constructor
+     */
+    public Geometry() {
+        material = null;
     }
 
     /**

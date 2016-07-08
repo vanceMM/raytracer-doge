@@ -27,6 +27,7 @@ public class Transform {
      */
     public Transform() {
         this.m = new Mat4x4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+        this.i = this.m;
     }
 
     /**
@@ -69,8 +70,8 @@ public class Transform {
      * @return
      */
     public Transform rotateX(final Point3 p) {
-        Transform t = new Transform(new Mat4x4(Math.cos(p.x), Math.sin(p.x)*(-1),0,0,Math.sin(p.x),Math.cos(p.x),0,0,0,0,1,0,0,0,0,1),
-                new Mat4x4(Math.cos(p.x),Math.sin(p.x),0,0,Math.sin(p.x)*(-1),Math.cos(p.x),0,0,0,0,1,0,0,0,0,1));
+        Transform t = new Transform(new Mat4x4(1,0,0,0,0,Math.cos(p.x), Math.sin(p.x)*(-1),0,0,Math.sin(p.x), Math.cos(p.x),0,0,0,0,1),
+                new Mat4x4(1,0,0,0,0,Math.cos(p.x), Math.sin(p.x),0,0,Math.sin(p.x)*(-1), Math.cos(p.x),0,0,0,0,1));
         return new Transform(m.mul(t.m),i.mul(t.i));
     }
 
@@ -80,8 +81,8 @@ public class Transform {
      * @return
      */
     public Transform rotateY(final Point3 p) {
-        Transform t = new Transform(new Mat4x4(Math.cos(p.y), Math.sin(p.y)*(-1),0,0,Math.sin(p.y),Math.cos(p.y),0,0,0,0,1,0,0,0,0,1),
-                new Mat4x4(Math.cos(p.y),Math.sin(p.y),0,0,Math.sin(p.y)*(-1),Math.cos(p.y),0,0,0,0,1,0,0,0,0,1));
+        Transform t = new Transform(new Mat4x4(Math.cos(p.y),0,Math.sin(p.y),0,0,1,0,0,Math.sin(p.y)*(-1),0,Math.cos(p.y),0,0,0,0,1),
+                new Mat4x4(Math.cos(p.y),0,Math.sin(p.y)*(-1),0,0,1,0,0,Math.sin(p.y),0,Math.cos(p.y),0,0,0,0,1));
         return new Transform(m.mul(t.m),i.mul(t.i));
     }
 
@@ -96,11 +97,12 @@ public class Transform {
         return new Transform(m.mul(t.m),i.mul(t.i));
     }
 
-    public Transform mul(final Ray r) {
-        return new Transform(m,i);
+    public Ray mul(final Ray r) {
+        return new Ray(i.mul(r.o), i.mul(r.d));
     }
 
-    public Transform mul(final Normal3 n) {
-        return new Transform(m,i);
+    public Normal3 mul(final Normal3 n) {
+        //TODO calculate normal on transformed object
+        return i.transposed().mul(n);
     }
 }
