@@ -383,8 +383,8 @@ public class CanvasController implements Initializable {
         lightSources.add(l3);
 
         world = new World(objects,new Color(0,0,0), lightSources, new Color(0.1, 0.1, 0.1), 1);
-        //perspective = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
-        perspective = new PerspectiveCamera(new Point3(3,3,5), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
+        perspective = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
+        //perspective = new PerspectiveCamera(new Point3(3,3,5), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
 
     }
 
