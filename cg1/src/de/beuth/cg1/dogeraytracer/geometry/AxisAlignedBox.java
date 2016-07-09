@@ -8,7 +8,6 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by baetschjunge on 26/05/16.
@@ -51,12 +50,12 @@ public class AxisAlignedBox extends Geometry {
         this.lbf = lbf;
         this.run = run;
 
-        this.upper = new Plane(color,run, new Normal3(0,1,0));
-        this.bottom = new Plane(color,lbf, new Normal3(0,-1,0));
-        this.left = new Plane(color,lbf, new Normal3(-1,0,0));
-        this.right = new Plane(color,run, new Normal3(1,0,0));
-        this.far = new Plane(color,lbf, new Normal3(0,0,-1));
-        this.near = new Plane(color,run, new Normal3(0,0,1));
+        this.upper = new Plane(color,run, new Normal3(0,0.5,0));
+        this.bottom = new Plane(color,lbf, new Normal3(0,-0.5,0));
+        this.left = new Plane(color,lbf, new Normal3(-0.5,0,0));
+        this.right = new Plane(color,run, new Normal3(0.5,0,0));
+        this.far = new Plane(color,lbf, new Normal3(0,0,-0.5));
+        this.near = new Plane(color,run, new Normal3(0,0,0.5));
     }
 
     /**
@@ -69,7 +68,10 @@ public class AxisAlignedBox extends Geometry {
     @Override
     public Hit hit(final Ray r) {
         if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");
-        ArrayList<Plane> planes = new ArrayList<>();
+
+        final ArrayList<Plane> planes = new ArrayList<>();
+        final ArrayList<Hit> hits = new ArrayList<>();
+
         planes.add(upper);
         planes.add(bottom);
         planes.add(left);
@@ -77,39 +79,43 @@ public class AxisAlignedBox extends Geometry {
         planes.add(far);
         planes.add(near);
 
-        // iterate over planes-list and remove all planes that are not visible
-        Iterator<Plane> it = planes.iterator();
-        while (it.hasNext()) {
-            Plane plane = it.next();
-            if (r.d.mul(-1).dot(plane.n) <= 0) {
-                it.remove();
+        for (final Plane p : planes) {
+
+            final Point3 b = new Point3(run.x, run.y, run.z);
+
+            if (r.o.sub(b).dot(p.n) >= Raytracer.DELTA) {
+                hits.add(p.hit(r));
             }
         }
-        
-        Hit farthestHit = null;
-        // iterate over visible planes and store farthest point
-        for (Plane p : planes) {
-            Hit current = p.hit(r);
-            if (current !=null && (farthestHit == null || current.t > farthestHit.t)) {
-                farthestHit = current;
+        Hit tHit = null;
+
+        for (final Hit hit : hits) {
+            if (hit != null && hitsBox(hit) && hit.t > Raytracer.DELTA) {
+                if (tHit == null) {
+                    tHit = hit;
+                } else if (hit.t > Raytracer.DELTA) {
+                    tHit = hit;
+                }
             }
         }
 
-        // if we hit no plane return null
-        if(farthestHit == null) {
-            return null;
-        }
+        return tHit;
 
-        // get the point that is hit by the ray
-        Point3 p = r.at(farthestHit.t);
-
-        // check if hit-point is in the axis-aligned-box
-        if (lbf.x <= p.x + Raytracer.DELTA && p.x <= run.x + Raytracer.DELTA && lbf.y <= p.y + Raytracer.DELTA && p.y <= run.y + Raytracer.DELTA && lbf.z <= p.z + Raytracer.DELTA  && p.z <= run.z + Raytracer.DELTA ) {
-            return farthestHit;
-        } else {
-            return null;
-        }
     }
+
+
+    private boolean hitsBox(final Hit hit) {
+        final Point3 point = hit.ray.at(hit.t);
+
+        final Plane plane = (Plane) hit.geo;
+        final boolean xInBox = lbf.x <= point.x + Raytracer.DELTA && point.x <= run.x + Raytracer.DELTA ;
+        final boolean yInBox = lbf.y <= point.y + Raytracer.DELTA && point.y <= run.y + Raytracer.DELTA ;
+        final boolean zInBox = lbf.z <= point.z + Raytracer.DELTA && point.z <= run.z + Raytracer.DELTA ;
+
+        final boolean inBox = xInBox && yInBox && zInBox;
+        return inBox;
+    }
+
 
     /**
      * @see Object#toString()

@@ -3,8 +3,10 @@ package de.beuth.cg1.dogeraytracer.material;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.Geometry;
 import de.beuth.cg1.dogeraytracer.geometry.Hit;
+import de.beuth.cg1.dogeraytracer.light.Light;
 import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 import de.beuth.cg1.dogeraytracer.world.World;
@@ -42,52 +44,44 @@ public class TransparentMaterial extends Material {
      */
     @Override
     public Color colorFor(Hit hit, World world, Tracer tracer) {
-        // Normale der Oberfläche
-        Normal3 n = hit.normal;
-        // Reflektierter Vektor d⃗
-        final Vector3 rd = hit.ray.d.mul(-1).reflectOn(n);
-        System.out.println("rd: "+rd);
-        // Winkel = (-d⃗)°n⃗
-        final double angle1 = n.dot(rd);
-        // Winkel2 = sqrt(1-(n1/n2)^2*(1-cos^2*angle1))
-        final double angle2 = Math.sqrt(1-(Math.pow(world.indexOfRefraction/this.indexOfRefraction, 2)*(1-Math.pow(angle1,2))));
-        double rateRef;
+        if (hit == null || world == null || tracer == null) throw new IllegalArgumentException("params of method cant be null");
 
-        System.out.println(indexOfRefraction);
+            final Point3 pointHit = hit.ray.at(hit.t);
+            Color ambient = world.ambientLightColor;
+            final Vector3 d = hit.ray.d.normalized();
+            final Normal3 n = hit.normal;
+            final double worldRefraction = world.indexOfRefraction;
+            final double matRefraction = indexOfRefraction;
+            final double rateRef = worldRefraction / matRefraction;
 
 
-        if (rd.dot(n)<0){
-            rateRef = this.indexOfRefraction / world.indexOfRefraction;
-            n = n.mul(-1);
-        } else {
-            rateRef = world.indexOfRefraction / this.indexOfRefraction;
-        }
-        // t⃗ = n⃗*(n1/n2*d⃗-(cos(angle2)-(n1/n2)cos(angle1)))
-        final Vector3 t = hit.ray.d.mul(rateRef).sub(n.mul(angle2-((rateRef)*angle1)));
-        if (angle2<0){
-            return tracer.colorFor(new Ray(hit.ray.at(hit.t-Raytracer.DELTA), rd));
-        } else {
+            for (final Light light : world.lightSources) {
 
-            System.out.println("rateref :" + rateRef);
+                if (light.illuminates(pointHit, world)) {
+                    final double cos1 = d.mul(-1.0).dot(n);
+                    double cos2 = Math.sqrt((1.0 + (Math.pow(rateRef, 2.0)) - (1.0 - Math.pow(cos1, 2.0))));
 
-            // R0 = (n1-n2/n1+n2)^2
-            final double R0 = Math.pow((rateRef)/(rateRef), 2);
-            System.out.println("r0: " +R0);
-            // R = Anteil der Reflexion
-            // R = R0+(1-R0)(1-cos(angle1))^5
-            final double R = R0 + (1 - R0) * Math.pow(1 - angle1, 5);
-            // T = Anteil der Transmission
-            // T = 1-R
+                    final double R0 = Math.pow(((worldRefraction - matRefraction) / (worldRefraction + matRefraction)), 2.0);
+                    final double R = R0 + ((1.0 - R0) * Math.pow((1.0 - Math.cos(cos1)), 5.0));
+                    final double T = 1.0 - R;
 
-            // TODO there is something strange, in the neighborhood , der wert ist noch falsch
-            final double T = 1 - R;
 
-            System.out.println("R: " +R);
-            System.out.println("T: " +T);
+                    if (cos2 > 0.0) {
+                        cos2 = Math.sqrt((1.0 + (Math.pow(rateRef, 2.0)) - (1.0 - Math.pow(cos1, 2.0))));
+                    }
 
-            // Transparentes Material Gleichung (Uebungsblatt)
-            return tracer.colorFor(new Ray(hit.ray.at(hit.t - Raytracer.DELTA), rd)).mulScalarColor(R).addColor(tracer.colorFor(new Ray(hit.ray.at(hit.t + Raytracer.DELTA), t)).mulScalarColor(T));
-        }
+
+                    final Vector3 rd = d.mul(-1.0).reflectOn(n).normalized();
+                    final Vector3 t = d.mul(rateRef).sub(n.mul(cos2 - (rateRef * cos1))).normalized();
+                    final Ray reflectedRay = new Ray(hit.ray.at(hit.t), rd);
+                    final Ray refractoredRay = new Ray(hit.ray.at(hit.t), t);
+
+
+                    ambient = (tracer.colorFor(reflectedRay).mulScalarColor(R)).addColor(tracer.colorFor(refractoredRay).mulScalarColor(T));
+                }
+            }
+            return ambient;
+
     }
 }
 
