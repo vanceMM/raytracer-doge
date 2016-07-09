@@ -9,7 +9,7 @@ package de.beuth.cg1.dogeraytracer.vecmatlib;
  * This Class represents a Mat3x3 / 3 dimensional Matrix
  * @author baetschjunge
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "Duplicates"})
 public class Mat3x3 {
 
     /**

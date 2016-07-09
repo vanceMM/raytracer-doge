@@ -1,7 +1,6 @@
 package de.beuth.cg1.dogeraytracer;
 
-import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
-import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
+import de.beuth.cg1.dogeraytracer.vecmatlib.*;
 
 /**
  * Created by baetschjunge on 03/05/16.
@@ -9,6 +8,21 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
  */
 public class Main {
     public static void main(String[] args) {
+
+        Mat3x3 mat3 = new Mat3x3(1,4,7,2,5,6,3,6,9);
+        System.out.println("Mat3x3 Order");
+        System.out.println("row-1: | " + mat3.m11 + " " + mat3.m12 + " " + mat3.m13);
+        System.out.println("row-2: | " + mat3.m12 + " " + mat3.m22 + " " + mat3.m32);
+        System.out.println("row-3: | " + mat3.m13 + " " + mat3.m23 + " " + mat3.m33);
+        System.out.println(mat3.m21);
+
+        Mat4x4 mat4 = new Mat4x4(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
+        System.out.println("Mat4x4 Order");
+        System.out.println("row-1: | " + mat4.m11 + " " + mat4.m12 + " " + mat4.m13 + " " + mat4.m14);
+        System.out.println("row-2: | " + mat4.m21 + " " + mat4.m22 + " " + mat4.m23 + " " + mat4.m24);
+        System.out.println("row-3: | " + mat4.m31 + " " + mat4.m32 + " " + mat4.m33 + " " + mat4.m44);
+        System.out.println("row-4: | " + mat4.m41 + " " + mat4.m42 + " " + mat4.m43 + " " + mat4.m44);
+
         /*
         Vector3 g = new Vector3(-4,-4,-4);
         Vector3 t = new Vector3(0,1,0);

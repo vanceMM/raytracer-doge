@@ -44,35 +44,7 @@ public class TransparentMaterial extends Material {
      */
     @Override
     public Color colorFor(Hit hit, World world, Tracer tracer) {
-<<<<<<< HEAD
-        final Point3 ph = hit.ray.at(hit.t);
-        Color transparent = world.ambientLightColor;
-        final Vector3 d = hit.ray.d.normalized();
-        final Normal3 n = hit.normal;
-        final double worldRefraction = world.indexOfRefraction;
-        final double matRefraction = indexOfRefraction;
-        final double ns = worldRefraction / matRefraction;
-        for (final Light light : world.lightSources) {
-            if (light.illuminates(ph, world)) {
-                final double cosalph = d.mul(-1.0).dot(n);
-                double cosalphtwo = Math.sqrt((1.0 + (Math.pow(ns, 2.0)) - (1.0 - Math.pow(cosalph, 2.0))));
-                // Schlick-Approximation Formel (R0, R und T)
-                final double R0 = Math.pow(((worldRefraction - matRefraction) / (worldRefraction + matRefraction)), 2.0);
-                final double R = R0 + ((1.0 - R0) * Math.pow((1.0 - Math.cos(cosalph)), 5.0));
-                final double T = 1.0 - R;
-                if (cosalphtwo > 0.0) {
-                    cosalphtwo = Math.sqrt((1.0 + (Math.pow(ns, 2.0)) - (1.0 - Math.pow(cosalph, 2.0))));
 
-                }
-                final Vector3 rd = d.mul(-1.0).reflectOn(n).normalized();
-                final Vector3 t = d.mul(ns).sub(n.mul(cosalphtwo - (ns * cosalph))).normalized();
-                final Ray reflectedRay = new Ray(hit.ray.at(hit.t), rd);
-                final Ray refractoredRay = new Ray(hit.ray.at(hit.t), t);
-                transparent = (tracer.colorFor(reflectedRay).mulScalarColor(R)).addColor(tracer.colorFor(refractoredRay).mulScalarColor(T));
-            }
-        }
-        return transparent;
-=======
         if (hit == null || world == null || tracer == null) throw new IllegalArgumentException("params of method cant be null");
 
             final Point3 pointHit = hit.ray.at(hit.t);
@@ -110,8 +82,6 @@ public class TransparentMaterial extends Material {
                 }
             }
             return ambient;
-
->>>>>>> 5454b1121c5ad349841ff1450caa9bfd39c23e94
     }
 }
 
