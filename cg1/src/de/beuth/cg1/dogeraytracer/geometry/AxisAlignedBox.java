@@ -8,7 +8,6 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by baetschjunge on 26/05/16.
@@ -51,12 +50,21 @@ public class AxisAlignedBox extends Geometry {
         this.lbf = lbf;
         this.run = run;
 
+<<<<<<< HEAD
         this.upper = new Plane(color,run, new Normal3(0,0.6,0));
         this.bottom = new Plane(color,lbf, new Normal3(0,-0.5,0));
         this.left = new Plane(color,lbf, new Normal3(-0.5,0,0));
         this.right = new Plane(color,run, new Normal3(0.6,0,0));
         this.far = new Plane(color,lbf, new Normal3(0,0,-0.5));
         this.near = new Plane(color,run, new Normal3(0,0,0.6));
+=======
+        this.upper = new Plane(color,run, new Normal3(0,0.5,0));
+        this.bottom = new Plane(color,lbf, new Normal3(0,-0.5,0));
+        this.left = new Plane(color,lbf, new Normal3(-0.5,0,0));
+        this.right = new Plane(color,run, new Normal3(0.5,0,0));
+        this.far = new Plane(color,lbf, new Normal3(0,0,-0.5));
+        this.near = new Plane(color,run, new Normal3(0,0,0.5));
+>>>>>>> 5454b1121c5ad349841ff1450caa9bfd39c23e94
     }
 
     /**
@@ -68,6 +76,10 @@ public class AxisAlignedBox extends Geometry {
     @SuppressWarnings("ConstantConditions")
     @Override
     public Hit hit(final Ray r) {
+
+        if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");
+
+
         final ArrayList<Plane> planes = new ArrayList<>();
         final ArrayList<Hit> hits = new ArrayList<>();
 
@@ -86,6 +98,7 @@ public class AxisAlignedBox extends Geometry {
                 hits.add(p.hit(r));
             }
         }
+
         Hit th = null;
 
         for (final Hit hit : hits) {
@@ -94,14 +107,12 @@ public class AxisAlignedBox extends Geometry {
                     th = hit;
                 } else if (hit.t > Raytracer.DELTA) {
                     th = hit;
+
                 }
             }
         }
-
         return th;
-
     }
-
 
     private boolean hitsBox(final Hit hit) {
         final Point3 point = hit.ray.at(hit.t);
