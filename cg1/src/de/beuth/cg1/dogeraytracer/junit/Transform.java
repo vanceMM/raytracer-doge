@@ -103,6 +103,7 @@ public class Transform {
 
     public Normal3 mul(final Normal3 n) {
         //TODO calculate normal on transformed object
-        return i.transposed().mul(n);
+
+        return null;
     }
 }

@@ -130,9 +130,9 @@ public class Mat4x4 {
     @SuppressWarnings("Duplicates")
     public Vector3 mul(final Vector3 v){
         if (v == null) throw new IllegalArgumentException("Parameter v can't be null");
-        final double resultX = (this.m11 * v.x) + (this.m21 * v.y) + (this.m31 * v.z);
-        final double resultY = (this.m12 * v.x) + (this.m22 * v.y) + (this.m32 * v.z);
-        final double resultZ = (this.m13 * v.x) + (this.m23 * v.y) + (this.m33 * v.z);
+        final double resultX = (this.m11 * v.x) + (this.m12 * v.y) + (this.m13 * v.z) + (this.m14 * 0.0);
+        final double resultY = (this.m21 * v.x) + (this.m22 * v.y) + (this.m23 * v.z) + (this.m24 * 0.0);
+        final double resultZ = (this.m31 * v.x) + (this.m32 * v.y) + (this.m33 * v.z) + (this.m34 * 0.0);
         return new Vector3(resultX, resultY, resultZ);
     }
 
@@ -145,9 +145,9 @@ public class Mat4x4 {
     @SuppressWarnings("Duplicates")
     public Point3 mul(final Point3 p){
         if (p == null) throw new IllegalArgumentException("Parameter p can't be null");
-        final double resultX = (this.m11 * p.x) + (this.m21 * p.y) + (this.m31 * p.z);
-        final double resultY = (this.m12 * p.x) + (this.m22 * p.y) + (this.m32 * p.z);
-        final double resultZ = (this.m13 * p.x) + (this.m23 * p.y) + (this.m33 * p.z);
+        final double resultX = (this.m11 * p.x) + (this.m12 * p.y) + (this.m13 * p.z) + (this.m14 * 1.0);
+        final double resultY = (this.m21 * p.x) + (this.m22 * p.y) + (this.m23 * p.z) + (this.m24 * 1.0);
+        final double resultZ = (this.m31 * p.x) + (this.m32 * p.y) + (this.m33 * p.z) + (this.m34 * 1.0);
         return new Point3(resultX, resultY, resultZ);
     }
 

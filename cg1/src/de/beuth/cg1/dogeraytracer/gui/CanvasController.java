@@ -3,6 +3,7 @@ package de.beuth.cg1.dogeraytracer.gui;
 import de.beuth.cg1.dogeraytracer.camera.*;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.*;
+import de.beuth.cg1.dogeraytracer.junit.Transform;
 import de.beuth.cg1.dogeraytracer.light.*;
 import de.beuth.cg1.dogeraytracer.material.*;
 import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
@@ -268,7 +269,7 @@ public class CanvasController implements Initializable {
 
         // --------------------------- D E M O -------------------------
 
-        showDemo4_3();
+        showDemo5_1();
 
     }
 
@@ -424,6 +425,31 @@ public class CanvasController implements Initializable {
         world = new World(objects,new Color(0,0,0), lightSources, new Color(0.1, 0.1, 0.1), 1);
         perspective = new PerspectiveCamera(new Point3(3,5,6), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
 
+    }
+    // -----------------------------------------------------------------------------------------------
+    //
+    //
+    // ------------------------------------- TRANSFORMATION ----------------------------------------
+
+    private void showDemo5_1() {
+
+        ArrayList<Geometry> objects = new ArrayList<>();
+        Sphere sphere1 = new Sphere(new ReflectiveMaterial(new Color(1,0,0), new Color(1,1,1), 64, new Color(0.5,0.5,0.5)), new Point3(0,0,0), 1);
+
+        objects.add(sphere1);
+
+        Node node = new Node(new Transform(), objects);
+        node.transform.translate(new Point3(100,0,0));
+
+        PointLight light = new PointLight(new Color(1,1,1), true, new Point3(8,8,8));
+        DirectionalLight light2 = new DirectionalLight(new Color(1,1,1), false, new Vector3(0,1,1));
+
+        ArrayList<Light> lightSources = new ArrayList<>();
+        lightSources.add(light);
+        //lightSources.add(light2);
+
+        world = new World(objects,new Color(0,0,0), lightSources, new Color(0.25, 0.25, 0.25), 0);
+        perspective = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
     }
 
     /**
