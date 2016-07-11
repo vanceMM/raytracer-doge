@@ -62,7 +62,14 @@ public class Transform {
      * m and i.
      */
     public Transform scale(final Point3 p) {
-        Transform t = new Transform(new Mat4x4(p.x,0,0,0,0,p.y,0,0,0,0,p.z,0,0,0,0,1), new Mat4x4(1/p.x,0,0,0,0,1/p.y,0,0,0,0,1/p.z,0,0,0,0,1));
+        Transform t = new Transform(new Mat4x4(p.x,0,0,0,
+                                               0,p.y,0,0,
+                                               0,0,p.z,0,
+                                               0,0,0,1),
+                                    new Mat4x4(1/p.x,0,0,0,
+                                               0,1/p.y,0,0,
+                                               0,0,1/p.z,0,
+                                               0,0,0,1));
         return new Transform(m.mul(t.m),t.i.mul(i));
     }
 
