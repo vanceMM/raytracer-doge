@@ -75,34 +75,34 @@ public class Transform {
 
     /**
      * This method does a rotation on the x-axis.
-     * @param p
+     * @param a
      * @return
      */
-    public Transform rotateX(final Point3 p) {
-        Transform t = new Transform(new Mat4x4(1,0,0,0,0,Math.cos(p.x), Math.sin(p.x)*(-1),0,0,Math.sin(p.x), Math.cos(p.x),0,0,0,0,1),
-                new Mat4x4(1,0,0,0,0,Math.cos(p.x), Math.sin(p.x),0,0,Math.sin(p.x)*(-1), Math.cos(p.x),0,0,0,0,1));
+    public Transform rotateX(final double a) {
+        Transform t = new Transform(new Mat4x4(1,0,0,0,0,Math.cos(a), -Math.sin(a),0,0,Math.sin(a), Math.cos(a),0,0,0,0,1),
+                new Mat4x4(1,0,0,0,0,Math.cos(a), Math.sin(a),0,0,-Math.sin(a), Math.cos(a),0,0,0,0,1));
         return new Transform(m.mul(t.m),i.mul(t.i));
     }
 
     /**
      * This method does a rotation on the y-axis.
-     * @param p
+     * @param a
      * @return
      */
-    public Transform rotateY(final Point3 p) {
-        Transform t = new Transform(new Mat4x4(Math.cos(p.y),0,Math.sin(p.y),0,0,1,0,0,Math.sin(p.y)*(-1),0,Math.cos(p.y),0,0,0,0,1),
-                new Mat4x4(Math.cos(p.y),0,Math.sin(p.y)*(-1),0,0,1,0,0,Math.sin(p.y),0,Math.cos(p.y),0,0,0,0,1));
+    public Transform rotateY(final double a) {
+        Transform t = new Transform(new Mat4x4(Math.cos(a),0,Math.sin(a),0,0,1,0,0,-Math.sin(a),0,Math.cos(a),0,0,0,0,1),
+                new Mat4x4(Math.cos(a),0,-Math.sin(a),0,0,1,0,0,Math.sin(a),0,Math.cos(a),0,0,0,0,1));
         return new Transform(m.mul(t.m),i.mul(t.i));
     }
 
     /**
      * This method does a rotation on the z-axis.
-     * @param p
+     * @param a
      * @return
      */
-    public Transform rotateZ(final Point3 p) {
-        Transform t = new Transform(new Mat4x4(Math.cos(p.z), Math.sin(p.z)*(-1),0,0,Math.sin(p.z),Math.cos(p.z),0,0,0,0,1,0,0,0,0,1),
-                new Mat4x4(Math.cos(p.z),Math.sin(p.z),0,0,Math.sin(p.z)*(-1),Math.cos(p.z),0,0,0,0,1,0,0,0,0,1));
+    public Transform rotateZ(final double a) {
+        Transform t = new Transform(new Mat4x4(Math.cos(a),-Math.sin(a),0,0,Math.sin(a),Math.cos(a),0,0,0,0,1,0,0,0,0,1),
+                new Mat4x4(Math.cos(a),Math.sin(a),0,0,-Math.sin(a),Math.cos(a),0,0,0,0,1,0,0,0,0,1));
         return new Transform(m.mul(t.m),i.mul(t.i));
     }
 
