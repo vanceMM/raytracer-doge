@@ -1,6 +1,9 @@
 package de.beuth.cg1.dogeraytracer.geometry;
 
-import de.beuth.cg1.dogeraytracer.junit.Transform;
+import de.beuth.cg1.dogeraytracer.color.Color;
+import de.beuth.cg1.dogeraytracer.material.Material;
+import de.beuth.cg1.dogeraytracer.material.SingleColorMaterial;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Transform;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 
 import java.util.ArrayList;
@@ -15,6 +18,7 @@ public class Node extends Geometry {
     public final ArrayList<Geometry> geometries;
 
     public Node(Transform transform, ArrayList<Geometry> geometries) {
+        super(new SingleColorMaterial(new Color(0,0,0)));
         this.transform = transform;
         this.geometries = geometries;
 
@@ -27,10 +31,13 @@ public class Node extends Geometry {
         double t = Double.MAX_VALUE;
         for (Geometry g: geometries) {
             Hit hit = g.hit(transformed);
+            if (hit == null) continue;
             if(hit.t< t) {
+                t= hit.t;
                 minHit = hit;
             }
         }
-        return new Hit(minHit.t, transformed, minHit.geo, transform.mul(minHit.normal));
+        if( minHit == null ) return null;
+        return new Hit(minHit.t, r, minHit.geo, transform.mul(minHit.normal));
     }
 }

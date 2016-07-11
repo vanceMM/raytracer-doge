@@ -38,7 +38,6 @@ public class Mat4x4Test {
 
     }
 
-
     @Test
     public void mulMat4x4() throws Exception {
         Mat4x4 resM = mat1.mul(eMat1);

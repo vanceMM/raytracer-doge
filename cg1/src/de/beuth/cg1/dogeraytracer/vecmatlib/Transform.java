@@ -1,9 +1,4 @@
-package de.beuth.cg1.dogeraytracer.junit;
-
-import de.beuth.cg1.dogeraytracer.vecmatlib.Mat4x4;
-import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
-import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
-import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
+package de.beuth.cg1.dogeraytracer.vecmatlib;
 
 /**
  * Created by valentin on 08/07/16.
@@ -48,8 +43,15 @@ public class Transform {
      * m and i.
      */
     public Transform translate(final Point3 p) {
-        Transform t = new Transform(new Mat4x4(1,0,0,p.x,0,1,0,p.y,0,0,1,p.z,0,0,0,1), new Mat4x4(1,0,0,(p.x)*-1,0,1,0,(p.y)*-1,0,0,1,(p.z)*-1,0,0,0,1));
-        return new Transform(m.mul(t.m),i.mul(t.i)) ;
+        Transform t = new Transform(new Mat4x4( 1,0,0,p.x,
+                                                0,1,0,p.y,
+                                                0,0,1,p.z,
+                                                0,0,0,1),
+                                    new Mat4x4(1,0,0,-p.x,
+                                                0,1,0,-p.y,
+                                                0,0,1,-p.z,
+                                                0,0,0,1));
+        return new Transform(m.mul(t.m),t.i.mul(i)) ;
     }
 
     /**
@@ -61,7 +63,7 @@ public class Transform {
      */
     public Transform scale(final Point3 p) {
         Transform t = new Transform(new Mat4x4(p.x,0,0,0,0,p.y,0,0,0,0,p.z,0,0,0,0,1), new Mat4x4(1/p.x,0,0,0,0,1/p.y,0,0,0,0,1/p.z,0,0,0,0,1));
-        return new Transform(m.mul(t.m),i.mul(t.i));
+        return new Transform(m.mul(t.m),t.i.mul(i));
     }
 
     /**
@@ -103,7 +105,6 @@ public class Transform {
 
     public Normal3 mul(final Normal3 n) {
         //TODO calculate normal on transformed object
-
-        return null;
+        return i.transposed().mul(n.asVector()).normalized().asNormal();
     }
 }

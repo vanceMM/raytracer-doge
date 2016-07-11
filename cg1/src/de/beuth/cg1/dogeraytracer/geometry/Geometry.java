@@ -25,12 +25,6 @@ public abstract class Geometry {
         this.material = material;
     }
 
-    /**
-     * Default Constructor
-     */
-    public Geometry() {
-        material = null;
-    }
 
     /**
      * This Methods takes an {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.

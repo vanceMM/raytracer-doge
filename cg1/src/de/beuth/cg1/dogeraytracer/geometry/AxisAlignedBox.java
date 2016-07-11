@@ -49,7 +49,7 @@ public class AxisAlignedBox extends Geometry {
         if (lbf == null || run == null) throw new IllegalArgumentException("Params of constructor can't be null");
         this.lbf = lbf;
         this.run = run;
-        
+
         this.upper = new Plane(color,run, new Normal3(0,0.6,0));
         this.bottom = new Plane(color,lbf, new Normal3(0,-0.5,0));
         this.left = new Plane(color,lbf, new Normal3(-0.5,0,0));

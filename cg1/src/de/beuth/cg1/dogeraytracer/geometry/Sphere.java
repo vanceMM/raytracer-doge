@@ -34,11 +34,11 @@ public class Sphere extends Geometry {
      * @param center the Point3 Value of a {@link Point3}
      * @param radius the double Value of Radius
      */
-    public Sphere(final Material color, final Point3 center, final double radius) {
+    public Sphere(final Material color) {
         super(color);
-        if (center == null || Double.isNaN(radius)) throw new IllegalArgumentException("Param of constructor can't be null or NaN");
-        this.center = center;
-        this.radius = radius;
+
+        this.center = new Point3(0,0,0);
+        this.radius = 1;
     }
 
     /**
