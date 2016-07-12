@@ -30,13 +30,12 @@ public class Sphere extends Geometry {
      * Constructor for the Geometry Object
      * Creates a new instance of {@link Sphere} with defined attributes.
      *
-     * @param color the Color Value of a {@link Color}, if color null throw {@link IllegalArgumentException}
-     * @param center the Point3 Value of a {@link Point3}
-     * @param radius the double Value of Radius
+     * @param material the Color Value of a {@link Color}, if material null throw {@link IllegalArgumentException}
+     *  // @param center the Point3 Value of a {@link Point3}
+     *  // @param radius the double Value of Radius
      */
-    public Sphere(final Material color) {
-        super(color);
-
+    public Sphere(final Material material) {
+        super(material);
         this.center = new Point3(0,0,0);
         this.radius = 1;
     }
@@ -49,48 +48,57 @@ public class Sphere extends Geometry {
      */
     @Override
     public Hit hit(final Ray ray) {
-        if (ray == null) throw new IllegalArgumentException("Param ray (ray) can't be null");
-        double a, b, c, discremenant, t, t2;
-        a = ray.d.dot(ray.d);                                                   // d⃗ • d⃗
-        b = ray.d.dot((ray.o.sub(center)).mul(2.0));                              // d⃗ • [2(⃗o − ⃗c)]
-        c = ray.o.sub(center).dot(ray.o.sub(center)) - Math.pow(radius,2.0);      // ( ⃗o − ⃗c ) • ( ⃗o − ⃗c ) − ray 2
+        if (ray == null) throw new IllegalArgumentException("The Ray cannot be null!");
+
+        final double a, b, c, discriminant, t1, t2;
+        a = ray.d.dot(ray.d);               // d⃗ • d⃗
+        b = ray.d.dot(ray.o.sub(center).mul(2));                // d⃗ • [2(⃗o − ⃗c)]
+        c = (ray.o.sub(center).dot(ray.o.sub(center))) - (this.radius*this.radius);     // ( ⃗o − ⃗c ) • ( ⃗o − ⃗c ) − ray 2
 
         // if discriminant of t calculation is negative this will result in error in sqrt = no hit
-        discremenant = Math.pow(b,2.0) - 4.0 * a *c;                                       // d = b^2 −4ac
+        discriminant = (Math.pow(b, 2.0)) - (4.0 * a * c);           // d = b^2 −4ac
 
-        // intersectionNormal of the hit point3
-        //Normal3 intersectionNormal = null;
+        if (discriminant > 0) {
+            double t = Raytracer.DELTA;
+            t1 = ((-1.0)*b + Math.sqrt(discriminant)) / (2.0 * a);
+            t2 = ((-1.0)*b - Math.sqrt(discriminant)) / (2.0 * a);
 
-        if (discremenant == 0) {
-            t = ((-1.0)*b + Math.sqrt(discremenant)) / 2.0*a;
-            if (t <= 0) return null;
-            return new Hit(t, ray, this, calcIntersectionNormal(ray, t));
-        }
-        if (discremenant > 0 ) {
-            t = ((-1.0)*b + Math.sqrt(discremenant)) / 2.0*a;
-            t2 = ((-1.0)*b - Math.sqrt(discremenant)) / 2.0*a;
-
-            // get the nearest hit t
-            if (t < t2) {
-                if (t >= Raytracer.DELTA)
-                    return new Hit(t, ray, this, calcIntersectionNormal(ray, t));
+            if(t2 < Raytracer.DELTA && t1 < Raytracer.DELTA){
+                t = Math.max(t1, t2);
             }
-            else {
-                if (t2 >= Raytracer.DELTA)
-                    return new Hit(t2, ray, this, calcIntersectionNormal(ray, t2));
+            if(t2 > Raytracer.DELTA && t1 > Raytracer.DELTA){
+                t = Math.min(t1,t2);
+            }
+            if(t2 > Raytracer.DELTA && t1 < Raytracer.DELTA){
+                t = t2;
+            }
+            if(t2 < Raytracer.DELTA && t1 > Raytracer.DELTA){
+                t = t1;
+            }
+
+            if(t > Raytracer.DELTA) {
+                return new Hit(t, ray, this, calcIntersectionNormal(ray, t));
             }
         }
+
         return null;
     }
 
-    private Normal3 calcIntersectionNormal(Ray r, double t){
-        //return r.at(t).sub(center).normalized().asNormal();
-        Point3 at = r.at(t);
+    /**
+     * this method calculates the intersection {@link Normal3} for the hit point
+     * @param ray that's passed
+     * @param t double value for distance
+     * @return Normal3 of the intersection Hit point
+     */
+    private Normal3 calcIntersectionNormal(Ray ray, double t){
+        //return ray.at(t).sub(center).normalized().asNormal();
+        Point3 at = ray.at(t);
         //Normal3 normal3 = new Normal3(at.x - center.x, at.y - center.y, at.z - center.z);
         //return normal3.mul(1);
-        Normal3 normal3 = new Vector3(at.x - center.x, at.y - center.y, at.z - center.z).normalized().asNormal();
-        return normal3;
+        //Normal3 normal3 = new Vector3(at.x - center.x, at.y - center.y, at.z - center.z).normalized().asNormal();
+        return new Vector3(at.x - center.x, at.y - center.y, at.z - center.z).normalized().asNormal();
     }
+
 
     /**
      * @see Object#toString()

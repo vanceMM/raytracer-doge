@@ -3,6 +3,7 @@ package de.beuth.cg1.dogeraytracer.material;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.Geometry;
 import de.beuth.cg1.dogeraytracer.geometry.Hit;
+import de.beuth.cg1.dogeraytracer.raytracer.Tracer;
 import de.beuth.cg1.dogeraytracer.world.World;
 
 /**

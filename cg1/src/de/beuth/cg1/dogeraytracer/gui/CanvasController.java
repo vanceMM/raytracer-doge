@@ -7,7 +7,6 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Transform;
 import de.beuth.cg1.dogeraytracer.light.*;
 import de.beuth.cg1.dogeraytracer.material.*;
 import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
-import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 import de.beuth.cg1.dogeraytracer.world.World;
@@ -34,7 +33,7 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
  * Created by valentin on 05/05/16.
  * FXML Controller Class for the CanvasViewer.
  */
-@SuppressWarnings({"unused", "FieldCanBeLocal"})
+@SuppressWarnings({"unused", "FieldCanBeLocal", "Duplicates"})
 public class CanvasController implements Initializable {
 
 
@@ -266,16 +265,9 @@ public class CanvasController implements Initializable {
 //        //world = new World(objects, new Color(0, 0, 0), lightSources, new Color(0.25,0.25,0.25));
 //        perspective = new PerspectiveCamera(new Point3(4, 4, 4), new Vector3(-1, -1, -1), new Vector3(0, 1, 0), Math.PI / 4);
 //    }
-
-        // --------------------------- D E M O -------------------------
-
-        showDemo5_1();
-
-    }
-
-
+/*
     // ------------------------------------- R E F L E C T I O N   D E M O   ----------------------------------------
-    /*private void showDemo4_1() {
+    private void showDemo4_1() {
 
         Plane plane = new Plane(new ReflectiveMaterial(new Color(0.1,0.1,0.1), new Color(0,0,0), 64, new Color(0.5,0.5,0.5)), new Point3(0,0,0), new Normal3(0,1,0) );
         Sphere sphere1 = new Sphere(new ReflectiveMaterial(new Color(1,0,0), new Color(1,1,1), 64, new Color(0.5,0.5,0.5)), new Point3(-3,1,0), 1);
@@ -304,7 +296,7 @@ public class CanvasController implements Initializable {
 
     }
 
-
+/*
     // ------------------------------------- S H A D O W   D E M O   ----------------------------------------
     private void showDemo4_2() {
 
@@ -425,29 +417,106 @@ public class CanvasController implements Initializable {
         world = new World(objects,new Color(0,0,0), lightSources, new Color(0.1, 0.1, 0.1), 1);
         perspective = new PerspectiveCamera(new Point3(3,5,6), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
 
-    }*/
+    }
+    */
+
+        // --------------------------- D E M O -------------------------
+
+        showDemo5_2();
+
+    }
+
+
+
     // -----------------------------------------------------------------------------------------------
     //
     //
-    // ------------------------------------- TRANSFORMATION ----------------------------------------
+    // ------------------------------------- TRANSFORMATION ------------------------------------------
 
     private void showDemo5_1() {
 
-        ArrayList<Geometry> objects = new ArrayList<>();
+        Transform transform = new Transform();
         ArrayList<Geometry> nodes = new ArrayList<>();
-        Sphere sphere1 = new Sphere(new ReflectiveMaterial(new Color(1,0,0), new Color(1,1,1), 64, new Color(0.5,0.5,0.5)));
-        objects.add(sphere1);
+
+        // ---------------------------------------- PLANE
+//        ArrayList<Geometry> objects3 = new ArrayList<>();
+//
+//
+//        //Plane plane = new Plane(new LambertMaterial(new Color(0.3,0.3,0.3)),new Point3(0,-3,0), new Normal3(0,1,0));
+//        Plane plane = new Plane(new ReflectiveMaterial(new Color(0.3,0.3,0.3), new Color(1,1,1), 64, new Color(1,1,1)),new Point3(0,-3,0), new Normal3(0,1,0));
+//
+//
+//        Node planeNode = new Node( transform.rotateX(100).rotateY(45), objects3 );
+//
+//        objects3.add(plane);
+//        nodes.add(planeNode);
+
+
+
+        // ---------------------------------------- SPHERE
+        ArrayList<Geometry> objects2 = new ArrayList<>();
+
+        Sphere s1 = new Sphere(new ReflectiveMaterial(new Color(1,0,0), new Color(1,1,1), 64, new Color(0.5,0.5,0.5)));
+        //Sphere s2 = new Sphere(new LambertMaterial(new Color(0,0,1)));
+
+        //Node sphereNode = new Node(transform.scale(new Point3(1, 1, 1)), objects2 );
+        Node sphereNode = new Node(transform.scale(new Point3(3, 0.75, 3)).rotateZ(-35.7).rotateY(63.9).rotateX(12.2), objects2 );
+
+        objects2.add(s1);
+        nodes.add(sphereNode);
+
+
+
+        // Light for SPHERE
+        PointLight light = new PointLight(new Color(1,1,1), true, new Point3(3,8,12));
+
+        ArrayList<Light> lightSources = new ArrayList<>();
+        lightSources.add(light);
+
+        world = new World(nodes ,new Color(0,0,0), lightSources, new Color(0.25, 0.25, 0.25), 0);
+        perspective = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
+
+        // sphere + plane
+         //perspective = new PerspectiveCamera(new Point3(10,10,12), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
+    }
+
+
+
+
+
+    // ---------------------------------------- DEMO 5.2 ----------------------------------------
+    private void showDemo5_2() {
 
         Transform transform = new Transform();
+        ArrayList<Geometry> nodes = new ArrayList<>();
+
+//        //  PLANE ----------------------------------------
+//        ArrayList<Geometry> objects3 = new ArrayList<>();
+//        //Plane plane = new Plane(new LambertMaterial(new Color(0.3,0.3,0.3)),new Point3(0,-3,0), new Normal3(0,1,0));
+//        Plane plane = new Plane(new ReflectiveMaterial(new Color(0,0,0), new Color(1,1,1), 64, new Color(1,1,1)),new Point3(0,-2,0), new Normal3(0,1,0));
+//
+//        Node planeNode = new Node( transform, objects3 );
+//
+//        objects3.add(plane);
+//        //nodes.add(planeNode);
 
 
-        Node node = new Node(transform.scale(new Point3(2,1,1)), objects );
-        nodes.add(node);
+        // ---------------------------------------- AABOX ----------------------------------------
+        ArrayList<Geometry> objects1 = new ArrayList<>();
+
+        AxisAlignedBox b1 = new AxisAlignedBox(new ReflectiveMaterial(new Color( 205.0/255.0, 173.0/255.0 , 14.0/255.0 ), new Color(1,1,1), 64, new Color(0.5, 0.5, 0.5)));
+        //AxisAlignedBox b2 = new AxisAlignedBox(new ReflectiveMaterial(new Color(0,1,1), new Color(1,1,1), 64, new Color(0.5, 0.5, 0.5)));
+
+        //Node boxNode2 = new Node(transform.scale(new Point3(1, 1, 1)).rotateZ(0).rotateY(0).rotateX(0), objects1 );
+        Node boxNode = new Node(transform.scale(new Point3(0.3, 1.5, 5)).translate(new Point3(0,0,0)).rotateX(-7.0).rotateY(24.0).rotateZ(74.0), objects1 );
+
+        objects1.add(b1);
+        //objects1.add(b2);
+        nodes.add(boxNode);
 
 
-
-        PointLight light = new PointLight(new Color(1,1,1), true, new Point3(8,8,8));
-
+        // Light for BOX
+        PointLight light = new PointLight(new Color(1,1,1), true, new Point3(14,30,4));
         ArrayList<Light> lightSources = new ArrayList<>();
         lightSources.add(light);
         //lightSources.add(light2);
@@ -455,7 +524,75 @@ public class CanvasController implements Initializable {
 
         world = new World(nodes ,new Color(0,0,0), lightSources, new Color(0.25, 0.25, 0.25), 0);
         perspective = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
+
+        // sphere + plane
+        // perspective = new PerspectiveCamera(new Point3(8,6,12), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
     }
+
+
+
+
+
+    // ---------------------------------------- DEMO 5.3 ----------------------------------------
+    private void showDemo5_3() {
+
+        Transform transform = new Transform();
+        ArrayList<Geometry> nodes = new ArrayList<>();
+
+
+//        //  PLANE ----------------------------------------
+//        ArrayList<Geometry> objects3 = new ArrayList<>();
+//        //Plane plane = new Plane(new LambertMaterial(new Color(0.3,0.3,0.3)),new Point3(0,-3,0), new Normal3(0,1,0));
+//        Plane plane = new Plane(new ReflectiveMaterial(new Color(0,0,0), new Color(1,1,1), 64, new Color(1,1,1)),new Point3(0,-2,0), new Normal3(0,1,0));
+//
+//        Node planeNode = new Node( transform, objects3 );
+//
+//        objects3.add(plane);
+//        //nodes.add(planeNode);
+
+
+        // ---------------------------------------- TABLE ----------------------------------------
+        ArrayList<Geometry> objects1 = new ArrayList<>();
+        ArrayList<Geometry> objects2 = new ArrayList<>();
+
+
+        AxisAlignedBox head = new AxisAlignedBox(new ReflectiveMaterial(new Color( 205.0/255.0, 173.0/255.0 , 14.0/255.0 ), new Color(1,1,1), 64, new Color(0.5, 0.5, 0.5)));
+        AxisAlignedBox leg1 = new AxisAlignedBox(new ReflectiveMaterial(new Color(0,1,1), new Color(1,1,1), 64, new Color(0.5, 0.5, 0.5)));
+        AxisAlignedBox leg2 = new AxisAlignedBox(new ReflectiveMaterial(new Color(0,1,1), new Color(1,1,1), 64, new Color(0.5, 0.5, 0.5)));
+        AxisAlignedBox leg3 = new AxisAlignedBox(new ReflectiveMaterial(new Color(0,1,1), new Color(1,1,1), 64, new Color(0.5, 0.5, 0.5)));
+        AxisAlignedBox leg4 = new AxisAlignedBox(new ReflectiveMaterial(new Color(0,1,1), new Color(1,1,1), 64, new Color(0.5, 0.5, 0.5)));
+
+        Node boxNode = new Node(transform.scale(new Point3(0.2, 5, 5)).translate(new Point3(0,0,0)).rotateX(0).rotateY(0).rotateZ(90), objects1 );
+        Node boxNode2 = new Node(transform.scale(new Point3(0.2, 0.2, 6)).rotateZ(0).rotateY(0).rotateX(90).translate(new Point3(0, 3, 0)), objects2 );
+
+
+        objects1.add(leg1);
+        objects1.add(leg2);
+        objects1.add(leg3);
+        objects1.add(leg4);
+
+
+        objects2.add(head);
+
+        nodes.add(boxNode);
+        nodes.add(boxNode2);
+
+
+        // Light for BOX
+        PointLight light = new PointLight(new Color(1,1,1), true, new Point3(14,30,4));
+        ArrayList<Light> lightSources = new ArrayList<>();
+        lightSources.add(light);
+        //lightSources.add(light2);
+
+
+        world = new World(nodes ,new Color(0,0,0), lightSources, new Color(0.25, 0.25, 0.25), 0);
+        perspective = new PerspectiveCamera(new Point3(8,8,8), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
+
+        // sphere + plane
+        // perspective = new PerspectiveCamera(new Point3(8,6,12), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
+    }
+
+
 
     /**
      * Building the Menu and adding an eventHandler to the "save" MenuItem

@@ -7,9 +7,10 @@ package de.beuth.cg1.dogeraytracer.vecmatlib;
  * The private constructor is only called from within the Classes methods. It is therefore  possible to chain different
  * transformations.
  */
+@SuppressWarnings("WeakerAccess")
 public class Transform {
     /**
-     * Transformation Matrix
+     * Transformation / Unit-Matrix
      */
     public final Mat4x4 m;
     /**
@@ -18,19 +19,23 @@ public class Transform {
     public final Mat4x4 i;
 
     /**
-     * Default constructor initiliazes the Transform Object Instance with the unit {@link Mat4x4}.
+     * Default constructor initializes the Transform Object Instance with the unit {@link Mat4x4}.
      */
     public Transform() {
-        this.m = new Mat4x4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+        this.m = new Mat4x4(1,0,0,0,
+                            0,1,0,0,
+                            0,0,1,0,
+                            0,0,0,1);
         this.i = this.m;
     }
 
     /**
-     *  This constructor is private and can only be called inside the Transform Class.
+     * This constructor is private and can only be called inside the Transform Class.
      * @param m Transformation Matrix
      * @param i Inverse of the Transform Matrix
      */
     private Transform(Mat4x4 m, Mat4x4 i) {
+        if (m == null || i == null) throw new IllegalArgumentException("Param of method can't be null");
         this.m = m;
         this.i = i;
     }
@@ -43,14 +48,17 @@ public class Transform {
      * m and i.
      */
     public Transform translate(final Point3 p) {
-        Transform t = new Transform(new Mat4x4( 1,0,0,p.x,
-                                                0,1,0,p.y,
-                                                0,0,1,p.z,
-                                                0,0,0,1),
-                                    new Mat4x4(1,0,0,-p.x,
-                                                0,1,0,-p.y,
-                                                0,0,1,-p.z,
-                                                0,0,0,1));
+        if (p == null) throw new IllegalArgumentException("Param of method can't be null");
+        Transform t = new Transform(
+                new Mat4x4( 1, 0, 0, p.x,
+                            0, 1, 0, p.y,
+                            0, 0, 1, p.z,
+                            0, 0, 0, 1 ),
+                new Mat4x4( 1, 0, 0, -p.x,
+                            0, 1, 0, -p.y,
+                            0, 0, 1, -p.z,
+                            0, 0, 0, 1 )
+        );
         return new Transform(m.mul(t.m),t.i.mul(i)) ;
     }
 
@@ -62,56 +70,111 @@ public class Transform {
      * m and i.
      */
     public Transform scale(final Point3 p) {
-        Transform t = new Transform(new Mat4x4(p.x,0,0,0,
-                                               0,p.y,0,0,
-                                               0,0,p.z,0,
-                                               0,0,0,1),
-                                    new Mat4x4(1/p.x,0,0,0,
-                                               0,1/p.y,0,0,
-                                               0,0,1/p.z,0,
-                                               0,0,0,1));
+        if (p == null) throw new IllegalArgumentException("Param of method can't be null");
+        Transform t = new Transform(
+                new Mat4x4( p.x, 0, 0, 0,
+                            0, p.y, 0, 0,
+                            0, 0, p.z, 0,
+                            0, 0, 0, 1 ),
+                new Mat4x4( 1.0/p.x, 0, 0, 0,
+                            0, 1.0/p.y, 0, 0,
+                            0, 0, 1.0/p.z, 0,
+                            0, 0, 0, 1 )
+        );
         return new Transform(m.mul(t.m),t.i.mul(i));
     }
 
     /**
      * This method does a rotation on the x-axis.
-     * @param p
-     * @return
+     * @param degree in double, if NaN throw new {@link IllegalArgumentException}
+     * @return Transform Object
      */
-    public Transform rotateX(final Point3 p) {
-        Transform t = new Transform(new Mat4x4(1,0,0,0,0,Math.cos(p.x), Math.sin(p.x)*(-1),0,0,Math.sin(p.x), Math.cos(p.x),0,0,0,0,1),
-                new Mat4x4(1,0,0,0,0,Math.cos(p.x), Math.sin(p.x),0,0,Math.sin(p.x)*(-1), Math.cos(p.x),0,0,0,0,1));
-        return new Transform(m.mul(t.m),i.mul(t.i));
+    public Transform rotateX(double degree) {
+        if (Double.isNaN(degree)) throw new IllegalArgumentException("Param of method cant be NaN");
+        double radian = DegreeToRadian(degree);
+        Transform t = new Transform(
+                new Mat4x4( 1, 0, 0, 0,
+                            0, Math.cos(radian), -Math.sin(radian), 0,
+                            0, Math.sin(radian), Math.cos(radian), 0,
+                            0, 0, 0, 1),
+                new Mat4x4( 1, 0, 0, 0,
+                            0, Math.cos(radian), Math.sin(radian), 0,
+                            0, -Math.sin(radian), Math.cos(radian), 0,
+                            0, 0, 0, 1)
+        );
+        return new Transform(m.mul(t.m), t.i.mul(i));
     }
 
     /**
      * This method does a rotation on the y-axis.
-     * @param p
-     * @return
+     * @param degree in radian, if NaN throw new {@link IllegalArgumentException}
+     * @return Transform Object
      */
-    public Transform rotateY(final Point3 p) {
-        Transform t = new Transform(new Mat4x4(Math.cos(p.y),0,Math.sin(p.y),0,0,1,0,0,Math.sin(p.y)*(-1),0,Math.cos(p.y),0,0,0,0,1),
-                new Mat4x4(Math.cos(p.y),0,Math.sin(p.y)*(-1),0,0,1,0,0,Math.sin(p.y),0,Math.cos(p.y),0,0,0,0,1));
-        return new Transform(m.mul(t.m),i.mul(t.i));
+    public Transform rotateY(double degree) {
+        if (Double.isNaN(degree)) throw new IllegalArgumentException("Param of method cant be NaN");
+        double radian = DegreeToRadian(degree);
+        Transform t = new Transform(
+                new Mat4x4( Math.cos(radian), 0, Math.sin(radian), 0,
+                            0, 1, 0, 0,
+                            -Math.sin(radian), 0, Math.cos(radian), 0,
+                            0, 0, 0, 1),
+                new Mat4x4( Math.cos(radian), 0, -Math.sin(radian), 0,
+                            0, 1, 0, 0,
+                            Math.sin(radian), 0, Math.cos(radian), 0,
+                            0, 0, 0, 1)
+        );
+        return new Transform(m.mul(t.m), t.i.mul(i));
     }
 
     /**
      * This method does a rotation on the z-axis.
-     * @param p
-     * @return
+     * @param degree in radian, if NaN throw new {@link IllegalArgumentException}
+     * @return Transform Object
      */
-    public Transform rotateZ(final Point3 p) {
-        Transform t = new Transform(new Mat4x4(Math.cos(p.z), Math.sin(p.z)*(-1),0,0,Math.sin(p.z),Math.cos(p.z),0,0,0,0,1,0,0,0,0,1),
-                new Mat4x4(Math.cos(p.z),Math.sin(p.z),0,0,Math.sin(p.z)*(-1),Math.cos(p.z),0,0,0,0,1,0,0,0,0,1));
-        return new Transform(m.mul(t.m),i.mul(t.i));
+    public Transform rotateZ(double degree) {
+        if (Double.isNaN(degree)) throw new IllegalArgumentException("Param of method cant be NaN");
+        double radian = DegreeToRadian(degree);
+        Transform t = new Transform(
+                new Mat4x4( Math.cos(radian), -Math.sin(radian), 0, 0,
+                            Math.sin(radian), Math.cos(radian), 0, 0,
+                            0, 0, 1, 0,
+                            0, 0, 0, 1),
+                new Mat4x4( Math.cos(radian), Math.sin(radian), 0, 0,
+                            -Math.sin(radian), Math.cos(radian), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+        );
+        return new Transform(m.mul(t.m), t.i.mul(i));
     }
 
-    public Ray mul(final Ray r) {
-        return new Ray(i.mul(r.o), i.mul(r.d));
+    /**
+     * This method trasforms the passed degree value into radian value
+     * @param degree value
+     * @return radian value
+     */
+    private double DegreeToRadian(double degree){
+        if (Double.isNaN(degree)) throw new IllegalArgumentException("Param degree cant be null");
+        return degree * (Math.PI / 180.0);
     }
 
+    /**
+     * This method calculates the transformed {@link Ray}
+     * @param ray Ray to be transformed
+     * @return transformed Ray
+     */
+    public Ray mul(final Ray ray) {
+        if (ray == null) throw new IllegalArgumentException("Param ray of method can't be null");
+        return new Ray(i.mul(ray.o), i.mul(ray.d));
+    }
+
+
+    /**
+     * This method calculates the re-transformed {@link Normal3}
+     * needed for scale
+     * @param n {@link Normal3} to be transformed
+     * @return transformed {@link Normal3}
+     */
     public Normal3 mul(final Normal3 n) {
-        //TODO calculate normal on transformed object
+        if (n == null) throw new IllegalArgumentException("Param n of method can't be null");
         return i.transposed().mul(n.asVector()).normalized().asNormal();
     }
 }
+

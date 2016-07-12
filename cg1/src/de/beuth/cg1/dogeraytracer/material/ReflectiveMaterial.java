@@ -4,6 +4,7 @@ import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.Geometry;
 import de.beuth.cg1.dogeraytracer.geometry.Hit;
 import de.beuth.cg1.dogeraytracer.light.Light;
+import de.beuth.cg1.dogeraytracer.raytracer.Tracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
@@ -66,6 +67,7 @@ public class ReflectiveMaterial extends Material {
     @SuppressWarnings("Duplicates")
     @Override
     public Color colorFor(Hit hit, World world, Tracer tracer) {
+        if (hit == null || world == null || tracer == null) throw new IllegalArgumentException("Param of method can't be null");
 
         final Normal3 n = hit.normal;
         final Point3 p = hit.ray.at(hit.t);
@@ -93,4 +95,5 @@ public class ReflectiveMaterial extends Material {
         Color reflected = tracer.colorFor(new Ray(p, hit.ray.d.add(hit.normal.mul(phi))));
         return ambient.addColor(this.reflection.mulColor(reflected));
     }
+
 }

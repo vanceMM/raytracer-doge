@@ -1,7 +1,8 @@
-package de.beuth.cg1.dogeraytracer.material;
+package de.beuth.cg1.dogeraytracer.raytracer;
 
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.Hit;
+import de.beuth.cg1.dogeraytracer.material.Material;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 import de.beuth.cg1.dogeraytracer.world.World;
 

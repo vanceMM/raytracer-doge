@@ -40,37 +40,38 @@ public class AxisAlignedBox extends Geometry {
      * Constructor for the Geometry Object
      * Creates a new instance of {@link AxisAlignedBox} with defined attributes.
      *
-     * @param color the Value of the {@link Color}
-     * @param lbf the Value of the left bottom far {@link Point3}, if null throw new {@link IllegalArgumentException}
-     * @param run the Value of the right upper near {@link Point3}, if null throw new {@link IllegalArgumentException}
+     * @param material the Value of the {@link Color}
+     *  // @param lbf the Value of the left bottom far {@link Point3}, if null throw new {@link IllegalArgumentException}
+     *  // @param run the Value of the right upper near {@link Point3}, if null throw new {@link IllegalArgumentException}
      */
-    public AxisAlignedBox(final Material color, final Point3 lbf, final Point3 run) {
-        super(color);
-        if (lbf == null || run == null) throw new IllegalArgumentException("Params of constructor can't be null");
-        this.lbf = lbf;
-        this.run = run;
+    public AxisAlignedBox(final Material material) {
+        super(material);
+        //if (lbf == null || run == null) throw new IllegalArgumentException("Params of constructor can't be null");
+        //this.lbf = new Point3(1,1.5,1.5);
+        //this.run = new Point3(2,2.5,2.5);
+        this.lbf = new Point3(-0.5,-0.5,-0.5);
+        this.run = new Point3(0.5,0.5,0.5);
 
-        this.upper = new Plane(color,run, new Normal3(0,0.6,0));
-        this.bottom = new Plane(color,lbf, new Normal3(0,-0.5,0));
-        this.left = new Plane(color,lbf, new Normal3(-0.5,0,0));
-        this.right = new Plane(color,run, new Normal3(0.6,0,0));
-        this.far = new Plane(color,lbf, new Normal3(0,0,-0.5));
-        this.near = new Plane(color,run, new Normal3(0,0,0.6));
+        // ------ axis aligned planes
+        this.upper = new Plane(material,run, new Normal3(0,0.5,0));
+        this.bottom = new Plane(material,lbf, new Normal3(0,-0.5,0));
+        this.left = new Plane(material,lbf, new Normal3(-0.5,0,0));
+        this.right = new Plane(material,run, new Normal3(0.5,0,0));
+        this.far = new Plane(material,lbf, new Normal3(0,0,-0.5));
+        this.near = new Plane(material,run, new Normal3(0,0,0.5));
 
     }
 
     /**
      * This Methods takes a {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.
      *
-     * @param r passed {@link Ray} that hits the Object, if r is null throw new {@link IllegalArgumentException}
+     * @param ray passed {@link Ray} that hits the Object, if ray is null throw new {@link IllegalArgumentException}
      * @return Hit Object which represents the Intersection between the AxisAlignedBox and the given {@link Ray}.
      */
-    @SuppressWarnings("ConstantConditions")
+    //@SuppressWarnings("ConstantConditions")
     @Override
-    public Hit hit(final Ray r) {
-
-        if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");
-
+    public Hit hit(final Ray ray) {
+        if (ray == null) throw new IllegalArgumentException("Param ray (ray) can't be null");
 
         final ArrayList<Plane> planes = new ArrayList<>();
         final ArrayList<Hit> hits = new ArrayList<>();
@@ -82,40 +83,40 @@ public class AxisAlignedBox extends Geometry {
         planes.add(far);
         planes.add(near);
 
-        for (final Plane p : planes) {
+        for (final Plane plane : planes) {
 
-            final Point3 b = new Point3(run.x, run.y, run.z);
+            final Point3 point = new Point3(run.x, run.y, run.z);
 
-            if (r.o.sub(b).dot(p.n) >= Raytracer.DELTA) {
-                hits.add(p.hit(r));
+            if (ray.o.sub(point).dot(plane.n) >= Raytracer.DELTA) {
+                hits.add(plane.hit(ray));
             }
         }
 
-        Hit th = null;
+        Hit tHit = null;
 
         for (final Hit hit : hits) {
             if (hit != null && hitsBox(hit) && hit.t > Raytracer.DELTA) {
-                if (th == null) {
-                    th = hit;
+                if (tHit == null) {
+                    tHit = hit;
                 } else if (hit.t > Raytracer.DELTA) {
-                    th = hit;
+                    tHit = hit;
 
                 }
             }
         }
-        return th;
+        return tHit;
     }
 
     private boolean hitsBox(final Hit hit) {
         final Point3 point = hit.ray.at(hit.t);
-
         final Plane plane = (Plane) hit.geo;
-        final boolean xInBox = lbf.x <= point.x + Raytracer.DELTA && point.x <= run.x + Raytracer.DELTA ;
-        final boolean yInBox = lbf.y <= point.y + Raytracer.DELTA && point.y <= run.y + Raytracer.DELTA ;
-        final boolean zInBox = lbf.z <= point.z + Raytracer.DELTA && point.z <= run.z + Raytracer.DELTA ;
 
-        final boolean inBox = xInBox && yInBox && zInBox;
-        return inBox;
+        final boolean xInBox = lbf.x <= point.x + Raytracer.DELTA && point.x <= run.x + Raytracer.DELTA;
+        final boolean yInBox = lbf.y <= point.y + Raytracer.DELTA && point.y <= run.y + Raytracer.DELTA;
+        final boolean zInBox = lbf.z <= point.z + Raytracer.DELTA && point.z <= run.z + Raytracer.DELTA;
+
+        //if hit is in box return true
+        return xInBox && yInBox && zInBox;
     }
 
 

@@ -3,40 +3,35 @@ package de.beuth.cg1.dogeraytracer.vecmatlib;
 /**
  * Created by baetschjunge on 03/05/16.
  * Project name is VecMatLib.
- */
-
-import java.util.IllegalFormatCodePointException;
-
-/**
  * This Class represents a Mat4x4 / 4 dimensional Matrix
- * @author baetschjunge
  */
-@SuppressWarnings("WeakerAccess")
+
+@SuppressWarnings({"WeakerAccess", "SimplifiableIfStatement"})
 public class Mat4x4 {
 
     /**
-     * first column of mat4x4
+     * first row of mat4x4
      */
     public final double m11;
     public final double m12;
     public final double m13;
     public final double m14;
     /**
-     * second column of mat4x4
+     * second row of mat4x4
      */
     public final double m21;
     public final double m22;
     public final double m23;
     public final double m24;
     /**
-     * third column of mat4x4
+     * third row of mat4x4
      */
     public final double m31;
     public final double m32;
     public final double m33;
     public final double m34;
     /**
-     * fourth column of mat4x4
+     * fourth row of mat4x4
      */
     public final double m41;
     public final double m42;
@@ -63,7 +58,8 @@ public class Mat4x4 {
      * @param m42 the double value for m42
      * @param m43 the double value for m43
      * @param m44 the double value for m44
-     *            if params are NaN, throw new {@link IllegalArgumentException}
+     *
+     *              if params are NaN, throw new {@link IllegalArgumentException}
      */
     public Mat4x4(final double m11, final double m12, final double m13, final double m14, final double m21, final double m22, final double m23, final double m24, final double m31, final double m32, final double m33, final double m34, final double m41, final double m42, final double m43, final double m44) {
         if (Double.isNaN(m11) || Double.isNaN(m12) ||Double.isNaN(m13) ||Double.isNaN(m14) ||Double.isNaN(m21) ||Double.isNaN(m22) ||Double.isNaN(m23) ||Double.isNaN(m24) ||Double.isNaN(m31) || Double.isNaN(m32) || Double.isNaN(m33) ||Double.isNaN(m34) ||Double.isNaN(m41) ||Double.isNaN(m42) ||Double.isNaN(m43) ||Double.isNaN(m44) ) throw new IllegalArgumentException("Params of constructor can't be NaN");
