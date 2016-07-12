@@ -107,7 +107,7 @@ public class Transform {
 
     /**
      * This method does a rotation on the y-axis.
-     * @param degree in radian, if NaN throw new {@link IllegalArgumentException}
+     * @param degree in double, if NaN throw new {@link IllegalArgumentException}
      * @return Transform Object
      */
     public Transform rotateY(double degree) {
@@ -128,7 +128,7 @@ public class Transform {
 
     /**
      * This method does a rotation on the z-axis.
-     * @param degree in radian, if NaN throw new {@link IllegalArgumentException}
+     * @param degree in double, if NaN throw new {@link IllegalArgumentException}
      * @return Transform Object
      */
     public Transform rotateZ(double degree) {
