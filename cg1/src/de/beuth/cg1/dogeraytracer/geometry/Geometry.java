@@ -1,7 +1,7 @@
 package de.beuth.cg1.dogeraytracer.geometry;
 
 import de.beuth.cg1.dogeraytracer.material.Material;
-import de.beuth.cg1.dogeraytracer.vecmatlib.*;
+import de.beuth.cg1.dogeraytracer.raytracer.Ray;
 
 /**
  * Created by valentin on 22/05/16.

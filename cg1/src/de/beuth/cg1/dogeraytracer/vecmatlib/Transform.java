@@ -1,5 +1,7 @@
 package de.beuth.cg1.dogeraytracer.vecmatlib;
 
+import de.beuth.cg1.dogeraytracer.raytracer.Ray;
+
 /**
  * Created by valentin on 08/07/16.
  * This Class represents a transformation object. This Class creates the transformation matrices and it's inverses.

@@ -1,5 +1,6 @@
 package de.beuth.cg1.dogeraytracer.camera;
 
+import de.beuth.cg1.dogeraytracer.raytracer.Ray;
 import de.beuth.cg1.dogeraytracer.vecmatlib.*;
 
 /**

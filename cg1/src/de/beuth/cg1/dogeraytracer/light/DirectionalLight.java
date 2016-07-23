@@ -3,7 +3,7 @@ package de.beuth.cg1.dogeraytracer.light;
 import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.Hit;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
-import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
+import de.beuth.cg1.dogeraytracer.raytracer.Ray;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 import de.beuth.cg1.dogeraytracer.world.World;
 

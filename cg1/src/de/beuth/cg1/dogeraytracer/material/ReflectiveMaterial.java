@@ -7,7 +7,7 @@ import de.beuth.cg1.dogeraytracer.light.Light;
 import de.beuth.cg1.dogeraytracer.raytracer.Tracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
-import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
+import de.beuth.cg1.dogeraytracer.raytracer.Ray;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 import de.beuth.cg1.dogeraytracer.world.World;
 

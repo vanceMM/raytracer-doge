@@ -5,7 +5,7 @@ import de.beuth.cg1.dogeraytracer.material.Material;
 import de.beuth.cg1.dogeraytracer.raytracer.Raytracer;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
-import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
+import de.beuth.cg1.dogeraytracer.raytracer.Ray;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
 
 /**

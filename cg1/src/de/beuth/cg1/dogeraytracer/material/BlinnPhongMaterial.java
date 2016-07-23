@@ -5,6 +5,7 @@ import de.beuth.cg1.dogeraytracer.geometry.Geometry;
 import de.beuth.cg1.dogeraytracer.geometry.Hit;
 import de.beuth.cg1.dogeraytracer.light.Light;
 import de.beuth.cg1.dogeraytracer.raytracer.Tracer;
+import de.beuth.cg1.dogeraytracer.vecmatlib.Mat4x4;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Normal3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Point3;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
@@ -17,7 +18,9 @@ import java.util.ArrayList;
  * Project name is raytracer-doge.
  * This is a class representing a PhongMaterial Object which represents a perfect diffuse reflecting Geometry with a highlight
  */
-public class PhongMaterial extends Material{
+
+@SuppressWarnings("WeakerAccess")
+public class BlinnPhongMaterial extends Material{
 
     /**
      * the {@link Color} of the PhongMaterial
@@ -40,7 +43,7 @@ public class PhongMaterial extends Material{
      * @param specular value for {@link Color} of the PhongMaterial, if null throw new {@link IllegalArgumentException}
      * @param exponent value for exponent of the PhongMaterial, if null throw new {@link IllegalArgumentException}
      */
-    public PhongMaterial(final Color diffuse, final Color specular, final int exponent) {
+    public BlinnPhongMaterial(final Color diffuse, final Color specular, final int exponent) {
         if(diffuse == null || specular == null) throw new IllegalArgumentException("Param color of constructor can't be null");
         this.diffuse = diffuse;
         this.specular = specular;
@@ -61,20 +64,30 @@ public class PhongMaterial extends Material{
         
         final Normal3 n = hit.normal;
         final Point3 p = hit.ray.at(hit.t);
+
         Color ambient = world.ambientLightColor.mulColor(diffuse);
         ArrayList<Light> lights = world.lightSources;
-        Vector3 e = hit.ray.d;
+
+        Vector3 e = hit.ray.d.normalized();
+
+
         for (Light light : lights) {
             if (light.illuminates(p, world)) {
 
-                final Vector3 l = light.directionFrom(p);
-                final Vector3 r = l.reflectOn(hit.normal);
-                double max = Math.max(0.0, l.dot(n));
-                double max2 = Math.pow((Math.max(0.0, e.dot(r.mul(-1)))), this.exponent);
+
+                final Vector3 l = light.directionFrom(p).normalized();
+
+                Vector3 halfVector = l.add(e).normalized();
+                //System.out.println(halfVector);
+
+
+                //final Vector3 r = l.reflectOn(hit.normal);
+                double diffusePart = Math.max(0.0, l.dot(n));
+                double specularPart = Math.pow((Math.max(0.0, n.dot(halfVector))), 2);
                 Color lightColor = light.color;
                 ambient = ambient
-                        .addColor(this.diffuse.mulColor(lightColor).mulScalarColor(max))
-                        .addColor(this.specular.mulColor(lightColor).mulScalarColor(max2));
+                        .addColor(this.diffuse.mulColor(lightColor).mulScalarColor(diffusePart))
+                        .addColor(this.specular.mulColor(lightColor).mulScalarColor(specularPart));
             }
 
         }
@@ -97,12 +110,13 @@ public class PhongMaterial extends Material{
     /**
      * @see Object#equals(Object)
      */
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PhongMaterial that = (PhongMaterial) o;
+        BlinnPhongMaterial that = (BlinnPhongMaterial) o;
 
         if (exponent != that.exponent) return false;
         if (!diffuse.equals(that.diffuse)) return false;
