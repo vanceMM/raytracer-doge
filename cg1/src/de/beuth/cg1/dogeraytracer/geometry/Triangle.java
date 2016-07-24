@@ -96,15 +96,15 @@ public class Triangle extends Geometry{
     /**
      * This Methods takes an {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.
      *
-     * @param r passed {@link Ray} that hits the Object, if ray is null throw new {@link IllegalArgumentException}
+     * @param ray passed {@link Ray} that hits the Object, if ray is null throw new {@link IllegalArgumentException}
      * @return Hit Object which represents the Intersection between the Triangle and the given {@link Ray}.
      */
     @Override
-    public Hit hit(final Ray r) {
-        if (r == null) throw new IllegalArgumentException("Param r (ray) can't be null");
-        Mat3x3 A = new Mat3x3(a.x-b.x, a.y-b.y, a.z-b.z, a.x-c.x, a.y-c.y, a.z-c.z, r.d.x, r.d.y, r.d.z);
+    public Hit hit(final Ray ray) {
+        if (ray == null) throw new IllegalArgumentException("Param r (ray) can't be null");
+        Mat3x3 A = new Mat3x3(a.x-b.x, a.y-b.y, a.z-b.z, a.x-c.x, a.y-c.y, a.z-c.z, ray.d.x, ray.d.y, ray.d.z);
 
-        Vector3 swapVec = new Vector3(a.x-r.o.x, a.y-r.o.y, a.z-r.o.z);   // (A1,2,3) changeCol needs vec3
+        Vector3 swapVec = new Vector3(a.x- ray.o.x, a.y- ray.o.y, a.z- ray.o.z);   // (A1,2,3) changeCol needs vec3
 
         Mat3x3 A1 = A.changeCol1(swapVec);
         Mat3x3 A2 = A.changeCol2(swapVec);
@@ -121,9 +121,9 @@ public class Triangle extends Geometry{
         if (beta >= Raytracer.DELTA && beta <= 1 && gamma >= Raytracer.DELTA && gamma <= 1 && beta + gamma <= 1 && t > Raytracer.DELTA && !Double.isNaN(t)){
             if (normal == null) {
                 Normal3 interpolatedNormal = an.mul(alpha).add(bn.mul(beta)).add(cn.mul(gamma));
-                return new Hit(t, r, this, interpolatedNormal);
+                return new Hit(t, ray, this, interpolatedNormal);
             }
-            else return new Hit(t, r, this, normal);
+            else return new Hit(t, ray, this, normal);
         }
         else return null;
     }

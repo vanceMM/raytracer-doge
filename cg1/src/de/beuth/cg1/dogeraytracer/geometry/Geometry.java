@@ -29,10 +29,10 @@ public abstract class Geometry {
     /**
      * This Methods takes an {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.
      *
-     * @param r passed {@link Ray} that hits the Object
+     * @param ray passed {@link Ray} that hits the Object
      * @return Hit Object which references to a {@link Ray} an the intersection point t where the object is hit by the {@link Ray}.
      */
-    public abstract Hit hit(final Ray r);
+    public abstract Hit hit(final Ray ray);
 
     /**
      * @see Object#toString()

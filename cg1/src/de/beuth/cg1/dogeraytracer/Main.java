@@ -42,13 +42,13 @@ public class Main {
         double s = 3.0;
         double aR = 1.6;
         int width = 1920;
-        int heigth = 1200;
+        int height = 1200;
         int px = 1000;
         int py = 800;
 
         Point3 e = new Point3(4,4,4);
 
-        Point3 o = e.add(u.mul(aR*s*((px-(width-1/2))/width-1))).add(v.mul((py-(heigth-1/2))/heigth-1));
+        Point3 o = e.add(u.mul(aR*s*((px-(width-1/2))/width-1))).add(v.mul((py-(height-1/2))/height-1));
         System.out.println("o :"+o);
 
         Vector3 dir = new Vector3(-0.5773502691896258, -0.5773502691896258, -0.5773502691896258);
