@@ -459,47 +459,54 @@ public class CanvasController implements Initializable {
 
         // ---------------------------------------- SPHERE
         ArrayList<Geometry> objects2 = new ArrayList<>();
-        ArrayList<Geometry> objectsCone = new ArrayList<>();
+
 
         //Sphere s1 = new Sphere(new ReflectiveMaterial(new Color(1,0,0), new Color(1,1,1), 64, new Color(0.5,0.5,0.5)));
         //Sphere s2 = new Sphere(new LambertMaterial(new Color(0,0,1)));
         //Sphere s1 = new Sphere( new PhongMaterial(new Color(1,0,0), new Color(1,1,1), 64) );
         //Sphere s2 = new Sphere( new BlinnPhongMaterial(new Color(1,0,0), new Color(1,1,1), 64) );
 
-        Cylinder c1 = new Cylinder( new PhongMaterial(new Color(1,0,0), new Color(1,1,1), 64) );
-
         ArrayList<Geometry> objectS1 = new ArrayList<>();
 
         Node sphere1Node = new Node(transform.translate(new Point3(2,0,6)).scale(new Point3(1, 1, 1)), objects2 );
         Node sphere2Node = new Node(transform.translate(new Point3(-2,0,6)), objectS1);
 
-        Node coneNode = new Node(transform, objectsCone);
 
         //Node sphereNode = new Node(transform.scale(new Point3(3, 0.75, 3)).rotateZ(-35.7).rotateY(63.9).rotateX(12.2), objects2 );
 
         //objects2.add(s1);
         //objectS1.add(s2);
 
-        objectsCone.add(c1);
-
         nodes.add(sphere1Node);
         nodes.add(sphere2Node);
-        //nodes.add(coneNode);
 
 
-        // -------------------------------  D I S C
 
-        ArrayList<Geometry> discList = new ArrayList<>();
+        // --------------------------------- C Y L I N D E R
 
-        Disc d1 = new Disc( new ReflectiveMaterial(new Color(0.5,0.5,1), new Color(1,1,1), 10, new Color(0.5,0.5,0.5)) );
+        Cylinder c1 = new Cylinder( new PhongMaterial(new Color(1,0,0), new Color(1,1,1), 64) );
 
-        Node discNode = new Node(transform.rotateY(-15), discList);
+        ArrayList<Geometry> objectsCylinder = new ArrayList<>();
+        Node cylinderNode = new Node(transform, objectsCylinder);
+        objectsCylinder.add(c1);
 
-        Node dn2 = new Node (transform.translate(new Point3(2,3,10)).scale(new Point3(0.3,0.3,0.3)), discList);
 
-        discList.add(d1);
-        nodes.add(discNode);
-        nodes.add(dn2);
+        nodes.add(cylinderNode);
+
+
+//        // -------------------------------  D I S C
+//
+//        ArrayList<Geometry> discList = new ArrayList<>();
+//
+//        Disc d1 = new Disc( new ReflectiveMaterial(new Color(0.5,0.5,1), new Color(1,1,1), 10, new Color(0.5,0.5,0.5)) );
+//
+//        Node discNode = new Node(transform.rotateY(-15), discList);
+//
+//        Node dn2 = new Node (transform.translate(new Point3(2,3,10)).scale(new Point3(0.3,0.3,0.3)), discList);
+//
+//        discList.add(d1);
+//        nodes.add(discNode);
+//        nodes.add(dn2);
 
 
 
