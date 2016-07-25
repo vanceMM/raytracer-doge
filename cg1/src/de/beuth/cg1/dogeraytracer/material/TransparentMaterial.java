@@ -17,6 +17,7 @@ import de.beuth.cg1.dogeraytracer.world.World;
  *
  * This class implements a perfect transparent / refracting material
  */
+@SuppressWarnings("WeakerAccess")
 public class TransparentMaterial extends Material {
 
     /**
@@ -59,26 +60,37 @@ public class TransparentMaterial extends Material {
             for (final Light light : world.lightSources) {
 
                 if (light.illuminates(pointHit, world)) {
+
                     final double cos1 = d.mul(-1.0).dot(n);
                     double cos2 = Math.sqrt((1.0 + (Math.pow(rateRef, 2.0)) - (1.0 - Math.pow(cos1, 2.0))));
 
+                    /*
+                    Schlicksche Approximation
+                    R = anteil reflexion
+                    T = anteil transmission
+                    R = R0 + (1 - R0)(1-cos1)^5
+                    T = 1- R
+                    R0 = (N1-N2/N1-N2)^2
+                     */
                     final double R0 = Math.pow(((worldRefraction - matRefraction) / (worldRefraction + matRefraction)), 2.0);
                     final double R = R0 + ((1.0 - R0) * Math.pow((1.0 - Math.cos(cos1)), 5.0));
                     final double T = 1.0 - R;
 
-
-                    if (cos2 > 0.0) {
-                        cos2 = Math.sqrt((1.0 + (Math.pow(rateRef, 2.0)) - (1.0 - Math.pow(cos1, 2.0))));
+                    // total/critical reflection
+                    if (cos2 <= 0.0) {
+                        final Vector3 rd = d.mul(-1.0).reflectOn(n).normalized();
+                        final Ray reflectedRay = new Ray(hit.ray.at(hit.t), rd);
+                        ambient = (tracer.colorFor(reflectedRay).mulScalarColor(R)).addColor(tracer.colorFor(reflectedRay).mulScalarColor(T));
                     }
+                    // just refraction
+                    if (cos2 > 0.0) {
+                        final Vector3 rd = d.mul(-1.0).reflectOn(n).normalized();
+                        final Vector3 t = d.mul(rateRef).sub(n.mul(cos2 - (rateRef * cos1))).normalized();
+                        final Ray reflectedRay = new Ray(hit.ray.at(hit.t), rd);
+                        final Ray refractoredRay = new Ray(hit.ray.at(hit.t), t);
 
-
-                    final Vector3 rd = d.mul(-1.0).reflectOn(n).normalized();
-                    final Vector3 t = d.mul(rateRef).sub(n.mul(cos2 - (rateRef * cos1))).normalized();
-                    final Ray reflectedRay = new Ray(hit.ray.at(hit.t), rd);
-                    final Ray refractoredRay = new Ray(hit.ray.at(hit.t), t);
-
-
-                    ambient = (tracer.colorFor(reflectedRay).mulScalarColor(R)).addColor(tracer.colorFor(refractoredRay).mulScalarColor(T));
+                        ambient = (tracer.colorFor(reflectedRay).mulScalarColor(R)).addColor(tracer.colorFor(refractoredRay).mulScalarColor(T));
+                    }
                 }
             }
             return ambient;

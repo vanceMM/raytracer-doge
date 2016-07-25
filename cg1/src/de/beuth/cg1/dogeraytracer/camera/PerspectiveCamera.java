@@ -45,6 +45,7 @@ public class PerspectiveCamera extends Camera{
 	public Ray rayFor(final int w, final int h, final int x, final int y) {
         if (Double.isNaN(w) || Double.isNaN(h) || Double.isNaN(x) || Double.isNaN(y)) throw new IllegalArgumentException("Params can't be NaN");
 		// vec(r) = -vec(w)*(h/2)/tan(alpha)+(px-(w-1)/2)*vec(u)+(py-(h-1)/2)*vec(v)
+
 		final Vector3 px = u.mul(x-((w-1)/2));													//    u*(pz-(w-1/2))
 		final Vector3 py = v.mul(y-((h-1)/2));													//    v*(py-(h-1/2))
 		final Vector3 r = this.w.mul(-1).mul((h/2)/(Math.tan(angle/2.0))).add(px).add(py);		//    r = w*(-((h/2)/tan(alpha))) + o

@@ -11,6 +11,7 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
  * Created by baetschjunge on 24/07/16.
  * Project name is raytracer-doge.
  */
+@SuppressWarnings("WeakerAccess")
 public class Disc extends Geometry{
 
 

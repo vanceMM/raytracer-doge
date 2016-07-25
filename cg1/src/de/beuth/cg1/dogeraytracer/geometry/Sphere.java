@@ -14,7 +14,7 @@ import de.beuth.cg1.dogeraytracer.vecmatlib.Vector3;
  * This is Class representing Sphere Objects in 3d Space
  */
 
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings({"WeakerAccess", "unused", "Duplicates"})
 public class Sphere extends Geometry {
 
     /**
@@ -40,6 +40,12 @@ public class Sphere extends Geometry {
         this.radius = 1;
     }
 
+    public Sphere(final Material material, final Point3 center, final double radius) {
+        super(material);
+        this.center = center;
+        this.radius = radius;
+    }
+
     /**
      * This Methods takes an {@link Ray} as inputs and calculates the intersection between the {@link Ray} and the Geometry Object.
      *
@@ -63,24 +69,13 @@ public class Sphere extends Geometry {
             t1 = ((-1.0)*b + Math.sqrt(discriminant)) / (2.0 * a);
             t2 = ((-1.0)*b - Math.sqrt(discriminant)) / (2.0 * a);
 
-            if(t2 < Raytracer.DELTA && t1 < Raytracer.DELTA){
-                t = Math.max(t1, t2);
-            }
-            if(t2 > Raytracer.DELTA && t1 > Raytracer.DELTA){
-                t = Math.min(t1,t2);
-            }
-            if(t2 > Raytracer.DELTA && t1 < Raytracer.DELTA){
-                t = t2;
-            }
-            if(t2 < Raytracer.DELTA && t1 > Raytracer.DELTA){
-                t = t1;
-            }
+            if (t1 < 0.0 && t2 < 0.0) return null;
+            double tmin = Math.min(t1,t2);
 
-            if(t > Raytracer.DELTA) {
-                return new Hit(t, ray, this, calcIntersectionNormal(ray, t));
+            if (tmin > t){
+                return new Hit(tmin, ray, this, calcIntersectionNormal(ray, tmin));
             }
         }
-
         return null;
     }
 
