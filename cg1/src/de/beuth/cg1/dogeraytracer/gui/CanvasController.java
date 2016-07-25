@@ -26,6 +26,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
@@ -65,7 +68,13 @@ public class CanvasController implements Initializable {
          */
         initMenu();
         initSetup();
+
+        long startTime = System.nanoTime();
         initImageView(640, 480);
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);
+
+        System.out.println("Total Render time in milliseconds: " +duration/ 100000000);
         /*
          set TestData for the RayTracer
          */
@@ -627,10 +636,16 @@ public class CanvasController implements Initializable {
         bufferedImage = new BufferedImage(width, height, TYPE_INT_RGB);
         final WritableRaster raster = bufferedImage.getRaster();
 
-        raytracer = new Raytracer(raster, world, perspective);
+       // raytracer = new Raytracer(raster, world, perspective , bufferedImage.getColorModel());
         //raytracer = new Raytracer(raster, world, orthographic);
 
-        raytracer.trace(bufferedImage.getColorModel());
+
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        for (int i = 0; i< 500; i++) {
+            Runnable worker = new Raytracer(raster, world, perspective , bufferedImage.getColorModel());
+            executorService.execute(worker);
+        }
+        executorService.shutdown();
 
         /*
          * Converting the BufferedImage to JavaFX Image.

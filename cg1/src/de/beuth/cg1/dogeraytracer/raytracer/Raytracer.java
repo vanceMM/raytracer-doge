@@ -5,6 +5,7 @@ import de.beuth.cg1.dogeraytracer.color.Color;
 import de.beuth.cg1.dogeraytracer.geometry.Hit;
 import de.beuth.cg1.dogeraytracer.vecmatlib.Ray;
 import de.beuth.cg1.dogeraytracer.world.World;
+import org.junit.internal.runners.statements.RunAfters;
 
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
@@ -16,7 +17,7 @@ import java.awt.image.WritableRaster;
  * Project name is raytracer-doge.
  */
 @SuppressWarnings({"WeakerAccess", "SimplifiableIfStatement"})
-public class Raytracer {
+public class Raytracer implements Runnable{
     /**
      * DELTA is Used for round-off errors
      */
@@ -33,6 +34,7 @@ public class Raytracer {
      * A {@link Camera} which is the origin of the Rays
      */
     public final Camera camera;
+    private final ColorModel colorModel;
 
     /**
      * Constructor for the Geometry Object
@@ -42,11 +44,12 @@ public class Raytracer {
      * @param world the Value of a {@link World} Object, if world is null throw new {@link IllegalArgumentException}
      * @param camera the Value of a {@link Camera} Object, if camera is null throw new {@link IllegalArgumentException}
      */
-    public Raytracer(final WritableRaster raster,  final World world, final Camera camera) {
+    public Raytracer(final WritableRaster raster,  final World world, final Camera camera, final ColorModel colorModel) {
         if (raster == null || world == null || camera == null) throw new IllegalArgumentException("Params of constructor can't be null");
         this.raster = raster;
         this.world = world;
         this.camera = camera;
+        this.colorModel = colorModel;
     }
 
     /**
@@ -56,25 +59,29 @@ public class Raytracer {
      *
      * @param colorModel The {@link ColorModel} of the image which is created.
      */
+/*
     public void trace(final ColorModel colorModel) {
         if (colorModel == null) throw new IllegalArgumentException("Param colorModel can't be null");
         for (int x=0; x<raster.getWidth(); x++) {
             for (int y = 0; y < raster.getHeight(); y++) {
-                final  Ray ray = camera.rayFor(raster.getWidth(), raster.getHeight(), x,y);
+                final Ray ray = camera.rayFor(raster.getWidth(), raster.getHeight(), x, y);
                 final Color color;
                 Hit hit = this.world.hit(ray);
-                if (hit!=null) {
+                if (hit != null) {
                     color = hit.geo.material.colorFor(hit, world, new Tracer(world, 4));
                 } else {
                     color = world.backgroundColor;
                 }
-                /* workaround for transforming our own normalized Color Representation to a awt Color.
-                 */
+                */
+/* workaround for transforming our own normalized Color Representation to a awt Color.
+                 *//*
+
                 //java.awt.Color color1 = new java.awt.Color((int) color.r*255, (int) color.g*255,(int) color.b*255);
-                raster.setDataElements(x,raster.getHeight()-y-1, colorModel.getDataElements(color.renderInRGB().getRGB(),null)); // get rid of mirroring
+                raster.setDataElements(x, raster.getHeight() - y - 1, colorModel.getDataElements(color.renderInRGB().getRGB(), null)); // get rid of mirroring
             }
         }
     }
+*/
 
     /**
      * @see Object#toString()
@@ -113,5 +120,25 @@ public class Raytracer {
         result = 31 * result + world.hashCode();
         result = 31 * result + camera.hashCode();
         return result;
+    }
+
+    @Override
+    public void run() {
+        for (int x=0; x<raster.getWidth(); x++) {
+            for (int y = 0; y < raster.getHeight(); y++) {
+                final Ray ray = camera.rayFor(raster.getWidth(), raster.getHeight(), x, y);
+                final Color color;
+                Hit hit = this.world.hit(ray);
+                if (hit != null) {
+                    color = hit.geo.material.colorFor(hit, world, new Tracer(world, 4));
+                } else {
+                    color = world.backgroundColor;
+                }
+                /* workaround for transforming our own normalized Color Representation to a awt Color.
+                 */
+                //java.awt.Color color1 = new java.awt.Color((int) color.r*255, (int) color.g*255,(int) color.b*255);
+                raster.setDataElements(x, raster.getHeight() - y - 1, colorModel.getDataElements(color.renderInRGB().getRGB(), null)); // get rid of mirroring
+            }
+        }
     }
 }
