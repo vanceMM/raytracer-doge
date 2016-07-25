@@ -127,15 +127,16 @@ public class Triangle extends Geometry{
         else return null;
     }
 
-    /**
-     * @see Object#toString()
-     */
     @Override
     public String toString() {
         return "Triangle{" +
                 "a=" + a +
                 ", b=" + b +
-                ", center=" + c +
+                ", c=" + c +
+                ", normal=" + normal +
+                ", an=" + an +
+                ", bn=" + bn +
+                ", cn=" + cn +
                 '}';
     }
 

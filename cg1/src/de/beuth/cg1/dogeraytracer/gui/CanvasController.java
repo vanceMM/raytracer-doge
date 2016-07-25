@@ -65,7 +65,7 @@ public class CanvasController implements Initializable {
          */
         initMenu();
         initSetup();
-        initImageView(640, 480);
+//        initImageView(640, 480);
         /*
          set TestData for the RayTracer
          */
@@ -422,7 +422,7 @@ public class CanvasController implements Initializable {
 
         // --------------------------- D E M O -------------------------
 
-        showDemo5_2();
+        //showDemo5_2();
 
     }
 
@@ -601,6 +601,35 @@ public class CanvasController implements Initializable {
 
         menu.getItems().add(new MenuItem("save"));
         menu.getItems().get(0).setOnAction(e-> save());
+        menu.getItems().add(new MenuItem("Shape From File"));
+        menu.getItems().get(1).setOnAction(e-> shapeFromFile());
+    }
+
+    private void shapeFromFile() {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Shape from File");
+        File selection = chooser.showOpenDialog(null);
+        try {
+            initViewFromFile(selection);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initViewFromFile(File file) {
+        System.out.println(file);
+        ArrayList<Geometry> nodes = new ArrayList<>();
+        ShapeFromFile triangleMesh = new ShapeFromFile(new LambertMaterial(new Color(1,1,1)),file.getAbsolutePath());
+        nodes.add(triangleMesh.load());
+
+        PointLight light = new PointLight(new Color(1,1,1), true, new Point3(14,30,4));
+        ArrayList<Light> lightSources = new ArrayList<>();
+        lightSources.add(light);
+
+        world = new World(nodes, new Color(0,0,0), lightSources, new Color(0.15,0.15,0.15), 0.0);
+        perspective = new PerspectiveCamera(new Point3(8,10,40), new Vector3(-1,-1,-1), new Vector3(0,1,0), Math.PI / 4);
+
+        initImageView(640,480);
     }
 
     /**

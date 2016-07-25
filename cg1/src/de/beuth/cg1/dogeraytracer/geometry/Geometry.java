@@ -65,4 +65,6 @@ public abstract class Geometry {
     public int hashCode() {
         return material.hashCode();
     }
+
+
 }
