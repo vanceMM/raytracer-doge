@@ -639,13 +639,37 @@ public class CanvasController implements Initializable {
        // raytracer = new Raytracer(raster, world, perspective , bufferedImage.getColorModel());
         //raytracer = new Raytracer(raster, world, orthographic);
 
+        //tiling the raster
 
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
-        for (int i = 0; i< 500; i++) {
-            Runnable worker = new Raytracer(raster, world, perspective , bufferedImage.getColorModel());
+        /**
+         * upper left quarter
+         */
+        WritableRaster ulq = raster.createWritableChild(0,0,(bufferedImage.getWidth()/2),(bufferedImage.getHeight()/2),0,0,null);
+        /**
+         * upper right quarter
+         */
+        WritableRaster urq = raster.createWritableChild(0,0,(bufferedImage.getWidth()/2),(bufferedImage.getHeight()/2),bufferedImage.getWidth()/2-1,0,null);
+        /**
+         * bottom left quarter
+         */
+        WritableRaster blq = raster.createWritableChild(0,0,(bufferedImage.getWidth()/2),(bufferedImage.getHeight()/2),0,bufferedImage.getHeight()/2-1,null);
+        /**
+         * bottom right quarter
+         */
+        WritableRaster brq = raster.createWritableChild(0,0,(bufferedImage.getWidth()/2),(bufferedImage.getHeight()/2),bufferedImage.getWidth()/2-1,bufferedImage.getHeight()/2-1,null);
+        ArrayList<WritableRaster> tiles = new ArrayList<>();
+        tiles.add(ulq);
+        tiles.add(urq);
+        tiles.add(blq);
+        tiles.add(brq);
+
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        for (WritableRaster tile : tiles) {
+            Runnable worker = new Raytracer(tile, world, perspective , bufferedImage.getColorModel());
             executorService.execute(worker);
         }
         executorService.shutdown();
+        System.out.println("Finished all threads");
 
         /*
          * Converting the BufferedImage to JavaFX Image.

@@ -124,9 +124,12 @@ public class Raytracer implements Runnable{
 
     @Override
     public void run() {
+        System.out.println(raster.getWidth());
+        System.out.println(raster.getHeight());
         for (int x=0; x<raster.getWidth(); x++) {
             for (int y = 0; y < raster.getHeight(); y++) {
                 final Ray ray = camera.rayFor(raster.getWidth(), raster.getHeight(), x, y);
+                System.out.println("ray for " + x + "and " + y);
                 final Color color;
                 Hit hit = this.world.hit(ray);
                 if (hit != null) {
@@ -137,7 +140,7 @@ public class Raytracer implements Runnable{
                 /* workaround for transforming our own normalized Color Representation to a awt Color.
                  */
                 //java.awt.Color color1 = new java.awt.Color((int) color.r*255, (int) color.g*255,(int) color.b*255);
-                raster.setDataElements(x, raster.getHeight() - y - 1, colorModel.getDataElements(color.renderInRGB().getRGB(), null)); // get rid of mirroring
+                raster.setDataElements(x, y, colorModel.getDataElements(color.renderInRGB().getRGB(), null)); // get rid of mirroring
             }
         }
     }
