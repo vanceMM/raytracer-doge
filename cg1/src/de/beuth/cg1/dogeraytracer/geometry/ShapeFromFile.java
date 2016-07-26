@@ -10,6 +10,11 @@ import java.util.ArrayList;
 
 /**
  * Created by valentin on 25/07/16.
+ * This Class represents a Geometry based on a set of Triangles.
+ * The load Method returns a Node with the given set of triangles.
+ * This code is oriented to Sean Rowens oObjLoader in Java.
+ * https://github.com/seanrowens/oObjLoader
+ *
  */
 public class ShapeFromFile extends Geometry {
 
